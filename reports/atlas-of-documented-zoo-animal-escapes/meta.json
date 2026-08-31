@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/atlas-of-documented-zoo-animal-escapes/dxtzHOZnECnjyPQRVt1BNQ",
+ "artifact": {
+  "token": "dxtzHOZnECnjyPQRVt1BNQ",
+  "title": "Atlas of Documented Zoo Animal Escapes",
+  "visibility": "public",
+  "bytes_size": "182985",
+  "created_at": "2026-08-31 23:08:40.750809+00:00",
+  "expires_at": "2026-11-29 23:08:40.750809+00:00"
+ },
+ "conversation": {
+  "title": "Map every zoo animal escape: which animal, how far it got, how it was caught",
+  "created_at": "2026-08-31 22:59:14.217685+00:00",
+  "updated_at": "2026-08-31 23:08:53.754591+00:00"
+ }
+}
