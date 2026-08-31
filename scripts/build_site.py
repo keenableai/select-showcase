@@ -58,8 +58,9 @@ h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
 .card .shot{display:block;width:100%;height:220px;object-fit:cover;object-position:top;
   border-bottom:1px solid #DDDDDD;background:#F9F9F9}
 .card .noshot{height:220px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
-.card .links{margin:16px 20px 10px}
-.card .links a{margin-right:18px}
+.card-foot{display:flex;justify-content:space-between;align-items:baseline;
+  gap:12px;margin:16px 20px 0}
+.card-foot a.traj{color:#0A57E8}
 .card .meta{margin:0 20px}
 .msg{border:1px solid #DDDDDD;margin:0 0 -1px}
 .msg-head{padding:8px 16px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
@@ -333,10 +334,10 @@ def build_index(entries: list[dict]) -> None:
         )
         cards.append(
             f'<div class="card">{shot}'
-            f'<p class="links"><a href="{e["slug"]}/report.html">Report</a>'
-            f'<a href="{e["slug"]}/trajectory.html">Trajectory</a></p>'
-            f'<p class="meta label">{e["created_at"]} &middot; {e["n_messages"]} messages'
-            f' &middot; {e["n_queries"]} queries</p></div>'
+            f'<div class="card-foot"><span class="label">{e["created_at"]}'
+            f' &middot; {e["n_messages"]} messages &middot; {e["n_queries"]} queries</span>'
+            f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
+            "</div></div>"
         )
     body = (
         f'<div class="cards">{"".join(cards)}</div>'
