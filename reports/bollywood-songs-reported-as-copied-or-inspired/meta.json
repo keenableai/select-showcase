@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/bollywood-songs-reported-as-copied-or-inspired/Dm_f-AfqahyOrjv3sZzk6w",
+ "artifact": {
+  "token": "Dm_f-AfqahyOrjv3sZzk6w",
+  "title": "Bollywood Songs Reported as Copied or Inspired",
+  "visibility": "public",
+  "bytes_size": "59108",
+  "created_at": "2026-08-31 20:31:06.771814+00:00",
+  "expires_at": "2026-11-29 20:31:06.771814+00:00"
+ },
+ "conversation": {
+  "title": "Tell me which Bollywood songs are copied from other songs",
+  "created_at": "2026-08-31 20:23:12.532938+00:00",
+  "updated_at": "2026-08-31 20:31:19.343490+00:00"
+ }
+}
