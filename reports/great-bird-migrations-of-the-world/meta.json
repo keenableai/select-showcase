@@ -1,36 +1,16 @@
 {
  "report_url": "https://staging-webql.keenable.ai/r/great-bird-migrations-of-the-world/X9ALkkfQZeIu96FxNMOffg",
- "namespace": "webql-testing",
  "artifact": {
   "token": "X9ALkkfQZeIu96FxNMOffg",
-  "result_set_id": "r964a4a8964e",
-  "owner_id": "user:3945f92e-4c02-4f0b-9a58-23bb557a351d",
-  "turn_id": "b583ddf3-74f0-4adc-a8d3-c0acbb3d0861",
-  "visibility": "public",
   "title": "Great Bird Migrations of the World",
+  "visibility": "public",
   "bytes_size": "19658",
   "created_at": "2026-08-31 12:45:03.728391+00:00",
-  "expires_at": "2026-11-29 12:45:03.728391+00:00",
-  "revoked_at": "None",
-  "unpublished_at": "None"
+  "expires_at": "2026-11-29 12:45:03.728391+00:00"
  },
- "conversation_id": "1dddc4b6-5baa-433f-b988-598a9dd17abe",
  "conversation": {
-  "id": "1dddc4b6-5baa-433f-b988-598a9dd17abe",
-  "owner_id": "user:3945f92e-4c02-4f0b-9a58-23bb557a351d",
   "title": "How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map",
-  "visibility": "public",
   "created_at": "2026-08-31 12:37:12.978877+00:00",
   "updated_at": "2026-08-31 12:45:17.762127+00:00"
- },
- "turns": [
-  {
-   "id": "b583ddf3-74f0-4adc-a8d3-c0acbb3d0861",
-   "status": "completed",
-   "created_at": "2026-08-31 12:37:12.986067+00:00",
-   "updated_at": "2026-08-31 12:45:17.787131+00:00",
-   "pod": "keenable-webql-api-549566d7b-7wrjf",
-   "trace_id": "d368223c08edf5ea8176ffb10e013554"
-  }
- ]
+ }
 }

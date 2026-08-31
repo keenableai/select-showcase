@@ -7,7 +7,7 @@ query), then _site/index.html with one card per report. Brand fonts and
 logos come from site_assets/. CI runs this on every push to main and
 deploys _site/ to GitHub Pages.
 
-Usage: python3 scripts/build_site.py
+Usage: uv run python scripts/build_site.py
 """
 
 from __future__ import annotations
@@ -17,6 +17,8 @@ import json
 import re
 import shutil
 from pathlib import Path
+
+import fire
 
 ROOT = Path(__file__).resolve().parent.parent
 REPORTS = ROOT / "reports"
@@ -367,4 +369,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    fire.Fire(main)

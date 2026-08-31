@@ -1,23 +1,28 @@
 # SELECT showcase
 
-A collection of selected WebQL reports with their full agent trajectories.
+Selected reports made with [SELECT](https://select.keenable.ai), each with the
+full agent run behind it: every query, every tool result, and the result sets
+the run produced. The collection is published as a static site on GitHub Pages.
 
 ## Layout
 
-- `reports/<slug>/` — raw data for one example:
-  - `report.html` — the published report, verbatim from the DB.
+- `reports/<slug>/` — one example:
+  - `report.html` — the published report.
   - `trajectory.json` — the full agent transcript: user and assistant
     messages, every tool call with its SQL, and tool results.
-  - `meta.json` — artifact, conversation, and turn metadata.
-  - `result_sets/<id>.json` — every result set the run produced, with
-    full rows and notes. Stored in Git LFS.
-  - `preview.png` — a full-page screenshot of the report (og-render).
-- `site_assets/` — brand fonts (OFL) and logos for the site pages.
-`scripts/build_site.py` generates the GitHub Pages site from `reports/`:
-an index page plus, per example, the report and a rendered trajectory.
-The deploy workflow runs it on every push to main and publishes the
-result to GitHub Pages.
+  - `meta.json` — report title, question, and timestamps.
+  - `result_sets/<id>.json` — the result sets of the run, with full rows
+    and notes. Stored in Git LFS.
+  - `preview.png` — a full-page screenshot of the report.
+- `site_assets/` — brand fonts (SIL OFL) and logos for the site pages.
+- `scripts/build_site.py` — generates the site into `_site/`.
 
-## Site
+## Build
 
-https://cuddly-adventure-1vz52mp.pages.github.io/
+```bash
+uv sync
+uv run python scripts/build_site.py
+```
+
+Every push to main runs the same build in CI and deploys `_site/` to
+GitHub Pages.
