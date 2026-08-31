@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Australia’s Big Things — Map and Route</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#6b6b6b; --hair:#DDDDDD; --bg:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Stack Sans Headline', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:64px 24px 48px;}
+  h1{font-size:52px; line-height:1.05; letter-spacing:-0.02em; font-weight:700; max-width:1000px;}
+  .lede{margin-top:20px; font-size:18px; color:var(--muted); max-width:860px; line-height:1.5;}
+  .panel{margin-top:56px; position:relative;}
+  .mapbox{position:relative; width:100%;}
+  svg{display:block; width:100%; height:auto;}
+  .chartnote{
+    font-family:'TASA Orbiter', system-ui, sans-serif; font-size:12px; color:#8D8D8D;
+    margin-top:10px; display:flex; gap:24px; flex-wrap:wrap; align-items:center;
+  }
+  .key{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
+  .key span{display:inline-flex; align-items:center; gap:6px;}
+  .key i{width:10px; height:10px; display:inline-block;}
+  .tip{
+    position:absolute; pointer-events:none; background:#1a1a1a; color:#fff;
+    font-family:'TASA Orbiter', system-ui, sans-serif; font-size:12px; line-height:1.45;
+    padding:10px 12px; max-width:260px; opacity:0; transition:opacity .12s; z-index:5;
+  }
+  .tip b{font-size:13px;}
+  .findings{margin-top:64px;}
+  .finding{
+    padding:18px 0; border-top:1px solid var(--hair); font-size:16px; line-height:1.5;
+  }
+  .finding:last-child{border-bottom:1px solid var(--hair);}
+  a{color:#1a1a1a; text-decoration-color:#bbb; text-underline-offset:3px;}
+  h2{font-size:24px; font-weight:700; margin-top:72px; letter-spacing:-0.01em;}
+  table{width:100%; border-collapse:collapse; margin-top:20px; font-size:14px;}
+  th{
+    text-align:left; font-family:'TASA Orbiter', system-ui, sans-serif; font-size:12px;
+    color:#8D8D8D; font-weight:600; padding:8px 10px 8px 0; border-bottom:1px solid var(--hair);
+  }
+  td{padding:9px 10px 9px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+  td.num{font-variant-numeric:tabular-nums; color:var(--muted);}
+  .method{
+    margin-top:56px; font-family:'TASA Orbiter', system-ui, sans-serif;
+    font-size:12px; color:#8D8D8D; line-height:1.6;
+  }
+  @media (max-width:760px){
+    h1{font-size:32px;}
+    .wrap{padding:40px 16px;}
+    .mapbox{overflow-x:auto;}
+    .mapbox svg{min-width:900px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Thirty-eight Big Things still stand, and one straight-line loop can touch every state and territory</h1>
+  <p class="lede">Built from 940 attraction-level rows extracted in a live web scan on 27 August 2026, deduplicated to 38 named, standing Big Things across all 8 Australian states and territories, plus 3 that have closed. No source page stated exact coordinates, so every marker sits at its locality’s approximate position, joined by a nearest-neighbour straight-line route.</p>
+
+  <div class="panel" data-og-hero>
+    <div class="mapbox" id="mapbox"></div>
+    <div class="tip" id="tip"></div>
+    <div class="chartnote">
+      <span>Marker numbers show route order, starting at the Big Prawn in Exmouth. Colour means state or territory:</span>
+      <span class="key" id="key"></span>
+    </div>
+  </div>
+
+  <div class="findings">
+    <div class="finding">The tradition began in the 1960s with the Big Scotsman (1962, Medindie), the Big Banana (1964, Coffs Harbour) and the Big Murray Cod (1968, Tocumwal) — all three still stand on this map. <a href="https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129" target="_blank" rel="noopener noreferrer">theconversation.com</a></div>
+    <div class="finding">Not every Big Thing survives: the Big Wool Bales in Hamilton (closed 2020), the Giant Gippsland Earth Worm in Bass (closed 2020) and the Big Cask Wine in Mourquong (closed 2012) are excluded from the route and listed separately below. <a href="https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129" target="_blank" rel="noopener noreferrer">theconversation.com</a></div>
+    <div class="finding">The category is still growing: the Big Watermelon in Chinchilla went up in 2018, and Carnamah’s Big Tractor opened in 2024 after organisers raised more than $600,000. <a href="https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129" target="_blank" rel="noopener noreferrer">theconversation.com</a></div>
+    <div class="finding">Big Things now appear on Australia Post coins covering every state and territory, including the Big Jumping Crocodile in Wak Wak, the Big Lobster in Kingston and the Giant Ram in Wagin. <a href="https://southernhighlandnews.com.au/story/8336426" target="_blank" rel="noopener noreferrer">southernhighlandnews.com.au</a></div>
+  </div>
+
+  <h2>Route list — every mapped attraction, in visiting order</h2>
+  <table>
+    <thead><tr><th style="width:36px">Order</th><th>Attraction</th><th>Locality</th><th>State</th><th>Status in source</th><th>Source</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <p class="method" id="method">Source: 940 attraction-level rows extracted from a live web scan of public travel guides, encyclopaedia pages and news articles on 2026-08-27 — the only dataset behind this page. Rows without a named attraction were omitted; obvious repeats of the same attraction in the same locality were deduplicated to 38 standing attractions and 3 closed ones (the Big Pineapple appears in sources at both Woombye and neighbouring Nambour and is shown once, at Woombye; the Big Merino at Goulburn appears only in rows without a usable name–locality pair and is not mapped). No source row carried exact coordinates, so every marker is a locality-level approximation. The connecting path is a nearest-neighbour straight-line (great-circle) heuristic starting at Exmouth — not an optimal travelling-salesperson tour, a driving route, or a measured distance; “all” Big Things means all that this scan could discover: the category has no authoritative national registry and source lists overlap heavily.</p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://select.keenable.ai/geo/countries-110m.js"></script>
+<script>
+(function(){
+  // n=name, l=locality, s=state, st=status word from source, lat/lon = approximate locality-level placement, u=source url
+  var D = [
+    {n:"Big Prawn",l:"Exmouth",s:"WA",st:"extant",lat:-21.93,lon:114.12,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Tractor",l:"Carnamah",s:"WA",st:"extant",lat:-29.69,lon:115.88,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Mandurah Giants",l:"Mandurah",s:"WA",st:"extant",lat:-32.53,lon:115.72,u:"https://northerndailyleader.com.au/story/9173147/australias-weird-and-wonderful-roadside-attractions"},
+    {n:"Giant Ram",l:"Wagin",s:"WA",st:"extant",lat:-33.31,lon:117.34,u:"https://southernhighlandnews.com.au/story/8336426"},
+    {n:"World's tallest bin",l:"Kalgoorlie",s:"WA",st:"not stated",lat:-30.75,lon:121.47,u:"https://innereastreview.com.au/story/7784962"},
+    {n:"Big Kangaroo (Rooey II)",l:"Border Village",s:"WA",st:"extant",lat:-31.64,lon:129.00,u:"https://sbs.com.au/news/article/australias-big-things-obsession-and-what-you-might-not-know-about-them/6r5qz0vll"},
+    {n:"Big Croc",l:"Wyndham",s:"WA",st:"extant",lat:-15.49,lon:128.12,u:"https://sbs.com.au/news/article/australias-big-things-obsession-and-what-you-might-not-know-about-them/6r5qz0vll"},
+    {n:"Big Jumping Crocodile",l:"Wak Wak",s:"NT",st:"extant",lat:-12.65,lon:131.37,u:"https://southernhighlandnews.com.au/story/8336426"},
+    {n:"Big Stubbie",l:"Larrimah",s:"NT",st:"extant",lat:-15.57,lon:133.22,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Anmatjere Man (Big Aboriginal Hunter)",l:"Anmatjere",s:"NT",st:"extant",lat:-22.65,lon:133.35,u:"https://sbs.com.au/news/article/australias-big-things-obsession-and-what-you-might-not-know-about-them/6r5qz0vll"},
+    {n:"Big Galah",l:"Kimba",s:"SA",st:"extant",lat:-33.14,lon:136.42,u:"https://sbs.com.au/news/article/australias-big-things-obsession-and-what-you-might-not-know-about-them/6r5qz0vll"},
+    {n:"Big Scotsman",l:"Medindie",s:"SA",st:"extant",lat:-34.90,lon:138.60,u:"https://menafn.com/1109033251/From-The-Big-Bogan-To-Larry-The-Lobster-Why-Do-Towns-Build-Big-Things"},
+    {n:"Big Church Block Bottle",l:"McLaren Vale",s:"SA",st:"extant",lat:-35.22,lon:138.54,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Larry the Lobster (Big Lobster)",l:"Kingston",s:"SA",st:"extant",lat:-36.83,lon:139.85,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Giant Koala",l:"Dadswell Bridge",s:"VIC",st:"extant",lat:-36.90,lon:142.51,u:"https://westernadvocate.com.au/story/8336426"},
+    {n:"Giant Murray Cod",l:"Swan Hill",s:"VIC",st:"extant",lat:-35.34,lon:143.55,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Big VEGEMITE Jar",l:"Port Melbourne",s:"VIC",st:"extant",lat:-37.83,lon:144.94,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Big Murray Cod",l:"Tocumwal",s:"NSW",st:"extant",lat:-35.81,lon:145.57,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Ant",l:"Broken Hill",s:"NSW",st:"not stated",lat:-31.96,lon:141.46,u:"https://innereastreview.com.au/story/7784962"},
+    {n:"Big Tennis Racquet",l:"Barellan",s:"NSW",st:"extant",lat:-34.29,lon:146.57,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Big Bogan",l:"Nyngan",s:"NSW",st:"extant",lat:-31.56,lon:147.19,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Swoop",l:"Canberra",s:"ACT",st:"not stated",lat:-35.28,lon:149.13,u:"https://westernadvocate.com.au/story/8336426"},
+    {n:"Big Potato",l:"Robertson",s:"NSW",st:"not stated",lat:-34.59,lon:150.59,u:"https://innereastreview.com.au/story/7784962"},
+    {n:"Giant Wine Bottle",l:"Pokolbin",s:"NSW",st:"extant",lat:-32.78,lon:151.30,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Big Blue Heeler",l:"Muswellbrook",s:"NSW",st:"extant",lat:-32.26,lon:150.89,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Big Oyster",l:"Taree",s:"NSW",st:"not stated",lat:-31.91,lon:152.46,u:"https://innereastreview.com.au/story/7784962"},
+    {n:"Big Banana",l:"Coffs Harbour",s:"NSW",st:"extant",lat:-30.30,lon:153.11,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Prawn",l:"Ballina",s:"NSW",st:"extant",lat:-28.87,lon:153.56,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Wombat (William)",l:"Thallon",s:"QLD",st:"extant",lat:-28.64,lon:148.87,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Watermelon",l:"Chinchilla",s:"QLD",st:"extant",lat:-26.74,lon:150.63,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Pineapple",l:"Woombye",s:"QLD",st:"extant",lat:-26.66,lon:152.97,u:"https://sbs.com.au/news/article/australias-big-things-obsession-and-what-you-might-not-know-about-them/6r5qz0vll"},
+    {n:"Big Cow",l:"Yandina",s:"QLD",st:"extant",lat:-26.56,lon:152.95,u:"https://au.pinterest.com/atresham/australias-big-things"},
+    {n:"Big Easel",l:"Emerald",s:"QLD",st:"not stated",lat:-23.52,lon:148.16,u:"https://innereastreview.com.au/story/7784962"},
+    {n:"Big Mango",l:"Bowen",s:"QLD",st:"extant",lat:-20.02,lon:148.24,u:"https://menafn.com/1109033251/From-The-Big-Bogan-To-Larry-The-Lobster-Why-Do-Towns-Build-Big-Things"},
+    {n:"Golden Gumboot",l:"Tully",s:"QLD",st:"extant",lat:-17.93,lon:145.92,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Captain Cook",l:"Mount Molloy",s:"QLD",st:"not stated",lat:-16.68,lon:145.33,u:"https://innereastreview.com.au/story/7784962"},
+    {n:"Big Platypus",l:"Latrobe",s:"TAS",st:"extant",lat:-41.24,lon:146.42,u:"https://sbs.com.au/news/article/australias-big-things-obsession-and-what-you-might-not-know-about-them/6r5qz0vll"},
+    {n:"Big Trout",l:"Cressy",s:"TAS",st:"extant",lat:-41.72,lon:147.08,u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"}
+  ];
+  var CLOSED = [
+    {n:"Big Wool Bales",l:"Hamilton",s:"VIC",st:"closed 2020",u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Giant Gippsland Earth Worm",l:"Bass",s:"VIC",st:"closed 2020",u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"},
+    {n:"Big Cask Wine",l:"Mourquong",s:"NSW",st:"closed 2012",u:"https://theconversation.com/from-the-big-bogan-to-larry-the-lobster-why-do-towns-build-big-things-241129"}
+  ];
+
+  var COLORS = {NSW:"#2563eb",QLD:"#b45309",SA:"#dc2626",VIC:"#0f766e",WA:"#ca8a04",NT:"#c2410c",TAS:"#7c3aed",ACT:"#475569"};
+
+  // nearest-neighbour ordering from Exmouth (index 0)
+  function hav(a,b){
+    var R=6371, dLat=(b.lat-a.lat)*Math.PI/180, dLon=(b.lon-a.lon)*Math.PI/180;
+    var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+    return 2*R*Math.asin(Math.sqrt(s));
+  }
+  var used=new Array(D.length).fill(false), order=[0]; used[0]=true;
+  while(order.length<D.length){
+    var cur=D[order[order.length-1]], best=-1, bd=Infinity;
+    for(var i=0;i<D.length;i++){ if(!used[i]){ var d=hav(cur,D[i]); if(d<bd){bd=d;best=i;} } }
+    used[best]=true; order.push(best);
+  }
+  var route = order.map(function(i){ return D[i]; });
+  route.forEach(function(d,i){ d.ord=i+1; });
+
+  // map
+  var W=1160, H=880;
+  var svg = d3.select("#mapbox").append("svg")
+      .attr("viewBox","0 0 "+W+" "+H)
+      .attr("role","img")
+      .attr("aria-label","Map of Australia with 38 Big Things and a nearest-neighbour route");
+  var countries = topojson.feature(window.WORLD_TOPO, window.WORLD_TOPO.objects.countries).features;
+  var aus = countries.filter(function(f){ return f.properties.name === "Australia"; })[0];
+  var proj = d3.geoMercator().fitExtent([[24,24],[W-24,H-24]], aus);
+  var path = d3.geoPath(proj);
+
+  svg.append("path").datum(aus)
+     .attr("d",path).attr("fill","#F2F0EB").attr("stroke","#c9c5bd").attr("stroke-width",1);
+
+  // route as great-circle LineString
+  var line = {type:"LineString", coordinates: route.map(function(d){ return [d.lon,d.lat]; })};
+  var routePath = svg.append("path").datum(line)
+     .attr("d",path).attr("fill","none")
+     .attr("stroke","#1a1a1a").attr("stroke-width",2)
+     .attr("stroke-dasharray","4 5").attr("opacity",0.55);
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // entrance: dash draw once
+  if(!reduced){
+    var L = routePath.node().getTotalLength();
+    routePath.attr("stroke-dasharray", L+" "+L).attr("stroke-dashoffset", L)
+      .transition().duration(2600).ease(d3.easeCubicInOut)
+      .attr("stroke-dashoffset",0)
+      .on("end",function(){ d3.select(this).attr("stroke-dasharray","4 5"); });
+  }
+
+  var tip = document.getElementById("tip");
+  var mapbox = document.getElementById("mapbox");
+
+  var g = svg.append("g");
+  var nodes = g.selectAll("g.n").data(route).enter().append("g")
+     .attr("class","n")
+     .attr("transform",function(d){ var p=proj([d.lon,d.lat]); d.x=p[0]; d.y=p[1]; return "translate("+p[0]+","+p[1]+")"; })
+     .style("cursor","default");
+
+  nodes.append("circle").attr("r",9)
+     .attr("fill",function(d){ return COLORS[d.s]; });
+  nodes.append("text").text(function(d){ return d.ord; })
+     .attr("text-anchor","middle").attr("dy","0.34em")
+     .attr("fill","#fff")
+     .style("font","700 9px 'TASA Orbiter', system-ui, sans-serif");
+  nodes.append("text").attr("class","lbl")
+     .text(function(d){ return d.n; })
+     .attr("x",function(d,i){ return (i%2===0)? 12 : -12; })
+     .attr("text-anchor",function(d,i){ return (i%2===0)? "start":"end"; })
+     .attr("dy",function(d,i){ return (i%3===0)? "-0.6em" : (i%3===1? "0.35em" : "1.3em"); })
+     .attr("fill","#555")
+     .style("font","500 10px 'TASA Orbiter', system-ui, sans-serif")
+     .style("paint-order","stroke").style("stroke","#fff").style("stroke-width","2.5px").style("stroke-linejoin","round");
+
+  if(!reduced){
+    nodes.attr("opacity",0)
+      .transition().delay(function(d,i){ return 300+i*55; }).duration(320)
+      .attr("opacity",1);
+  }
+
+  function host(u){ try{ return u.split("/")[2].replace("www.",""); }catch(e){ return u; } }
+
+  nodes.on("mouseenter",function(ev,d){
+      nodes.attr("opacity",function(o){ return o===d?1:0.12; });
+      routePath.attr("opacity",0.12);
+      tip.innerHTML = "<b>"+d.n+"</b><br>"+d.l+", "+d.s+" · stop "+d.ord+" of "+route.length+
+        "<br>status in source: "+d.st+"<br>locality-level placement (approximate)<br>source: "+host(d.u);
+      tip.style.opacity=1;
+      var r = mapbox.getBoundingClientRect();
+      var sx = r.width/W;
+      var tx = d.x*sx+14, ty = d.y*sx*(H/H)+14;
+      if(tx > r.width-270) tx = d.x*sx-274;
+      tip.style.left = tx+"px"; tip.style.top = (d.y*(r.height/H)+14)+"px";
+    })
+    .on("mouseleave",function(){
+      nodes.attr("opacity",1); routePath.attr("opacity",0.55); tip.style.opacity=0;
+    });
+
+  // one particle drifting along the route — motion that is the data
+  if(!reduced){
+    var dot = svg.append("circle").attr("r",4).attr("fill","#1a1a1a");
+    var pl = routePath.node().getTotalLength();
+    var t0 = null;
+    function step(ts){
+      if(!t0) t0=ts;
+      var frac = ((ts-t0)/60000)%1; // one lap per minute
+      var p = routePath.node().getPointAtLength(frac*pl);
+      var pulse = 3.4+1.2*Math.sin((ts-t0)/300);
+      dot.attr("cx",p.x).attr("cy",p.y).attr("r",pulse);
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // colour key
+  var keyEl = document.getElementById("key");
+  Object.keys(COLORS).forEach(function(s){
+    var sp=document.createElement("span");
+    sp.innerHTML='<i style="background:'+COLORS[s]+'"></i>'+s;
+    keyEl.appendChild(sp);
+  });
+
+  // table
+  var tb = document.getElementById("tbody");
+  route.forEach(function(d){
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td class="num">'+d.ord+'</td><td>'+d.n+'</td><td>'+d.l+'</td><td>'+d.s+'</td><td>'+d.st+
+      '</td><td><a href="'+d.u+'" target="_blank" rel="noopener noreferrer">'+host(d.u)+'</a></td>';
+    tb.appendChild(tr);
+  });
+  CLOSED.forEach(function(d){
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td class="num">—</td><td style="color:#8D8D8D">'+d.n+'</td><td style="color:#8D8D8D">'+d.l+'</td><td style="color:#8D8D8D">'+d.s+'</td><td style="color:#8D8D8D">'+d.st+
+      '</td><td><a href="'+d.u+'" target="_blank" rel="noopener noreferrer">'+host(d.u)+'</a></td>';
+    tb.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>

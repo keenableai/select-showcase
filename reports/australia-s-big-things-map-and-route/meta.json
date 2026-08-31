@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/australia-s-big-things-map-and-route/IQp8w3Tq9E9_FN-rdKC36w",
+ "artifact": {
+  "token": "IQp8w3Tq9E9_FN-rdKC36w",
+  "title": "Australia\u2019s Big Things \u2014 Map and Route",
+  "visibility": "public",
+  "bytes_size": "19939",
+  "created_at": "2026-08-27 19:47:31.958672+00:00",
+  "expires_at": "2026-11-25 19:47:31.958672+00:00"
+ },
+ "conversation": {
+  "title": "show me map of all \"big things\" in australia and the shortest path between them",
+  "created_at": "2026-08-27 19:39:08.979114+00:00",
+  "updated_at": "2026-08-27 19:47:34.642167+00:00"
+ }
+}
