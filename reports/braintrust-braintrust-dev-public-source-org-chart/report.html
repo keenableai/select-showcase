@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Braintrust (braintrust.dev) — public-source org chart</title>
+<style>
+  :root{
+    --ink:#111111; --muted:#8D8D8D; --hair:#DDDDDD; --bg:#FFFFFF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Stack Sans Headline', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1160px; margin:0 auto; padding:64px 24px 40px;}
+  h1{font-size:44px; line-height:1.08; font-weight:700; letter-spacing:-0.02em; max-width:980px;}
+  .sub{margin-top:18px; font-size:16px; color:#444; max-width:900px; line-height:1.5;}
+  .caveat{
+    margin-top:28px; padding:14px 18px; background:#F6F6F6;
+    font-size:13.5px; line-height:1.55; color:#333; max-width:1160px;
+  }
+  .caveat b{color:var(--ink);}
+  .legend{
+    display:flex; flex-wrap:wrap; gap:14px 22px; margin-top:36px;
+    font-family:'TASA Orbiter', system-ui, sans-serif; font-size:12px; color:#333;
+    align-items:center;
+  }
+  .legend .sw{display:inline-block; width:11px; height:11px; margin-right:6px; vertical-align:-1px;}
+  .legend .conf{display:flex; gap:16px; align-items:center; padding-left:18px; border-left:1px solid var(--hair);}
+  .chartpanel{margin-top:20px;}
+  #chart{width:100%;}
+  #chart svg{display:block; width:100%; height:auto;}
+  .tip{
+    position:absolute; pointer-events:none; z-index:10;
+    background:#111; color:#fff; padding:12px 14px; max-width:320px;
+    font-family:'TASA Orbiter', system-ui, sans-serif; font-size:12px; line-height:1.5;
+    opacity:0; transition:opacity .12s;
+  }
+  .tip .tname{font-family:'Stack Sans Headline', system-ui, sans-serif; font-size:14px; font-weight:700;}
+  .tip .trole{color:#cfcfcf; margin-bottom:6px;}
+  .tip .trow{color:#e6e6e6;}
+  .tip .tk{color:#9a9a9a;}
+  .findings{margin-top:64px;}
+  .finding{
+    padding:16px 0; border-top:1px solid var(--hair);
+    font-size:15px; line-height:1.5; display:flex; justify-content:space-between; gap:24px;
+  }
+  .finding:last-child{border-bottom:1px solid var(--hair);}
+  .finding a{color:var(--ink); font-size:13px; white-space:nowrap;}
+  h2{font-size:24px; font-weight:700; margin-top:72px; letter-spacing:-0.01em;}
+  table{width:100%; border-collapse:collapse; margin-top:20px; font-size:13px;}
+  th{
+    text-align:left; font-family:'TASA Orbiter', system-ui, sans-serif; font-size:11px;
+    color:var(--muted); font-weight:600; padding:8px 10px 8px 0; border-bottom:1px solid var(--ink);
+  }
+  td{padding:9px 10px 9px 0; border-bottom:1px solid var(--hair); vertical-align:top; line-height:1.45;}
+  td.name{font-weight:700; white-space:nowrap;}
+  td a{color:var(--ink);}
+  .fdot{display:inline-block; width:9px; height:9px; margin-right:7px; vertical-align:0;}
+  .conftag{font-family:'TASA Orbiter', system-ui, sans-serif; font-size:11px;}
+  .conf-High{color:#111;}
+  .conf-Medium{color:#666;}
+  .conf-Low{color:#B91C1C; font-weight:700;}
+  .method{
+    margin-top:64px; font-family:'TASA Orbiter', system-ui, sans-serif;
+    font-size:12px; color:#8D8D8D; line-height:1.6;
+  }
+  @media (max-width:760px){
+    h1{font-size:30px;}
+    .wrap{padding:40px 16px;}
+    .chartpanel{overflow-x:auto;}
+    #chart{min-width:900px;}
+    .finding{flex-direction:column; gap:6px;}
+    .tablewrap{overflow-x:auto;}
+    table{min-width:720px;}
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>29 people, 9 functions, one confirmed reporting line: Braintrust's public-facing org, reconstructed</h1>
+  <p class="sub">A public-source reconstruction of Braintrust Data Inc. (braintrust.dev), the AI evaluation and observability company — not the talent marketplace. A scan of 81 candidate employee and leader mentions resolved to 29 identified people across 9 functions, current through 27 August 2026.</p>
+
+  <div class="caveat"><b>This is not an official reporting chart.</b> Except for Ankur Goyal's CEO role, public sources establish employment and functional roles but do not publish direct reporting lines. Nearly every edge below is a functional placement inferred only to make the chart readable — dashed lines mark them. Engineers sit directly under the CEO because no public engineering leader was found, not because they report to him. Coleen Baik's founding-designer role comes from a 2023 official post; her current status is unconfirmed.</div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="chartpanel">
+    <div id="chart" data-og-hero></div>
+  </div>
+
+  <div class="findings" id="findings"></div>
+
+  <h2>All 29 identified people</h2>
+  <div class="tablewrap">
+    <table id="tbl">
+      <thead><tr>
+        <th>Person</th><th>Title / role</th><th>Function</th><th>Confidence</th><th>Placement basis</th><th>Source</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <p class="method">Method: public-source reconstruction of Braintrust Data Inc. (braintrust.dev), researched as of 2026-08-27. A scan yielded 81 candidate employee/leader mentions, resolved to 29 identified people across 9 functions; the dataset holds one row per parent-to-person edge with title, function, confidence, placement basis and source. Only the founder–CEO edge is a confirmed relationship; all other edges are functional placements inferred for readability and should not be read as reporting lines. One low-confidence row (Coleen Baik) reflects a 2023 founding-role source with unconfirmed current status. Sources include official company posts, partner and customer pages, conference listings, and public org directories.</p>
+
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+  var rows = [
+    {p:"Braintrust Data Inc.", n:"Ankur Goyal", t:"Founder & CEO", f:"Executive", c:"High", b:"CEO role confirmed", st:"Current partner profile (2026)", u:"https://openai.com/index/braintrust"},
+    {p:"Ankur Goyal", n:"Hurshal Patel", t:"Software Engineer", f:"Engineering", c:"Medium", b:"No public engineering leader found; shown under CEO for readability", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/hurshal-patel"},
+    {p:"Ankur Goyal", n:"Manu Goyal", t:"Founding Engineer / Software Engineer", f:"Engineering", c:"Medium", b:"No public engineering leader found; shown under CEO for readability", st:"Official company post (2023)", u:"https://braintrust.dev/blog/reliable-ai"},
+    {p:"Ankur Goyal", n:"Olmo Maldonado", t:"Staff Engineer", f:"Engineering", c:"Medium", b:"No public engineering leader found; shown under CEO for readability", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/olmo-maldonado"},
+    {p:"Ankur Goyal", n:"Stephen Belanger", t:"Staff Software Engineer", f:"Engineering", c:"High", b:"No public engineering leader found; shown under CEO for readability", st:"Current conference listing (2026)", u:"https://conferencegrid.com/events/nodeconf-eu-2026"},
+    {p:"Ankur Goyal", n:"Tara Nagar", t:"Software Engineer", f:"Engineering", c:"Medium", b:"No public engineering leader found; shown under CEO for readability", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/tara-nagar"},
+    {p:"Ankur Goyal", n:"Eden Halperin", t:"Head of Product", f:"Product & Design", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data?person=nathan-n"},
+    {p:"Eden Halperin", n:"Coleen Baik", t:"Founding Designer", f:"Product & Design", c:"Low", b:"Founding role confirmed; current status and reporting line unconfirmed", st:"Official company post (2023)", u:"https://braintrust.dev/blog/reliable-ai"},
+    {p:"Eden Halperin", n:"David Kim", t:"Design Engineer", f:"Product & Design", c:"High", b:"Functional placement inferred; direct report not published", st:"Official company post (2025)", u:"https://braintrust.dev/blog/collaborative-evals-loop"},
+    {p:"Eden Halperin", n:"Kat McGuire", t:"Design Engineer", f:"Product & Design", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public professional bio mirror", u:"https://remaja.twstalker.com/katmcguir3"},
+    {p:"Ankur Goyal", n:"Morgane Palomares", t:"VP of Marketing", f:"Marketing & Growth", c:"High", b:"Functional placement inferred; direct report not published", st:"Current customer story (2026)", u:"https://notion.com/customers/braintrust"},
+    {p:"Morgane Palomares", n:"Bhavik J.", t:"Head of Growth", f:"Marketing & Growth", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/bhavik-j"},
+    {p:"Morgane Palomares", n:"Mengying Li", t:"Growth Team", f:"Marketing & Growth", c:"High", b:"Functional placement inferred; direct report not published", st:"Official company post (2025)", u:"https://braintrust.dev/blog/collaborative-evals-loop"},
+    {p:"Morgane Palomares", n:"Ornella Altunyan", t:"Developer Marketer", f:"Marketing & Growth", c:"High", b:"Functional placement inferred; direct report not published", st:"Current partner post (2026)", u:"https://temporal.io/blog/building-observable-ai-agents-temporal-now-integrates-with-braintrust"},
+    {p:"Morgane Palomares", n:"Raman Hundal", t:"Head of Growth Marketing", f:"Marketing & Growth", c:"High", b:"Functional placement inferred; direct report not published", st:"Current interview (2026)", u:"https://withgauge.com/blog/how-braintrust-built-a-marketing-engine-for-the-ai-native-buyer"},
+    {p:"Ankur Goyal", n:"Bryan Cox", t:"VP of Worldwide Sales", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data?person=nathan-n"},
+    {p:"Bryan Cox", n:"Carlo Schmidt Gnauert", t:"GTM EMEA / Strategic Account Executive", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/carlo-schmidt-gnauert"},
+    {p:"Bryan Cox", n:"Mo Bingham", t:"Revenue Operations", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/mo-bingham"},
+    {p:"Bryan Cox", n:"Nathan N.", t:"Director, Sales Development", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data?person=nathan-n"},
+    {p:"Nathan N.", n:"Chris Koenig", t:"Sales Development Representative", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/chris-koenig"},
+    {p:"Bryan Cox", n:"Nick Gaspardone", t:"GTM", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data?person=nathan-n"},
+    {p:"Bryan Cox", n:"Phil Bates", t:"Regional VP, West & Commercial Sales", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public professional profile", u:"https://neuron.com/profile/4658474549/phil-bates"},
+    {p:"Bryan Cox", n:"Walton Stephens", t:"Enterprise Sales", f:"Sales & GTM", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/walton-stephens"},
+    {p:"Ankur Goyal", n:"Alex Carleton", t:"Head of Customer Experience", f:"Customer", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data?person=nathan-n"},
+    {p:"Alex Carleton", n:"Colin Bennett", t:"Developer Support Engineer", f:"Customer", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/colin-bennett"},
+    {p:"Alex Carleton", n:"Jeff McCollum", t:"Customer Solutions Architect", f:"Customer", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Customer story", u:"https://eraser.io/customers/braintrust-creates-bespoke-architecture-diagrams-that-accelerate-customer-journeys-with-eraser"},
+    {p:"Ankur Goyal", n:"Ameya Bhatawdekar", t:"Field CTO", f:"Field Engineering", c:"High", b:"Executive placement inferred; direct report not published", st:"Current conference talk (2026)", u:"https://youtube.com/watch?v=nxokqOq1imY"},
+    {p:"Ankur Goyal", n:"Sarah Zeng", t:"Chief of Staff", f:"Operations", c:"Medium", b:"Executive placement inferred; direct report not published", st:"Public professional bio mirror", u:"https://remaja.twstalker.com/braintrust"},
+    {p:"Ankur Goyal", n:"Trey Bertram", t:"Talent", f:"People", c:"Medium", b:"Functional placement inferred; direct report not published", st:"Public org directory", u:"https://theorg.com/org/braintrust-data/org-chart/trey-bertram"}
+  ];
+
+  var funcCounts = {"Executive":1,"Engineering":5,"Product & Design":4,"Marketing & Growth":5,"Sales & GTM":8,"Customer":3,"Field Engineering":1,"Operations":1,"People":1};
+  var funcOrder = ["Executive","Sales & GTM","Engineering","Marketing & Growth","Product & Design","Customer","Field Engineering","Operations","People"];
+  var color = {
+    "Executive":"#111111","Engineering":"#2563EB","Product & Design":"#7C3AED",
+    "Marketing & Growth":"#DB2777","Sales & GTM":"#EA580C","Customer":"#059669",
+    "Field Engineering":"#0891B2","Operations":"#A16207","People":"#6B7280"
+  };
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // legend
+  var legEl = document.getElementById("legend");
+  var lhtml = "";
+  funcOrder.forEach(function(f){
+    lhtml += '<span><span class="sw" style="background:'+color[f]+'"></span>'+f+' · '+funcCounts[f]+'</span>';
+  });
+  lhtml += '<span class="conf">'
+    + '<span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#111" stroke-width="2"/></svg> confirmed edge (CEO only)</span>'
+    + '<span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#999" stroke-width="2" stroke-dasharray="4 3"/></svg> inferred functional placement</span>'
+    + '<span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="none" stroke="#B91C1C" stroke-width="2" stroke-dasharray="2.5 2.5"/></svg> low confidence — status unconfirmed</span>'
+    + '</span>';
+  legEl.innerHTML = lhtml;
+
+  // hierarchy
+  var byName = {};
+  rows.forEach(function(r){ byName[r.n] = r; });
+  var strat = d3.stratify()
+    .id(function(d){ return d.n; })
+    .parentId(function(d){ return d.p === "ROOT" ? null : d.p; });
+  var data = [{n:"Braintrust Data Inc.", p:"ROOT", t:"AI evaluation & observability", f:"Executive", c:"High", b:"", st:"", u:""}].concat(rows);
+  var root = strat(data);
+  root.sort(function(a,b){
+    var oa = funcOrder.indexOf(a.data.f), ob = funcOrder.indexOf(b.data.f);
+    if(oa !== ob) return oa - ob;
+    return d3.ascending(a.data.n, b.data.n);
+  });
+
+  var nodeH = 42, colW = 218;
+  var tree = d3.tree().nodeSize([nodeH, colW]);
+  tree(root);
+
+  var xExt = d3.extent(root.descendants(), function(d){ return d.x; });
+  var mTop = 34, mLeft = 14, mRight = 190, mBottom = 20;
+  var innerH = xExt[1] - xExt[0];
+  var maxDepth = d3.max(root.descendants(), function(d){ return d.depth; });
+  var width = maxDepth * colW + mLeft + mRight + 130;
+  var height = innerH + mTop + mBottom;
+
+  var svg = d3.select("#chart").append("svg")
+    .attr("viewBox", "0 0 " + width + " " + height)
+    .attr("width", width).attr("height", height)
+    .style("font-family", "'TASA Orbiter', system-ui, sans-serif");
+
+  var g = svg.append("g").attr("transform", "translate(" + mLeft + "," + (mTop - xExt[0]) + ")");
+
+  function elbow(d){
+    var mx = d.source.y + colW * 0.52;
+    return "M" + d.source.y + "," + d.source.x + "H" + mx + "V" + d.target.x + "H" + d.target.y;
+  }
+
+  var links = g.selectAll(".lk").data(root.links()).enter().append("path")
+    .attr("class","lk")
+    .attr("d", elbow)
+    .attr("fill","none")
+    .attr("stroke", function(d){ return d.target.data.b === "CEO role confirmed" ? "#111111" : "#BDBDBD"; })
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", function(d){ return d.target.data.b === "CEO role confirmed" ? null : "4 3"; });
+
+  var nodes = g.selectAll(".nd").data(root.descendants()).enter().append("g")
+    .attr("class","nd")
+    .attr("transform", function(d){ return "translate(" + d.y + "," + d.x + ")"; })
+    .style("cursor","default");
+
+  nodes.each(function(d){
+    var el = d3.select(this);
+    var isRoot = d.depth === 0;
+    var fc = color[d.data.f] || "#111";
+    if(d.data.c === "Low"){
+      el.append("circle").attr("r", 9.5).attr("fill","none")
+        .attr("stroke","#B91C1C").attr("stroke-width",2).attr("stroke-dasharray","2.5 2.5");
+      el.append("circle").attr("r", 5).attr("fill", fc);
+    } else if(d.data.c === "Medium"){
+      el.append("circle").attr("r", isRoot ? 7 : 6).attr("fill","#fff")
+        .attr("stroke", fc).attr("stroke-width", 2.5);
+    } else {
+      el.append("circle").attr("r", isRoot ? 8 : 6.5).attr("fill", fc);
+    }
+    el.append("text")
+      .attr("x", 14).attr("y", -1)
+      .style("font-family","'Stack Sans Headline', system-ui, sans-serif")
+      .style("font-size", isRoot || d.depth === 1 ? "14px" : "13px")
+      .style("font-weight", 700)
+      .attr("fill","#111")
+      .text(d.data.n);
+    el.append("text")
+      .attr("x", 14).attr("y", 12)
+      .style("font-size","10.5px")
+      .attr("fill","#6f6f6f")
+      .text(d.data.t + (d.data.c === "Low" ? " · unconfirmed" : ""));
+  });
+
+  // annotation for engineering cluster
+  var engNodes = root.descendants().filter(function(d){ return d.data.f === "Engineering"; });
+  if(engNodes.length){
+    var ey = d3.min(engNodes, function(d){ return d.x; }) - 15;
+    var ex = engNodes[0].y;
+    g.append("text")
+      .attr("x", ex).attr("y", ey)
+      .style("font-size","10.5px")
+      .attr("fill","#2563EB")
+      .text("engineers shown under CEO only because no public engineering leader was found");
+  }
+
+  // entrance animation
+  if(!reduced){
+    nodes.attr("opacity", 0)
+      .transition().duration(450)
+      .delay(function(d,i){ return d.depth * 220 + i * 14; })
+      .attr("opacity", 1);
+    links.each(function(){
+      var L = this.getTotalLength();
+      d3.select(this).attr("stroke-dashoffset", L)
+        .attr("stroke-dasharray", function(d){
+          var base = d.target.data.b === "CEO role confirmed" ? (L + " " + L) : "4 3";
+          return base;
+        });
+    }).transition().duration(700)
+      .delay(function(d){ return d.target.depth * 200; })
+      .attr("stroke-dashoffset", 0)
+      .on("end", function(d){
+        if(d.target.data.b !== "CEO role confirmed"){
+          d3.select(this).attr("stroke-dasharray","4 3");
+        } else {
+          d3.select(this).attr("stroke-dasharray", null);
+        }
+      });
+  }
+
+  // hover focus + tooltip
+  var tip = document.getElementById("tip");
+  function related(d){
+    var s = new Set(d.ancestors());
+    d.descendants().forEach(function(x){ s.add(x); });
+    return s;
+  }
+  nodes.on("mouseenter", function(ev, d){
+      var rel = related(d);
+      nodes.attr("opacity", function(o){ return rel.has(o) ? 1 : 0.12; });
+      links.attr("opacity", function(l){ return rel.has(l.source) && rel.has(l.target) ? 1 : 0.08; });
+      if(d.depth === 0){
+        tip.innerHTML = '<div class="tname">Braintrust Data Inc.</div><div class="trole">AI evaluation & observability</div>'
+          + '<div class="trow">29 people identified across 9 functions, from 81 candidate mentions</div>';
+      } else {
+        var kids = d.children ? d.children.map(function(k){ return k.data.n; }) : [];
+        tip.innerHTML = '<div class="tname">' + d.data.n + '</div>'
+          + '<div class="trole">' + d.data.t + ' · ' + d.data.f + '</div>'
+          + '<div class="trow"><span class="tk">Confidence:</span> ' + d.data.c + '</div>'
+          + '<div class="trow"><span class="tk">Basis:</span> ' + d.data.b + '</div>'
+          + '<div class="trow"><span class="tk">Source:</span> ' + d.data.st + '</div>'
+          + (kids.length ? '<div class="trow"><span class="tk">Placed below:</span> ' + kids.join(", ") + '</div>' : '');
+      }
+      tip.style.opacity = 1;
+    })
+    .on("mousemove", function(ev){
+      var px = ev.pageX + 16, py = ev.pageY + 12;
+      if(px + 330 > document.documentElement.scrollWidth) px = ev.pageX - 340;
+      tip.style.left = px + "px";
+      tip.style.top = py + "px";
+    })
+    .on("mouseleave", function(){
+      nodes.attr("opacity", 1);
+      links.attr("opacity", 1);
+      tip.style.opacity = 0;
+    });
+
+  // findings
+  function host(u){ try { return u.replace(/^https?:\/\//,'').split('/')[0]; } catch(e){ return u; } }
+  var findings = [
+    {t:"Sales & GTM is the largest visible function — 8 of 29 people, more than a quarter of everyone publicly identifiable", u:"https://theorg.com/org/braintrust-data?person=nathan-n"},
+    {t:"No public engineering executive was found; all 5 engineers hang from the CEO purely for readability, not as confirmed reports", u:"https://braintrust.dev/blog/reliable-ai"},
+    {t:"Ankur Goyal's founder & CEO role is the only edge public sources actually confirm — every other line is an inferred functional placement", u:"https://openai.com/index/braintrust"},
+    {t:"Coleen Baik's founding-designer role rests on a 2023 official post; it is the one low-confidence entry, with current status unconfirmed", u:"https://braintrust.dev/blog/reliable-ai"}
+  ];
+  var fEl = document.getElementById("findings");
+  findings.forEach(function(f){
+    var div = document.createElement("div");
+    div.className = "finding";
+    div.innerHTML = '<span>' + f.t + '</span><a href="' + f.u + '" target="_blank" rel="noopener noreferrer">' + host(f.u) + '</a>';
+    fEl.appendChild(div);
+  });
+
+  // table
+  var tb = document.querySelector("#tbl tbody");
+  var order = rows.slice().sort(function(a,b){
+    var oa = funcOrder.indexOf(a.f), ob = funcOrder.indexOf(b.f);
+    if(oa !== ob) return oa - ob;
+    return a.n < b.n ? -1 : 1;
+  });
+  order.forEach(function(r){
+    var tr = document.createElement("tr");
+    tr.innerHTML = '<td class="name"><span class="fdot" style="background:' + color[r.f] + '"></span>' + r.n + '</td>'
+      + '<td>' + r.t + '</td>'
+      + '<td>' + r.f + '</td>'
+      + '<td><span class="conftag conf-' + r.c + '">' + r.c + '</span></td>'
+      + '<td style="color:#666">' + r.b + '</td>'
+      + '<td><a href="' + r.u + '" target="_blank" rel="noopener noreferrer">' + host(r.u) + '</a></td>';
+    tb.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>
