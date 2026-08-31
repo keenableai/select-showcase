@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en"><head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Great-Chef Kitchen Lineage</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<style>
+:root{--ink:#141414;--muted:#8D8D8D;--hair:#DDDDDD;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--ink);font-family:'Stack Sans Headline',system-ui;line-height:1.45}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 24px 40px}
+h1{font-size:52px;line-height:1.05;letter-spacing:-0.02em;max-width:900px}
+.asked{margin:32px 0 0;border-left:4px solid var(--ink);padding:10px 20px;background:#f7f7f5}
+.asked .lbl{font-family:'TASA Orbiter',system-ui;font-size:12px;color:var(--muted);text-transform:none}
+.asked p{font-size:19px;font-style:italic}
+.lede{margin-top:28px;font-size:19px;max-width:840px;color:#333}
+.viz{margin-top:56px}
+#net{width:100%;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin:10px 0 4px;font-family:'TASA Orbiter',system-ui;font-size:12px;color:#444}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;display:inline-block}
+.legnote{font-family:'TASA Orbiter',system-ui;font-size:12px;color:var(--muted);margin-bottom:6px}
+#tip{position:fixed;pointer-events:none;background:#141414;color:#fff;padding:10px 12px;font-family:'TASA Orbiter',system-ui;font-size:12px;max-width:280px;opacity:0;z-index:9;line-height:1.5}
+#tip a{color:#9cd}
+.findings{margin-top:64px}
+.findings h2{font-size:26px;margin-bottom:8px}
+.findings div{padding:14px 0;border-bottom:1px solid var(--hair);font-size:16px}
+.findings div:first-of-type{border-top:1px solid var(--hair)}
+a{color:#0a4fa0}
+.tbl{margin-top:64px}
+.tbl h2{font-size:26px;margin-bottom:14px}
+#search{width:100%;max-width:360px;border:1px solid var(--hair);padding:10px 12px;font:inherit;font-size:15px;margin-bottom:14px;border-radius:0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-family:'TASA Orbiter',system-ui;font-size:12px;color:var(--muted);font-weight:600;padding:8px 10px 8px 0;border-bottom:1px solid var(--ink)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+.method{margin-top:56px;font-family:'TASA Orbiter',system-ui;font-size:12px;color:var(--muted)}
+@media(max-width:640px){
+ h1{font-size:32px}
+ .wrap{padding:32px 14px}
+ .lede,.asked p{font-size:16px}
+ table{font-size:12px}
+ th:nth-child(5),td:nth-child(5),th:nth-child(6),td:nth-child(6){display:none}
+ td,th{padding-right:6px}
+ td{word-break:break-word}
+}
+</style></head><body><div class="wrap">
+<h1>Fine dining is one crowded kitchen: 56 apprenticeships tie 51 famous chefs into a single network</h1>
+<div class="asked"><div class="lbl">Asked:</div><p>“Which famous chefs trained in which other chefs' kitchens? Draw the lineage tree.”</p></div>
+<p class="lede">56 documented mentor-to-trainee kitchen relationships — apprenticeships, stages, and formative jobs, not mere influence — linking 51 renowned chefs across five lineage branches: the British brigade tree (20 links), French foundations (19), the elBulli / Spanish avant-garde (8), the US fine-dining tree (5), and global offshoots (4).</p>
+
+<div class="viz" data-og-hero>
+ <div class="legnote">Colour marks the lineage branch of each apprenticeship; arrows run mentor → trainee. Solid edge = long employment, dashed = shorter training or stage. Hover a chef or an edge for kitchen, period, and source.</div>
+ <div class="legend" id="legend"></div>
+ <svg id="net"></svg>
+</div>
+
+<div class="findings">
+<h2>What the tree cannot say in one glance</h2>
+<div>Gordon Ramsay is the network’s biggest sponge: he trained under five masters — Albert Roux, Marco Pierre White, Pierre Koffmann, Guy Savoy, and Joël Robuchon — before minting five protégés of his own. <a href="https://grokipedia.com/page/Albert_Roux" target="_blank" rel="noopener noreferrer">grokipedia.com</a></div>
+<div>Fernand Point’s La Pyramide seeded French haute cuisine: Paul Bocuse, Alain Chapel, both Troisgros brothers, and Louis Outhier all passed through his kitchen — and Bocuse also apprenticed with Eugénie Brazier. <a href="https://nytimes.com/2018/01/20/obituaries/paul-bocuse-dead.html" target="_blank" rel="noopener noreferrer">nytimes.com</a></div>
+<div>Ferran Adrià’s elBulli is the single widest teaching kitchen in the set, with eight alumni including René Redzepi, Massimo Bottura, José Andrés, Joan Roca, and Grant Achatz. <a href="https://kids.britannica.com/kids/article/Ren%C3%A9-Redzepi/604370" target="_blank" rel="noopener noreferrer">britannica.com</a></div>
+<div>The bridges make it a network, not a pedigree: René Redzepi worked at both elBulli and The French Laundry, and Grant Achatz passed through Charlie Trotter’s, The French Laundry, and elBulli. <a href="https://guide.michelin.com/us/en/california/article/people/thomas-keller-the-french-laundry-alumni" target="_blank" rel="noopener noreferrer">guide.michelin.com</a></div>
+</div>
+
+<div class="tbl">
+<h2>All 56 documented links</h2>
+<input id="search" type="search" placeholder="Search chef, kitchen, or branch…">
+<table><thead><tr><th>Mentor</th><th>Trainee</th><th>Kitchen</th><th>Branch</th><th>Period</th><th>Mentions</th><th>Source</th></tr></thead><tbody id="tb"></tbody></table>
+</div>
+
+<p class="method">Curated edge list of 56 documented chef-to-chef kitchen relationships among 51 chefs, drawn from thousands of scanned web results (biographies, Michelin Guide, World’s 50 Best, Britannica, major newspapers, chef profiles). An edge was kept when at least two independent source mentions corroborated an apprenticeship, stage, or formative employment; mention counts measure corroboration in this scan, not importance. This is an illustrative map of famous chefs, not a complete census of fine dining.</p>
+</div>
+<div id="tip"></div>
+<script>
+(function(){
+var edges = [{"mentor": "Albert Roux", "trainee": "Gordon Ramsay", "lineage_branch": "British brigade tree", "kitchen": "Le Gavroche", "relationship": "worked", "period": "a year", "source_mentions": 26, "source_title": "Albert Roux", "source_url": "https://grokipedia.com/page/Albert_Roux"}, {"mentor": "Gordon Ramsay", "trainee": "Angela Hartnett", "lineage_branch": "British brigade tree", "kitchen": "Aubergine", "relationship": "worked", "period": "1994", "source_mentions": 9, "source_title": "The Greatest Briton Food Experts Every Geek Will Recognize", "source_url": "https://thefamouspeople.com/briton-food-experts.php"}, {"mentor": "Gordon Ramsay", "trainee": "Clare Smyth", "lineage_branch": "British brigade tree", "kitchen": "Hospital Road HQ", "relationship": "worked", "period": "13 years", "source_mentions": 3, "source_title": "Worlds Best Female Chef Clare Smyth on making the most of a stage and learning from Gordon Ramsay", "source_url": "https://theworlds50best.com/stories/News/50-best-bbva-scholarship-clare-smyth-stage-learning-gordon-ramsay.html"}, {"mentor": "Gordon Ramsay", "trainee": "Jason Atherton", "lineage_branch": "British brigade tree", "kitchen": "Maze", "relationship": "worked", "period": null, "source_mentions": 2, "source_title": "The Greatest Briton Food Experts Every Geek Will Recognize", "source_url": "https://thefamouspeople.com/briton-food-experts.php"}, {"mentor": "Gordon Ramsay", "trainee": "Marcus Wareing", "lineage_branch": "British brigade tree", "kitchen": "Aubergine", "relationship": "worked", "period": "1993", "source_mentions": 18, "source_title": "Marcus Wareing Chef", "source_url": "https://greatbritishchefs.com/chefs/marcus-wareing"}, {"mentor": "Gordon Ramsay", "trainee": "Paul Ainsworth", "lineage_branch": "British brigade tree", "kitchen": "Royal Hospital Road", "relationship": "worked", "period": "Three years", "source_mentions": 7, "source_title": "Paul Ainsworth", "source_url": "https://greatbritishchefs.com/chefs/paul-ainsworth"}, {"mentor": "Marco Pierre White", "trainee": "Gordon Ramsay", "lineage_branch": "British brigade tree", "kitchen": "Harveys", "relationship": "worked", "period": "two years and ten months", "source_mentions": 50, "source_title": "Marco Pierre White - Four Seasons Fruiterers", "source_url": "https://fsfruit.co.uk/marco-pierre-white"}, {"mentor": "Marco Pierre White", "trainee": "Heston Blumenthal", "lineage_branch": "British brigade tree", "kitchen": "Canteen", "relationship": "trained", "period": "four months", "source_mentions": 4, "source_title": "The Real Story Behind Marco Pierre White and The Devil in the Kitchen", "source_url": "https://daedalusproduction.com/the-real-story-behind-marco-pierre-white-and-the-devil-in-the-kitchen-21i3"}, {"mentor": "Marco Pierre White", "trainee": "Jason Atherton", "lineage_branch": "British brigade tree", "kitchen": "Harvey’s", "relationship": "worked", "period": null, "source_mentions": 3, "source_title": "British Food Just Got a Royal (and Local) Upgrade", "source_url": "https://guide.michelin.com/us/en/article/features/pollen-street-social-menu-london-michelin-guide"}, {"mentor": "Marco Pierre White", "trainee": "Mario Batali", "lineage_branch": "British brigade tree", "kitchen": "Six Bells public house in the Kings Road", "relationship": "trained", "period": null, "source_mentions": 8, "source_title": "Marco Pierre White - Researcher", "source_url": "https://food.wikisort.org/researcher/en/Researcher/Marco_Pierre_White"}, {"mentor": "Marco Pierre White", "trainee": "Phil Howard", "lineage_branch": "British brigade tree", "kitchen": "Harveys", "relationship": "worked", "period": null, "source_mentions": 4, "source_title": "Marco Pierre White - Wikiwand", "source_url": "https://wikiwand.com/en/articles/Marco_Pierre_White"}, {"mentor": "Marco Pierre White", "trainee": "Stephen Terry", "lineage_branch": "British brigade tree", "kitchen": "Harveys", "relationship": "trained", "period": null, "source_mentions": 4, "source_title": "Marco Pierre White", "source_url": "http://en.wikipedia.org/wiki/Marco_Pierre_White"}, {"mentor": "Marcus Wareing", "trainee": "Paul Ainsworth", "lineage_branch": "British brigade tree", "kitchen": "Pétrus", "relationship": "worked", "period": null, "source_mentions": 2, "source_title": "Paul Ainsworth", "source_url": "https://greatbritishchefs.com/chefs/paul-ainsworth"}, {"mentor": "Pierre Koffmann", "trainee": "Gordon Ramsay", "lineage_branch": "British brigade tree", "kitchen": "La Tante Claire", "relationship": "head chef", "period": "1993", "source_mentions": 18, "source_title": "British chef, restaurateur, and television personality (born 1966)", "source_url": "https://wikipedia-org.zproxy.org/wiki/Gordon_Ramsay"}, {"mentor": "Pierre Koffmann", "trainee": "Jason Atherton", "lineage_branch": "British brigade tree", "kitchen": "La Tante Claire", "relationship": "chef de partie", "period": "early Nineties", "source_mentions": 4, "source_title": "British Food Just Got a Royal (and Local) Upgrade", "source_url": "http://guide.michelin.com/us/en/article/features/pollen-street-social-menu-london-michelin-guide"}, {"mentor": "Pierre Koffmann", "trainee": "Marco Pierre White", "lineage_branch": "British brigade tree", "kitchen": "La Tante Claire", "relationship": "trained", "period": "1981", "source_mentions": 34, "source_title": "Marco Pierre White", "source_url": "https://en.wikipedia.org/wiki/Marco%20Pierre%20White"}, {"mentor": "Pierre Koffmann", "trainee": "Marcus Wareing", "lineage_branch": "British brigade tree", "kitchen": "La Tante Claire", "relationship": "trained", "period": null, "source_mentions": 3, "source_title": "Great British Menu 2012, North West Heat Preview", "source_url": "https://greatbritishchefs.com/features/great-british-menu-2012-north-west-preview"}, {"mentor": "Pierre Koffmann", "trainee": "Tom Kitchin", "lineage_branch": "British brigade tree", "kitchen": "La Tante Claire", "relationship": "worked", "period": "two-and-a-half years", "source_mentions": 8, "source_title": "Tom Kitchin Chef", "source_url": "https://www.greatbritishchefs.com/chefs/tom-kitchin"}, {"mentor": "Roux Brothers", "trainee": "Marco Pierre White", "lineage_branch": "British brigade tree", "kitchen": "Le Gavroche", "relationship": "Trained", "period": "1981", "source_mentions": 4, "source_title": "The French Renaissance: From Roux and Koffmann to the Modern Bistro Revival", "source_url": "https://theknife.online/post/the-french-renaissance-from-roux-and-koffmann-to-the-modern-bistro-revival"}, {"mentor": "Roux Brothers", "trainee": "Pierre Koffmann", "lineage_branch": "British brigade tree", "kitchen": "Le Gavroche", "relationship": "worked", "period": "early 1970’s", "source_mentions": 6, "source_title": "Where the Chefs Eat: Pierre Koffmann's favourite restaurants in London", "source_url": "https://cntraveller.com/article/where-the-chefs-eat-pierre-koffmans-favourite-restaurants-in-london"}, {"mentor": "Alain Chapel", "trainee": "Alain Ducasse", "lineage_branch": "French foundations", "kitchen": "Mionnay", "relationship": "worked", "period": "1978", "source_mentions": 20, "source_title": "L'Esprit Chapel", "source_url": "https://kitchenartsandletters.com/products/lesprit-chapel"}, {"mentor": "Alain Chapel", "trainee": "Michel Roux Jr.", "lineage_branch": "French foundations", "kitchen": "hotel and restaurant", "relationship": "worked", "period": "two years", "source_mentions": 9, "source_title": "Masters of their trade", "source_url": "https://four-magazine.com/tasting-notes/masters-of-their-trade"}, {"mentor": "Alain Ducasse", "trainee": "Elena Arzak", "lineage_branch": "French foundations", "kitchen": "Le Louis XV", "relationship": "trained", "period": null, "source_mentions": 8, "source_title": "9 Top Female Chefs To Celebrate This International Women’s Day", "source_url": "http://guide.michelin.com/hk/en/article/features/%E4%B8%96%E7%95%8C%E9%A0%82%E5%B0%96%E5%A5%B3%E4%B8%BB%E5%BB%9A"}, {"mentor": "Alain Ducasse", "trainee": "Hélène Darroze", "lineage_branch": "French foundations", "kitchen": "Hélène Darroze at The Connaught", "relationship": "stint", "period": null, "source_mentions": 8, "source_title": "9 Top Female Chefs To Celebrate This International Women’s Day", "source_url": "http://guide.michelin.com/hk/en/article/features/%E4%B8%96%E7%95%8C%E9%A0%82%E5%B0%96%E5%A5%B3%E4%B8%BB%E5%BB%9A"}, {"mentor": "Alain Ducasse", "trainee": "Kei Kobayashi", "lineage_branch": "French foundations", "kitchen": "Restaurant Alain Ducasse au Plaza Athénée", "relationship": "sous-chef", "period": "seven years in total", "source_mentions": 2, "source_title": "Kei-Paris-Restaurant-50Best Discovery", "source_url": "https://theworlds50best.com/discovery/Establishments/France/Paris/Kei.html"}, {"mentor": "Eugénie Brazier", "trainee": "Paul Bocuse", "lineage_branch": "French foundations", "kitchen": "La Mère Brazier", "relationship": "apprenticed", "period": "after the war", "source_mentions": 31, "source_title": "Paul Bocuse, Celebrated French Chef, Dies at 91", "source_url": "https://nytimes.com/2018/01/20/obituaries/paul-bocuse-dead.html"}, {"mentor": "Fernand Point", "trainee": "Alain Chapel", "lineage_branch": "French foundations", "kitchen": "La Pyramide", "relationship": "trained", "period": null, "source_mentions": 7, "source_title": "Fernand Point - WikiMD's Medical Encyclopedia", "source_url": "https://wikimd.org/wiki/Fernand_Point"}, {"mentor": "Fernand Point", "trainee": "Jean Troisgros", "lineage_branch": "French foundations", "kitchen": "La Pyramide", "relationship": "worked", "period": null, "source_mentions": 6, "source_title": "Pierre Troisgros, Renowned French Restaurateur, Dies at 92", "source_url": "https://nytimes.com/2020/09/25/dining/pierre-troisgros-dead.html"}, {"mentor": "Fernand Point", "trainee": "Louis Outhier", "lineage_branch": "French foundations", "kitchen": "La Pyramide", "relationship": "trained", "period": null, "source_mentions": 5, "source_title": "How Great Kitchens Shape Exceptional Chefs", "source_url": "https://chefs.studio/blog/from-pass-to-pass-how-great-kitchens-build-chefs"}, {"mentor": "Fernand Point", "trainee": "Paul Bocuse", "lineage_branch": "French foundations", "kitchen": "La Pyramide", "relationship": "apprenticed", "period": "eight years", "source_mentions": 49, "source_title": "Paul Bocuse, Celebrated French Chef, Dies at 91", "source_url": "https://nytimes.com/2018/01/20/obituaries/paul-bocuse-dead.html"}, {"mentor": "Fernand Point", "trainee": "Pierre Troisgros", "lineage_branch": "French foundations", "kitchen": "La Pyramide", "relationship": "worked", "period": "late 1940s", "source_mentions": 5, "source_title": "How Great Kitchens Shape Exceptional Chefs", "source_url": "https://chefs.studio/blog/from-pass-to-pass-how-great-kitchens-build-chefs"}, {"mentor": "Guy Savoy", "trainee": "Albert Adrià", "lineage_branch": "French foundations", "kitchen": "Guy Savoy", "relationship": "trained", "period": "off-season", "source_mentions": 2, "source_title": "Albert Adrià | Estrella Damm Chefs’ Choice Award 2025", "source_url": "https://www.theworlds50best.com/restaurants/best-in-the-world/awards/chefs-choice-award.html"}, {"mentor": "Guy Savoy", "trainee": "Gordon Ramsay", "lineage_branch": "French foundations", "kitchen": "Guy Savoy", "relationship": "worked", "period": null, "source_mentions": 2, "source_title": "Marco Pierre White: Gordon Ramsay's Mentor and Inspiration", "source_url": "https://h-o-m-e.org/gordon-ramsay-mentor"}, {"mentor": "Joël Robuchon", "trainee": "Eric Ripert", "lineage_branch": "French foundations", "kitchen": "Jamin", "relationship": "worked", "period": "one year", "source_mentions": 34, "source_title": "THE CHEF: ERIC RIPERT; Upstairs at Le Bernardin, a Whiff of the Spanish Border", "source_url": "https://nytimes.com/2002/11/06/dining/the-chef-eric-ripert-upstairs-at-le-bernardin-a-whiff-of-the-spanish-border.html"}, {"mentor": "Joël Robuchon", "trainee": "Gordon Ramsay", "lineage_branch": "French foundations", "kitchen": "Jamin", "relationship": "worked", "period": "the 1980s", "source_mentions": 7, "source_title": "The Untold Truth Of Joël Robuchon", "source_url": "https://www.mashed.com/130984/the-untold-truth-of-joel-robuchon/"}, {"mentor": "Michel Guérard", "trainee": "Alain Ducasse", "lineage_branch": "French foundations", "kitchen": "Michel Guérard's restaurant", "relationship": "worked", "period": "1975", "source_mentions": 34, "source_title": "Why Alain Ducasse Rules French Cuisine", "source_url": "https://businessinsider.com/why-alain-ducasse-rules-french-cuisine-2012-11"}, {"mentor": "Paul Bocuse", "trainee": "Daniel Boulud", "lineage_branch": "French foundations", "kitchen": "Auberge du Pont de Collonges", "relationship": "apprentice", "period": null, "source_mentions": 2, "source_title": "In Memoriam: Paul Bocuse", "source_url": "http://guide.michelin.com/sg/en/article/news-and-views/paul-bocusepaul-bocuse-death-memoriam"}, {"mentor": "Paul Bocuse", "trainee": "Eckart Witzigmann", "lineage_branch": "French foundations", "kitchen": null, "relationship": "student", "period": null, "source_mentions": 6, "source_title": "The Story Of Paul Bocuse - Fabulously Delicious: The French Food Podcast", "source_url": "https://fabulouslydelicious.buzzsprout.com/1791839/episodes/17526580-the-story-of-paul-bocuse"}, {"mentor": "Roger Vergé", "trainee": "Alain Ducasse", "lineage_branch": "French foundations", "kitchen": "Moulin de Mougins", "relationship": "worked", "period": "1977", "source_mentions": 48, "source_title": "Why Alain Ducasse Rules French Cuisine", "source_url": "https://businessinsider.com/why-alain-ducasse-rules-french-cuisine-2012-11"}, {"mentor": "Enrique Olvera", "trainee": "Jorge Vallejo", "lineage_branch": "Global offshoots", "kitchen": "Pujol", "relationship": "worked", "period": null, "source_mentions": 2, "source_title": "Quintonil | Latin America’s 50 Best Restaurants 2020", "source_url": "https://theworlds50best.com/latinamerica/en/the-list/11-20/quintonil.html"}, {"mentor": "Heston Blumenthal", "trainee": "Shinobu Namae", "lineage_branch": "Global offshoots", "kitchen": "The Fat Duck", "relationship": "sous-chef", "period": "2008", "source_mentions": 2, "source_title": "Sustainability is caring Shinobu Namae of LEffervescence Asias Sustainable Restaurant winner", "source_url": "https://theworlds50best.com/stories/News/sustainability-is-caring-shinobu-namae-leffervescence-asia-sustainable-restaurant.html"}, {"mentor": "Michel Bras", "trainee": "Shinobu Namae", "lineage_branch": "Global offshoots", "kitchen": "Toya", "relationship": "worked", "period": null, "source_mentions": 2, "source_title": "Sustainability is caring Shinobu Namae of LEffervescence Asias Sustainable Restaurant winner", "source_url": "https://theworlds50best.com/stories/News/sustainability-is-caring-shinobu-namae-leffervescence-asia-sustainable-restaurant.html"}, {"mentor": "René Redzepi", "trainee": "Jorge Vallejo", "lineage_branch": "Global offshoots", "kitchen": "Noma", "relationship": "stint", "period": null, "source_mentions": 2, "source_title": "Quintonil | Latin America’s 50 Best Restaurants 2020", "source_url": "https://theworlds50best.com/latinamerica/en/the-list/11-20/quintonil.html"}, {"mentor": "Charlie Trotter", "trainee": "Grant Achatz", "lineage_branch": "US fine-dining tree", "kitchen": "Charlie Trotter's", "relationship": "worked", "period": "a summer 10 years prior", "source_mentions": 4, "source_title": "A Look at Grant Achatz’s Biography Life, On The Line: Cars, Keller, and Cancer", "source_url": "https://eater.com/2010/11/30/6708347/a-look-at-grant-achatzs-biography-life-on-the-line-cars-keller-and"}, {"mentor": "Grant Achatz", "trainee": "Curtis Duffy", "lineage_branch": "US fine-dining tree", "kitchen": null, "relationship": null, "period": null, "source_mentions": 3, "source_title": "Culinary: Curtis Duffy", "source_url": "https://defininggreatness.net/interviews/duffy"}, {"mentor": "Thomas Keller", "trainee": "Corey Lee", "lineage_branch": "US fine-dining tree", "kitchen": "The French Laundry", "relationship": "worked", "period": "2001", "source_mentions": 7, "source_title": "The French Laundry: Training Ground for Top Toques", "source_url": "https://guide.michelin.com/us/en/california/article/people/thomas-keller-the-french-laundry-alumni"}, {"mentor": "Thomas Keller", "trainee": "Grant Achatz", "lineage_branch": "US fine-dining tree", "kitchen": "The French Laundry", "relationship": "worked", "period": "four years", "source_mentions": 19, "source_title": "The French Laundry: Training Ground for Top Toques", "source_url": "https://guide.michelin.com/us/en/california/article/people/thomas-keller-the-french-laundry-alumni"}, {"mentor": "Thomas Keller", "trainee": "René Redzepi", "lineage_branch": "US fine-dining tree", "kitchen": "The French Laundry", "relationship": "worked", "period": "2001", "source_mentions": 16, "source_title": "The French Laundry: Training Ground for Top Toques", "source_url": "https://guide.michelin.com/us/en/california/article/people/thomas-keller-the-french-laundry-alumni"}, {"mentor": "Ferran Adrià", "trainee": "Albert Adrià", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "worked", "period": "23 years", "source_mentions": 6, "source_title": "STAR CHEFS MADE IN SPAIN", "source_url": "https://titairene.wordpress.com/2014/04/22/star-chefs-made-in-spain"}, {"mentor": "Ferran Adrià", "trainee": "Andoni Luis Aduriz", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "staged", "period": "1993–94", "source_mentions": 9, "source_title": "Memories of the future how 25 years of Mugaritz made Andoni Luis Aduriz an icon", "source_url": "https://theworlds50best.com/stories/News/world-restaurants-icon-award-2023-andoni-luiz-aduriz.html"}, {"mentor": "Ferran Adrià", "trainee": "Grant Achatz", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "staged", "period": "the summer of 2000", "source_mentions": 5, "source_title": "Grant Achatz | Restaurants, Wife, The Bear, Health, & Molecular Gastronomy", "source_url": "https://www.britannica.com/biography/Grant-Achatz"}, {"mentor": "Ferran Adrià", "trainee": "Joan Roca", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "staged", "period": "following year", "source_mentions": 5, "source_title": "Joan Roca They say Im the leader but sharing decisions is the key to our lasting relationship", "source_url": "https://theworlds50best.com/stories/News/joan-roca-el-celler-can-roca-best-beyond.html"}, {"mentor": "Ferran Adrià", "trainee": "José Andrés", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "staged", "period": "1987–88", "source_mentions": 4, "source_title": "STAR CHEFS MADE IN SPAIN", "source_url": "https://titairene.wordpress.com/2014/04/22/star-chefs-made-in-spain"}, {"mentor": "Ferran Adrià", "trainee": "Massimo Bottura", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "staged", "period": "2000", "source_mentions": 5, "source_title": "Massimo Bottura There are very few restaurants where you can eat emotions", "source_url": "https://theworlds50best.com/stories/News/massimo-bottura-osteria-francescana-eating-emotions.html"}, {"mentor": "Ferran Adrià", "trainee": "Paco Pérez", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "worked", "period": null, "source_mentions": 4, "source_title": "STAR CHEFS MADE IN SPAIN", "source_url": "https://titairene.wordpress.com/2014/04/22/star-chefs-made-in-spain"}, {"mentor": "Ferran Adrià", "trainee": "René Redzepi", "lineage_branch": "elBulli / Spanish avant-garde", "kitchen": "elBulli", "relationship": "worked", "period": "a season", "source_mentions": 14, "source_title": "René Redzepi", "source_url": "https://kids.britannica.com/kids/article/Ren%C3%A9-Redzepi/604370"}];
+var branches = [{"lineage_branch": "British brigade tree", "documented_links": 20, "teaching_chefs": 6, "alumni_chefs": 13, "total_source_mentions": 217.0, "representative_source_url": "https://fsfruit.co.uk/marco-pierre-white"}, {"lineage_branch": "French foundations", "documented_links": 19, "teaching_chefs": 9, "alumni_chefs": 15, "total_source_mentions": 285.0, "representative_source_url": "https://nytimes.com/2018/01/20/obituaries/paul-bocuse-dead.html"}, {"lineage_branch": "elBulli / Spanish avant-garde", "documented_links": 8, "teaching_chefs": 1, "alumni_chefs": 8, "total_source_mentions": 52.0, "representative_source_url": "https://kids.britannica.com/kids/article/Ren%C3%A9-Redzepi/604370"}, {"lineage_branch": "US fine-dining tree", "documented_links": 5, "teaching_chefs": 3, "alumni_chefs": 4, "total_source_mentions": 49.0, "representative_source_url": "https://guide.michelin.com/us/en/california/article/people/thomas-keller-the-french-laundry-alumni"}, {"lineage_branch": "Global offshoots", "documented_links": 4, "teaching_chefs": 4, "alumni_chefs": 2, "total_source_mentions": 8.0, "representative_source_url": "https://theworlds50best.com/latinamerica/en/the-list/11-20/quintonil.html"}];
+var COLORS = {"British brigade tree":"#1f6f54","French foundations":"#1d4ea0","elBulli / Spanish avant-garde":"#c2452d","US fine-dining tree":"#b98311","Global offshoots":"#7a4b9e"};
+var SHORTB = {"British brigade tree":"British brigade","French foundations":"French foundations","elBulli / Spanish avant-garde":"elBulli / Spanish","US fine-dining tree":"US fine dining","Global offshoots":"Global offshoots"};
+// legend
+var lg = document.getElementById('legend');
+branches.forEach(function(br){
+  var s = document.createElement('span');
+  s.innerHTML = '<i style="background:'+COLORS[br.lineage_branch]+'"></i>'+SHORTB[br.lineage_branch]+' · '+br.documented_links+' links';
+  lg.appendChild(s);
+});
+// nodes
+var deg = {}, outd = {}, ind = {}, nbranch = {};
+edges.forEach(function(e){
+  deg[e.mentor]=(deg[e.mentor]||0)+1; deg[e.trainee]=(deg[e.trainee]||0)+1;
+  outd[e.mentor]=(outd[e.mentor]||0)+1; ind[e.trainee]=(ind[e.trainee]||0)+1;
+  nbranch[e.mentor]=nbranch[e.mentor]||e.lineage_branch;
+  nbranch[e.trainee]=e.lineage_branch;
+});
+var nodes = Object.keys(deg).map(function(n){return {id:n, deg:deg[n], out:outd[n]||0, "in":ind[n]||0, branch:nbranch[n]};});
+var links = edges.map(function(e){return Object.assign({source:e.mentor, target:e.trainee}, e);});
+var host = function(u){try{return u.replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0];}catch(x){return u;}};
+var isShort = function(r){r=(r||'').toLowerCase();return r.indexOf('train')>=0||r.indexOf('stage')>=0;};
+
+var tip = d3.select('#tip');
+function showTip(html,ev){tip.html(html).style('opacity',1)
+ .style('left', Math.min(ev.clientX+14, window.innerWidth-300)+'px')
+ .style('top', (ev.clientY+14)+'px');}
+function hideTip(){tip.style('opacity',0);}
+
+var svg = d3.select('#net');
+var W, H;
+function draw(){
+ W = Math.max(320, document.querySelector('.viz').clientWidth);
+ H = W < 640 ? 760 : 820;
+ svg.attr('viewBox','0 0 '+W+' '+H).attr('width',W).attr('height',H).selectAll('*').remove();
+
+ var defs = svg.append('defs');
+ Object.keys(COLORS).forEach(function(br,i){
+  defs.append('marker').attr('id','arr'+i).attr('viewBox','0 -4 8 8').attr('refX',7).attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
+   .append('path').attr('d','M0,-4L8,0L0,4').attr('fill',COLORS[br]);
+ });
+ var brIdx = {}; Object.keys(COLORS).forEach(function(br,i){brIdx[br]=i;});
+
+ var ns = nodes.map(function(d){return Object.assign({},d);});
+ var ls = links.map(function(d){return Object.assign({},d);});
+
+ var sim = d3.forceSimulation(ns)
+  .force('link', d3.forceLink(ls).id(function(d){return d.id;}).distance(W<640?55:85).strength(0.5))
+  .force('charge', d3.forceManyBody().strength(W<640?-220:-420))
+  .force('center', d3.forceCenter(W/2,H/2))
+  .force('collide', d3.forceCollide().radius(function(d){return 10+Math.sqrt(d.deg)*6;}))
+  .force('x', d3.forceX(W/2).strength(0.06))
+  .force('y', d3.forceY(H/2).strength(0.08))
+  .stop();
+ for(var i=0;i<300;i++) sim.tick();
+ var pad = 30;
+ ns.forEach(function(d){d.x=Math.max(pad,Math.min(W-pad,d.x)); d.y=Math.max(pad,Math.min(H-pad,d.y));});
+
+ var g = svg.append('g');
+ var link = g.selectAll('path.l').data(ls).enter().append('path')
+  .attr('fill','none')
+  .attr('stroke',function(d){return COLORS[d.lineage_branch];})
+  .attr('stroke-width',function(d){return 1.2+Math.min(3,Math.sqrt(d.source_mentions)/2);})
+  .attr('stroke-opacity',0.55)
+  .attr('stroke-dasharray',function(d){return isShort(d.relationship)?'5 4':null;})
+  .attr('marker-end',function(d){return 'url(#arr'+brIdx[d.lineage_branch]+')';})
+  .attr('d',function(d){
+    var dx=d.target.x-d.source.x, dy=d.target.y-d.source.y, dr=Math.sqrt(dx*dx+dy*dy)*1.4;
+    var r2=8+Math.sqrt(d.target.deg)*3.2+4, ang=Math.atan2(dy,dx);
+    var tx=d.target.x-Math.cos(ang-0.35)*r2, ty=d.target.y-Math.sin(ang-0.35)*r2;
+    return 'M'+d.source.x+','+d.source.y+'A'+dr+','+dr+' 0 0,1 '+tx+','+ty;});
+
+ var node = g.selectAll('g.n').data(ns).enter().append('g')
+  .attr('transform',function(d){return 'translate('+d.x+','+d.y+')';});
+ node.append('circle')
+  .attr('r',function(d){return 5+Math.sqrt(d.deg)*3.2;})
+  .attr('fill',function(d){return COLORS[d.branch];})
+  .attr('fill-opacity',function(d){return d.out>0?1:0.75;})
+  .attr('stroke','#fff').attr('stroke-width',1.5);
+ node.append('text')
+  .text(function(d){return (W<640 && d.deg<2)?'':d.id;})
+  .attr('x',function(d){return d.x>W/2?-(8+Math.sqrt(d.deg)*3.2):(8+Math.sqrt(d.deg)*3.2);})
+  .attr('text-anchor',function(d){return d.x>W/2?'end':'start';})
+  .attr('y',4)
+  .style('font-family',"'TASA Orbiter',system-ui")
+  .style('font-size',function(d){return d.deg>=4?'13px':'11px';})
+  .style('font-weight',function(d){return d.deg>=4?'700':'400';})
+  .style('paint-order','stroke').style('stroke','#fff').style('stroke-width','3px')
+  .attr('fill','#141414');
+
+ function focusNode(d){
+  var keep={}; keep[d.id]=1;
+  ls.forEach(function(l){if(l.source.id===d.id||l.target.id===d.id){keep[l.source.id]=1;keep[l.target.id]=1;}});
+  node.attr('opacity',function(n){return keep[n.id]?1:0.08;});
+  link.attr('stroke-opacity',function(l){return (l.source.id===d.id||l.target.id===d.id)?0.95:0.04;});
+ }
+ function unfocus(){node.attr('opacity',1);link.attr('stroke-opacity',0.55);}
+
+ node.on('mousemove',function(ev,d){
+   focusNode(d);
+   var mentors=ls.filter(function(l){return l.target.id===d.id;}).map(function(l){return l.source.id;});
+   var pupils=ls.filter(function(l){return l.source.id===d.id;}).map(function(l){return l.target.id;});
+   showTip('<b>'+d.id+'</b><br>trained under: '+(mentors.join(', ')||'—')+'<br>trained: '+(pupils.join(', ')||'—'),ev);
+ }).on('mouseleave',function(){unfocus();hideTip();});
+ link.on('mousemove',function(ev,d){
+   node.attr('opacity',function(n){return (n.id===d.source.id||n.id===d.target.id)?1:0.08;});
+   link.attr('stroke-opacity',function(l){return l===d?0.95:0.04;});
+   showTip('<b>'+d.source.id+' → '+d.target.id+'</b><br>'+(d.kitchen||'—')+(d.period?' · '+d.period:'')+'<br>'+d.relationship+' · '+d.source_mentions+' source mentions<br>'+host(d.source_url),ev);
+ }).on('mouseleave',function(){unfocus();hideTip();});
+
+ // entrance
+ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  link.each(function(){var L=this.getTotalLength();d3.select(this).attr('stroke-dashoffset',L).attr('stroke-dasharray',this.getAttribute('stroke-dasharray')||L+' '+L).transition().duration(900).delay(function(d,i){return i*12;}).attr('stroke-dashoffset',0);});
+  node.attr('opacity',0).transition().duration(500).delay(function(d,i){return i*10;}).attr('opacity',1);
+ }
+}
+draw();
+var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(draw,200);});
+
+// table
+var tb = document.getElementById('tb');
+function renderTable(q){
+ q=(q||'').toLowerCase();
+ tb.innerHTML = edges.filter(function(e){
+   return !q || (e.mentor+' '+e.trainee+' '+e.kitchen+' '+e.lineage_branch).toLowerCase().indexOf(q)>=0;
+ }).map(function(e){
+   return '<tr><td><b>'+e.mentor+'</b></td><td>'+e.trainee+'</td><td>'+(e.kitchen||'—')+'</td><td><span style="color:'+COLORS[e.lineage_branch]+'">●</span> '+SHORTB[e.lineage_branch]+'</td><td>'+(e.period||'—')+'</td><td>'+e.source_mentions+'</td><td><a href="'+e.source_url+'" target="_blank" rel="noopener noreferrer">'+host(e.source_url)+'</a></td></tr>';
+ }).join('');
+}
+renderTable('');
+document.getElementById('search').addEventListener('input',function(){renderTable(this.value);});
+})();
+</script></body></html>

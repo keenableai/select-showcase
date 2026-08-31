@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/the-great-chef-kitchen-lineage/3EMoxM-e9zoiRFRVS3_dGA",
+ "artifact": {
+  "token": "3EMoxM-e9zoiRFRVS3_dGA",
+  "title": "The Great-Chef Kitchen Lineage",
+  "visibility": "public",
+  "bytes_size": "34921",
+  "created_at": "2026-08-31 23:02:13.419023+00:00",
+  "expires_at": "2026-11-29 23:02:13.419023+00:00"
+ },
+ "conversation": {
+  "title": "Which famous chefs trained in which other chefs' kitchens? Draw the lineage tree.",
+  "created_at": "2026-08-31 22:55:40.189509+00:00",
+  "updated_at": "2026-08-31 23:02:29.251842+00:00"
+ }
+}
