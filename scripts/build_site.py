@@ -66,14 +66,14 @@ h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
 .card{background:#fff;border:1px solid #DDDDDD;padding:0 0 20px;
   display:flex;flex-direction:column}
-.card .shot{display:block;width:100%;height:230px;object-fit:cover;object-position:top;
-  border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.card .shot{display:block;width:100%;height:230px;object-fit:contain;object-position:center;
+  padding:16px;border-bottom:1px solid #DDDDDD;background:#fff}
 .card .noshot{height:230px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
-.card-foot{display:flex;justify-content:space-between;align-items:baseline;
-  gap:14px;margin:16px 20px 0;flex:1}
-.card-foot h2{font-weight:400;font-size:20px;line-height:1.15;margin:0}
+.card-foot{display:flex;flex-direction:column;gap:10px;margin:16px 20px 0;flex:1}
+.card-foot h2{font-weight:400;font-size:20px;line-height:1.15;margin:0;flex:1}
 .card-foot h2 a{color:#2A2A2A}
-.card-foot a.traj{color:#0A57E8;white-space:nowrap;align-self:flex-end}
+.card-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.card-foot a.traj{color:#0A57E8;white-space:nowrap}
 .msg{border:1px solid #DDDDDD;margin:0 0 -1px}
 .msg-head{padding:8px 16px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
 .msg-user .msg-head{background:#DAEBFF}
@@ -308,10 +308,10 @@ def copy_assets() -> None:
 
 def write_thumb(src: Path, dest: Path) -> tuple[int, int]:
     with Image.open(src) as source:
-        scale = THUMB_WIDTH / source.width
-        crop_height = min(source.height, round(THUMB_HEIGHT / scale))
-        top = source.crop((0, 0, source.width, crop_height))
-        thumb = top.resize((THUMB_WIDTH, round(crop_height * scale)), Image.LANCZOS)
+        scale = min(THUMB_WIDTH / source.width, THUMB_HEIGHT / source.height, 1)
+        thumb = source.resize(
+            (round(source.width * scale), round(source.height * scale)), Image.LANCZOS
+        )
         thumb.save(dest, "WEBP", quality=82)
         return thumb.width, thumb.height
 
@@ -372,6 +372,8 @@ def build_report(slug: str) -> dict:
         "title": title,
         "report_url": report_url,
         "created_at": meta["artifact"]["created_at"][:10],
+        "n_messages": len(transcript),
+        "n_queries": n_queries,
         "has_trajectory": bool(transcript),
         "thumb_size": thumb_size,
     }
@@ -389,15 +391,19 @@ def build_index(entries: list[dict]) -> None:
             )
         else:
             shot = '<div class="noshot"></div>'
-        traj = (
-            f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
-            if e["has_trajectory"]
-            else ""
-        )
+        if e["has_trajectory"]:
+            stats = (
+                f'{e["created_at"]} &middot; {e["n_messages"]} messages'
+                f' &middot; {e["n_queries"]} queries'
+            )
+            traj = f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
+        else:
+            stats = e["created_at"]
+            traj = ""
         cards.append(
             f'<div class="card">{shot}'
             f'<div class="card-foot"><h2><a href="{e["report_url"]}">{esc(e["title"])}</a></h2>'
-            f"{traj}</div></div>"
+            f'<div class="card-meta"><span class="label">{stats}</span>{traj}</div></div></div>'
         )
     body = (
         '<p class="intro">Research reports built by'
