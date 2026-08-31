@@ -13,10 +13,10 @@ A collection of selected WebQL reports with their full agent trajectories.
     full rows and notes. Stored in Git LFS.
   - `preview.png` — a full-page screenshot of the report (og-render).
 - `site_assets/` — brand fonts (OFL) and logos for the site pages.
-The GitHub Pages site is generated from `reports/` and lives on the
-`gh-pages` branch: an index page plus, per example, the report and a
-rendered trajectory. A push to `gh-pages` triggers the deploy workflow
-on that branch, which publishes the site.
+`scripts/build_site.py` generates the GitHub Pages site from `reports/`:
+an index page plus, per example, the report and a rendered trajectory.
+The deploy workflow runs it on every push to main and publishes the
+result to GitHub Pages.
 
 ## Site
 

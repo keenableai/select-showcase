@@ -1,3 +1,4 @@
-scripts/
+scripts/fetch_report.py
+scripts/render_preview.py
+__pycache__/
 _site/
-.gh-pages-worktree/
