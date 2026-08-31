@@ -19,6 +19,7 @@ import shutil
 from pathlib import Path
 
 import fire
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 REPORTS = ROOT / "reports"
@@ -26,6 +27,16 @@ ASSETS = ROOT / "site_assets"
 DOCS = ROOT / "_site"
 
 GITHUB_URL = "https://github.com/keenableai/select-showcase"
+SITE_URL = "https://keenableai.github.io/select-showcase/"
+SELECT_URL = "https://app.keenable.ai/select/"
+INDEX_TITLE = "SELECT showcase — research reports with full agent trajectories"
+INDEX_DESCRIPTION = (
+    "Research reports built by SELECT, an agent that searches the web in SQL —"
+    " each published with the full run behind it: every query, every tool"
+    " result, every result set."
+)
+THUMB_WIDTH = 720
+THUMB_HEIGHT = 480
 
 HLJS_JS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
 
@@ -43,7 +54,9 @@ header.site img{height:28px;display:block}
 header.site .name{font-weight:400;font-size:18px;color:#2A2A2A}
 header.site .spacer{flex:1}
 header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
-  letter-spacing:-.004em;color:#646464}
+  letter-spacing:-.004em;color:#646464;margin-left:20px}
+header.site a.ask{color:#0A57E8}
+.intro{max-width:760px;margin-bottom:36px;font-size:17px;color:#333}
 body.framed{display:flex;flex-direction:column;height:100vh}
 .wrap.bar{width:100%;padding-bottom:0}
 .wrap.bar header.site{margin-bottom:0}
@@ -97,6 +110,14 @@ footer.site{margin-top:64px;padding-top:20px;border-top:1px solid #DDDDDD;
 footer.site img{height:16px;display:block}
 footer.site a{font-family:'TASA Orbiter',system-ui;font-size:12px;
   letter-spacing:-.004em;color:#646464}
+@media (max-width:640px){
+  .wrap{padding:0 16px 48px}
+  header.site{flex-wrap:wrap;gap:10px 14px;padding:16px 0}
+  header.site a.gh{margin-left:0}
+  h1{font-size:32px;line-height:1.05}
+  .intro{font-size:15px}
+  .card-foot{flex-wrap:wrap}
+}
 .hljs-keyword{color:#005CFF}
 .hljs-string{color:#646464}
 .hljs-number{color:#F25F34}
@@ -201,11 +222,23 @@ def trim_transcript(transcript: list[dict]) -> list[dict]:
     return trimmed
 
 
-def page_head(title: str, root: str) -> str:
+def page_head(title: str, root: str, description: str = "", og: bool = False) -> str:
+    meta = ""
+    if description:
+        meta += f'<meta name="description" content="{html.escape(description)}">'
+    if og:
+        meta += (
+            f'<meta property="og:title" content="{html.escape(title)}">'
+            f'<meta property="og:description" content="{html.escape(description)}">'
+            f'<meta property="og:image" content="{SITE_URL}og.png">'
+            f'<meta property="og:url" content="{SITE_URL}">'
+            '<meta property="og:type" content="website">'
+            '<meta name="twitter:card" content="summary_large_image">'
+        )
     return (
         '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f"<title>{esc(title)}</title>"
+        f"<title>{esc(title)}</title>{meta}"
         f'<link rel="icon" href="{root}keenable-mark.svg" type="image/svg+xml">'
         f'<link rel="stylesheet" href="{root}fonts/brand.css">'
         f"<style>{PAGE_CSS}</style></head>"
@@ -217,13 +250,21 @@ def site_header(root: str) -> str:
         '<header class="site">'
         f'<a href="{root}index.html"><img src="{root}keenable-mark.svg" alt="Keenable"></a>'
         f'<span class="name">SELECT showcase</span><span class="spacer"></span>'
+        f'<a class="gh ask" href="{SELECT_URL}">Ask your own question &rarr;</a>'
         f'<a class="gh" href="{GITHUB_URL}">GitHub</a></header>'
     )
 
 
-def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
+def page(
+    title: str,
+    body: str,
+    root: str = "",
+    scripts: str = "",
+    description: str = "",
+    og: bool = False,
+) -> str:
     return (
-        f"{page_head(title, root)}<body>"
+        f"{page_head(title, root, description, og)}<body>"
         f'<div class="wrap">{site_header(root)}'
         f"{body}"
         f'<footer class="site"><a href="https://keenable.ai">'
@@ -233,9 +274,9 @@ def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
     )
 
 
-def frame_page(title: str, frame_src: str, root: str, foot: str) -> str:
+def frame_page(title: str, frame_src: str, root: str, foot: str, description: str = "") -> str:
     return (
-        f'{page_head(title, root)}<body class="framed">'
+        f'{page_head(title, root, description)}<body class="framed">'
         f'<div class="wrap bar">{site_header(root)}</div>'
         f'<iframe class="frame" src="{frame_src}" title="{esc(title)}"></iframe>'
         f'<div class="wrap bar"><footer class="site foot">{foot}</footer></div>'
@@ -277,6 +318,17 @@ def copy_assets() -> None:
     (fonts / "brand.css").write_text(brand_css())
     for name in ("keenable-mark.svg", "keenable-wordmark.svg"):
         shutil.copyfile(ASSETS / name, DOCS / name)
+    if (ASSETS / "og.png").exists():
+        shutil.copyfile(ASSETS / "og.png", DOCS / "og.png")
+
+
+def write_thumb(src: Path, dest: Path) -> None:
+    with Image.open(src) as preview:
+        scale = THUMB_WIDTH / preview.width
+        crop_height = min(preview.height, round(THUMB_HEIGHT / scale))
+        top = preview.crop((0, 0, preview.width, crop_height))
+        thumb = top.resize((THUMB_WIDTH, round(crop_height * scale)), Image.LANCZOS)
+        thumb.save(dest, "WEBP", quality=82)
 
 
 def load_result_sets(src: Path, out: Path) -> dict[str, dict]:
@@ -303,10 +355,11 @@ def build_report(slug: str) -> dict:
     shutil.copyfile(src / "report.html", out / "report_frame.html")
     has_preview = (src / "preview.png").exists()
     if has_preview:
-        shutil.copyfile(src / "preview.png", out / "preview.png")
+        write_thumb(src / "preview.png", out / "preview_thumb.webp")
     result_sets = load_result_sets(src, out)
 
     title = meta["artifact"]["title"]
+    question = (meta.get("conversation") or {}).get("title") or ""
     n_queries = sum(len(m.get("tool_calls") or []) for m in transcript)
     body = (
         f'<h1 class="small">{esc(title)}</h1>'
@@ -317,7 +370,14 @@ def build_report(slug: str) -> dict:
     )
     scripts = f'<script src="{HLJS_JS}"></script><script>hljs.highlightAll()</script>'
     (out / "trajectory.html").write_text(
-        page(f"{title} — trajectory", body, root="../", scripts=scripts)
+        page(
+            f"{title} — trajectory",
+            body,
+            root="../",
+            scripts=scripts,
+            description=f"The full agent run behind “{title}”: every SQL query,"
+            " tool result, and result set.",
+        )
     )
     foot = (
         f'<span class="label">{len(transcript)} messages &middot; {n_queries} queries'
@@ -325,7 +385,7 @@ def build_report(slug: str) -> dict:
         f'<a class="traj label" href="trajectory.html">Trajectory &rarr;</a>'
     )
     (out / "report.html").write_text(
-        frame_page(title, "report_frame.html", root="../", foot=foot)
+        frame_page(title, "report_frame.html", root="../", foot=foot, description=question)
     )
     return {
         "slug": slug,
@@ -341,7 +401,8 @@ def build_index(entries: list[dict]) -> None:
     for e in sorted(entries, key=lambda e: e["created_at"], reverse=True):
         shot = (
             f'<a href="{e["slug"]}/report.html">'
-            f'<img class="shot" src="{e["slug"]}/preview.png" alt=""></a>'
+            f'<img class="shot" src="{e["slug"]}/preview_thumb.webp" alt=""'
+            f' loading="lazy" width="{THUMB_WIDTH}" height="{THUMB_HEIGHT}"></a>'
             if e["has_preview"]
             else '<div class="noshot"></div>'
         )
@@ -353,9 +414,15 @@ def build_index(entries: list[dict]) -> None:
             "</div></div>"
         )
     body = (
+        '<p class="intro">Research reports built by'
+        f' <a href="{SELECT_URL}">SELECT</a> — an agent that searches the web in SQL.'
+        " Every card links the finished report and the full trajectory behind it:"
+        " each query, tool result, and result set.</p>"
         f'<div class="cards">{"".join(cards)}</div>'
     )
-    (DOCS / "index.html").write_text(page("SELECT showcase", body))
+    (DOCS / "index.html").write_text(
+        page(INDEX_TITLE, body, description=INDEX_DESCRIPTION, og=True)
+    )
 
 
 def main() -> None:

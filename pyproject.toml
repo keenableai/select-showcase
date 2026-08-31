@@ -3,7 +3,7 @@ name = "select-showcase"
 version = "0.1.0"
 description = "Selected SELECT reports with their agent trajectories, published to GitHub Pages"
 requires-python = ">=3.12"
-dependencies = ["fire>=0.7"]
+dependencies = ["fire>=0.7", "pillow>=11"]
 
 [tool.uv]
 package = false
