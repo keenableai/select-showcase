@@ -42,6 +42,10 @@ header.site .name{font-weight:400;font-size:18px;color:#2A2A2A}
 header.site .spacer{flex:1}
 header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
   letter-spacing:-.004em;color:#646464}
+body.framed{display:flex;flex-direction:column;height:100vh}
+.wrap.bar{width:100%;padding-bottom:0}
+.wrap.bar header.site{margin-bottom:0}
+.frame{flex:1;width:100%;border:0;display:block}
 h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
   margin-bottom:20px;max-width:900px}
 .sub{color:#646464;margin-bottom:44px;max-width:700px}
@@ -190,23 +194,44 @@ def trim_transcript(transcript: list[dict]) -> list[dict]:
     return trimmed
 
 
-def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
+def page_head(title: str, root: str) -> str:
     return (
         '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f"<title>{esc(title)}</title>"
         f'<link rel="icon" href="{root}keenable-mark.svg" type="image/svg+xml">'
         f'<link rel="stylesheet" href="{root}fonts/brand.css">'
-        f"<style>{PAGE_CSS}</style></head><body>"
-        f'<div class="wrap"><header class="site">'
+        f"<style>{PAGE_CSS}</style></head>"
+    )
+
+
+def site_header(root: str) -> str:
+    return (
+        '<header class="site">'
         f'<a href="{root}index.html"><img src="{root}keenable-mark.svg" alt="Keenable"></a>'
         f'<span class="name">SELECT showcase</span><span class="spacer"></span>'
         f'<a class="gh" href="{GITHUB_URL}">GitHub</a></header>'
+    )
+
+
+def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
+    return (
+        f"{page_head(title, root)}<body>"
+        f'<div class="wrap">{site_header(root)}'
         f"{body}"
         f'<footer class="site"><a href="https://keenable.ai">'
         f'<img src="{root}keenable-wordmark.svg" alt="Keenable"></a>'
         f'<a href="{GITHUB_URL}">Source and data on GitHub</a></footer>'
         f"</div>{scripts}</body></html>\n"
+    )
+
+
+def frame_page(title: str, frame_src: str, root: str) -> str:
+    return (
+        f'{page_head(title, root)}<body class="framed">'
+        f'<div class="wrap bar">{site_header(root)}</div>'
+        f'<iframe class="frame" src="{frame_src}" title="{esc(title)}"></iframe>'
+        "</body></html>\n"
     )
 
 
@@ -267,10 +292,7 @@ def build_report(slug: str) -> dict:
 
     out = DOCS / slug
     out.mkdir(parents=True, exist_ok=True)
-    page_src = src / "report_page.html"
-    if not page_src.exists():
-        page_src = src / "report.html"
-    shutil.copyfile(page_src, out / "report.html")
+    shutil.copyfile(src / "report.html", out / "report_frame.html")
     has_preview = (src / "preview.png").exists()
     if has_preview:
         shutil.copyfile(src / "preview.png", out / "preview.png")
@@ -289,6 +311,7 @@ def build_report(slug: str) -> dict:
     (out / "trajectory.html").write_text(
         page(f"{title} — trajectory", body, root="../", scripts=scripts)
     )
+    (out / "report.html").write_text(frame_page(title, "report_frame.html", root="../"))
     return {
         "slug": slug,
         "created_at": meta["artifact"]["created_at"][:10],
