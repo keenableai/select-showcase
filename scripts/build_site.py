@@ -46,6 +46,7 @@ body.framed{display:flex;flex-direction:column;height:100vh}
 .wrap.bar{width:100%;padding-bottom:0}
 .wrap.bar header.site{margin-bottom:0}
 .frame{flex:1;width:100%;border:0;display:block}
+h1.small{font-size:28px;line-height:1.05}
 h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
   margin-bottom:20px;max-width:900px}
 .sub{color:#646464;margin-bottom:44px;max-width:700px}
@@ -79,8 +80,8 @@ details pre{margin:0;border:0;border-top:1px solid #DDDDDD;max-height:420px;over
 .rs table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.4}
 .rs th{font-family:'TASA Orbiter',system-ui;font-weight:500;letter-spacing:-.004em;
   color:#8D8D8D;text-align:left;background:#F9F9F9}
-.rs th,.rs td{padding:7px 10px;border-bottom:1px solid #DDDDDD;vertical-align:top;
-  max-width:420px;min-width:120px}
+.rs th,.rs td{padding:5px 10px;border-bottom:1px solid #DDDDDD;text-align:left;
+  max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rs tbody tr:last-child td{border-bottom:0}
 .btn{display:inline-block;background:#005CFF;color:#fff;padding:9px 16px;
   font-family:'TASA Orbiter',system-ui;font-size:12px;letter-spacing:-.004em}
@@ -301,7 +302,7 @@ def build_report(slug: str) -> dict:
     title = meta["artifact"]["title"]
     n_queries = sum(len(m.get("tool_calls") or []) for m in transcript)
     body = (
-        f"<h1>{esc(title)}</h1>"
+        f'<h1 class="small">{esc(title)}</h1>'
         f'<p class="sub label">Trajectory — {len(transcript)} messages, {n_queries} tool calls'
         f' &middot; <a href="report.html">report</a>'
         f' &middot; <a href="../index.html">all reports</a></p>'
