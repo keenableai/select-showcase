@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/popular-open-source-ai-agents-agentic-frameworks/BGODOp0Y6Ec58yQjkDy6IA",
+ "artifact": {
+  "token": "BGODOp0Y6Ec58yQjkDy6IA",
+  "title": "Popular Open-Source AI Agents & Agentic Frameworks",
+  "visibility": "public",
+  "bytes_size": "65772",
+  "created_at": "2026-08-31 21:18:56.799560+00:00",
+  "expires_at": "2026-11-29 21:18:56.799560+00:00"
+ },
+ "conversation": {
+  "title": "List ALL popular open-source agents and agentic frameworks",
+  "created_at": "2026-08-31 21:02:29.793681+00:00",
+  "updated_at": "2026-08-31 21:19:08.265416+00:00"
+ }
+}
