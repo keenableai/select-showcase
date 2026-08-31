@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/nearest-zoo-voronoi-atlas-united-states/70Plvbgx-JSlxSU-6CdJ-Q",
+ "artifact": {
+  "token": "70Plvbgx-JSlxSU-6CdJ-Q",
+  "title": "Nearest Zoo Voronoi Atlas \u2014 United States",
+  "visibility": "public",
+  "bytes_size": "77466",
+  "created_at": "2026-08-31 19:59:39.983887+00:00",
+  "expires_at": "2026-11-29 19:59:39.983887+00:00"
+ },
+ "conversation": {
+  "title": "show me a voroni diagram mapping out all Nearest Zoo locations in the USA. go state-by-state then aggregate",
+  "created_at": "2026-08-31 19:51:58.165152+00:00",
+  "updated_at": "2026-08-31 19:59:55.685135+00:00"
+ }
+}
