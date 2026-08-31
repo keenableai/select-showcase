@@ -204,7 +204,7 @@ def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
         f'<a class="gh" href="{GITHUB_URL}">GitHub</a></header>'
         f"{body}"
         f'<footer class="site"><a href="https://keenable.ai">'
-        f'<img src="{root}keenable-wordmark-footer.svg" alt="Keenable"></a>'
+        f'<img src="{root}keenable-wordmark.svg" alt="Keenable"></a>'
         f'<a href="{GITHUB_URL}">Source and data on GitHub</a></footer>'
         f"</div>{scripts}</body></html>\n"
     )
@@ -242,7 +242,7 @@ def copy_assets() -> None:
     for item in (ASSETS / "fonts").iterdir():
         shutil.copyfile(item, fonts / item.name)
     (fonts / "brand.css").write_text(brand_css())
-    for name in ("keenable-mark.svg", "keenable-wordmark-footer.svg"):
+    for name in ("keenable-mark.svg", "keenable-wordmark.svg"):
         shutil.copyfile(ASSETS / name, DOCS / name)
 
 
