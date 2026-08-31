@@ -46,6 +46,9 @@ body.framed{display:flex;flex-direction:column;height:100vh}
 .wrap.bar{width:100%;padding-bottom:0}
 .wrap.bar header.site{margin-bottom:0}
 .frame{flex:1;width:100%;border:0;display:block}
+footer.site.foot{margin:0;padding:14px 0 18px;gap:12px}
+footer.site.foot .spacer{flex:1}
+footer.site.foot a.traj{color:#0A57E8}
 h1.small{font-size:28px;line-height:1.05}
 h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
   margin-bottom:20px;max-width:900px}
@@ -228,11 +231,12 @@ def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
     )
 
 
-def frame_page(title: str, frame_src: str, root: str) -> str:
+def frame_page(title: str, frame_src: str, root: str, foot: str) -> str:
     return (
         f'{page_head(title, root)}<body class="framed">'
         f'<div class="wrap bar">{site_header(root)}</div>'
         f'<iframe class="frame" src="{frame_src}" title="{esc(title)}"></iframe>'
+        f'<div class="wrap bar"><footer class="site foot">{foot}</footer></div>'
         "</body></html>\n"
     )
 
@@ -313,7 +317,14 @@ def build_report(slug: str) -> dict:
     (out / "trajectory.html").write_text(
         page(f"{title} — trajectory", body, root="../", scripts=scripts)
     )
-    (out / "report.html").write_text(frame_page(title, "report_frame.html", root="../"))
+    foot = (
+        f'<span class="label">{len(transcript)} messages &middot; {n_queries} queries'
+        f' behind this report</span><span class="spacer"></span>'
+        f'<a class="traj label" href="trajectory.html">Trajectory &rarr;</a>'
+    )
+    (out / "report.html").write_text(
+        frame_page(title, "report_frame.html", root="../", foot=foot)
+    )
     return {
         "slug": slug,
         "created_at": meta["artifact"]["created_at"][:10],
