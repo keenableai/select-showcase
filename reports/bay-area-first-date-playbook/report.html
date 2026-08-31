@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bay Area first-date playbook — 16 low-pressure options across four regions</title>
+<style>
+  :root{
+    --ink:#1c1c1c;
+    --hair:#DDDDDD;
+    --muted:#8D8D8D;
+    --high:#1e7a4c;
+    --medhigh:#c98a1f;
+    --med:#b0563a;
+    --bg:#fafaf8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Stack Sans Headline',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1160px;margin:0 auto;padding:64px 24px 40px}
+  h1{
+    font-size:44px;
+    line-height:1.12;
+    letter-spacing:-0.5px;
+    max-width:980px;
+    margin-bottom:20px;
+  }
+  .lede{
+    font-size:17px;
+    line-height:1.5;
+    color:#444;
+    max-width:860px;
+    margin-bottom:56px;
+  }
+  /* ------- board ------- */
+  .board-panel{margin-bottom:12px}
+  .legend{
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;
+    color:#555;
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .swatch{width:12px;height:12px;display:inline-block}
+  .board{
+    display:grid;
+    grid-template-columns:130px repeat(4,1fr);
+    border-top:1px solid var(--hair);
+    border-left:1px solid var(--hair);
+  }
+  .board > div{
+    border-right:1px solid var(--hair);
+    border-bottom:1px solid var(--hair);
+  }
+  .colhead{
+    padding:14px 14px 12px;
+    background:#fff;
+  }
+  .colhead .rname{font-size:17px;font-weight:700;margin-bottom:4px}
+  .colhead .rstats{
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;color:#666;line-height:1.5;
+  }
+  .colhead a{color:#666;text-decoration:underline}
+  .lanelabel{
+    padding:14px 12px;
+    background:#fff;
+  }
+  .lanelabel .lt{font-size:14px;font-weight:700;line-height:1.25;margin-bottom:4px}
+  .lanelabel .ls{
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;color:#8D8D8D;line-height:1.4;
+  }
+  .cell{padding:10px;background:#fdfdfc;min-height:64px}
+  .card{
+    background:#fff;
+    border-left:5px solid #ccc;
+    padding:10px 12px 11px;
+    margin-bottom:10px;
+    cursor:default;
+    opacity:0;
+    transform:translateY(10px);
+    animation:enter .5s ease forwards;
+    transition:opacity .18s ease;
+  }
+  .card:last-child{margin-bottom:0}
+  @keyframes enter{to{opacity:1;transform:none}}
+  .board.hovering .card{opacity:.12}
+  .board.hovering .card.focus{opacity:1}
+  .card .place{font-size:15px;font-weight:700;line-height:1.25}
+  .card .place a{color:inherit;text-decoration:none}
+  .card .place a:hover{text-decoration:underline}
+  .card .meta{
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;color:#666;margin-top:4px;line-height:1.45;
+  }
+  .card .cost{
+    display:inline-block;
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:11px;
+    background:#f0efe9;
+    color:#444;
+    padding:1px 6px;
+    margin-top:5px;
+  }
+  .card.c-high{border-left-color:var(--high)}
+  .card.c-medhigh{border-left-color:var(--medhigh)}
+  .card.c-med{border-left-color:var(--med)}
+  #tip{
+    position:fixed;
+    z-index:50;
+    max-width:320px;
+    background:#1c1c1c;
+    color:#f4f4f0;
+    padding:12px 14px;
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;
+    line-height:1.5;
+    pointer-events:none;
+    display:none;
+  }
+  #tip .tname{font-family:'Stack Sans Headline',system-ui,sans-serif;font-size:14px;font-weight:700;margin-bottom:5px;color:#fff}
+  #tip .trat{color:#cfcfc8;font-style:italic;margin-top:6px}
+  #tip .tlog{margin-top:6px;color:#a8c9b6}
+  .boardnote{
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;color:#8D8D8D;margin-top:14px;
+  }
+  /* ------- findings ------- */
+  .findings{margin-top:64px;border-top:1px solid var(--hair)}
+  .finding{
+    padding:16px 2px;
+    border-bottom:1px solid var(--hair);
+    font-size:15.5px;
+    line-height:1.55;
+  }
+  .finding a{color:#555;text-decoration:underline}
+  /* ------- playbook ------- */
+  .playbook{margin-top:64px}
+  h2{font-size:26px;letter-spacing:-0.3px;margin-bottom:24px}
+  .pbgrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:1px solid var(--hair);
+  }
+  .pbcol{padding:24px 28px 24px 2px;border-bottom:1px solid var(--hair)}
+  .pbcol + .pbcol{padding-left:28px;border-left:1px solid var(--hair)}
+  .pbcol h3{font-size:16px;margin-bottom:12px}
+  .pbcol ol,.pbcol ul{padding-left:20px}
+  .pbcol li{font-size:14.5px;line-height:1.6;margin-bottom:7px}
+  .invite{
+    margin-top:40px;
+    padding:26px 30px;
+    background:#fff;
+    border-top:1px solid var(--hair);
+    border-bottom:1px solid var(--hair);
+  }
+  .invite .q{font-size:21px;line-height:1.45;font-weight:700;max-width:840px}
+  .invite .qcap{
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;color:#8D8D8D;margin-top:10px;
+  }
+  /* ------- table ------- */
+  .tablesec{margin-top:64px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{
+    text-align:left;
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;
+    font-weight:600;
+    color:#8D8D8D;
+    padding:8px 10px 8px 2px;
+    border-bottom:1px solid var(--ink);
+  }
+  td{
+    padding:9px 10px 9px 2px;
+    border-bottom:1px solid var(--hair);
+    vertical-align:top;
+    line-height:1.45;
+  }
+  td a{color:#555;text-decoration:underline}
+  td .pl{font-weight:700}
+  .method{
+    margin-top:64px;
+    font-family:'TASA Orbiter',system-ui,sans-serif;
+    font-size:12px;
+    color:#8D8D8D;
+    line-height:1.6;
+  }
+  @media (max-width:820px){
+    h1{font-size:30px}
+    .board-outer{overflow-x:auto}
+    .board{min-width:860px}
+    .pbgrid{grid-template-columns:1fr}
+    .pbcol + .pbcol{padding-left:2px;border-left:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card{animation:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>The easiest first date is one you can end in an hour — or happily extend when it's going well</h1>
+  <p class="lede">A field guide of 16 researched Bay Area options — 5 in San Francisco, 3 in the East Bay, 4 in the South Bay, 4 on the Peninsula — sorted by how much commitment they ask up front and how much room they leave for conversation. Aim for one simple public activity of 60–90 minutes, with an optional nearby extension only if you're both enjoying it.</p>
+
+  <div class="board-panel" data-og-hero>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--high)"></span>high conversation room — you'll mostly talk</span>
+      <span><span class="swatch" style="background:var(--medhigh)"></span>medium-high — talk with a shared focus</span>
+      <span><span class="swatch" style="background:var(--med)"></span>medium — the activity leads, talk fills gaps</span>
+    </div>
+    <div class="board-outer">
+      <div class="board" id="board"></div>
+    </div>
+    <p class="boardnote">Hover a card for what you'll actually do, why the source recommends it, and source-stated timing. Costs and hours are as stated by each source — verify on the venue's official site before you go.</p>
+  </div>
+
+  <div class="findings">
+    <div class="finding">The South Bay is the safest bet for a talk-first date: all 4 of its options offer high conversation room and all 4 are highly flexible — a free contemporary-art museum, two gardens, and a coffee shop. <a href="https://rojal.lv/why-couples-activities-san-jose-usually-miss-the-mark-and-what-to-do-instead-il9" target="_blank" rel="noopener noreferrer">rojal.lv</a></div>
+    <div class="finding">San Francisco has the deepest bench: 5 options, 4 of them highly flexible and 3 with high conversation room, including two classic coffee-plus-walk formats around North Beach and the Presidio waterfront. <a href="https://classbento.com/best-activities-for-couples-in-the-bay-area" target="_blank" rel="noopener noreferrer">classbento.com</a></div>
+    <div class="finding">The Peninsula leans toward planned, ticketed outings: 3 of its 4 options carry a source-stated price ($3–$22) and none rate high on conversation room or flexibility — better second-date material once mutual interest is clear. <a href="https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059" target="_blank" rel="noopener noreferrer">medium.com</a></div>
+    <div class="finding">Scheduled or paid experiences — Foothill's Friday-night stargazing, Stanford Theatre's cash-only classics, Filoli's estate tour — ask for more commitment; save them for when you already know you click. <a href="https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059" target="_blank" rel="noopener noreferrer">medium.com</a></div>
+  </div>
+
+  <div class="playbook">
+    <h2>The playbook</h2>
+    <div class="pbgrid">
+      <div class="pbcol">
+        <h3>Before and during</h3>
+        <ol>
+          <li>Propose a specific place, day, and time — decisiveness is kind, and it gives the other person something concrete to say yes to.</li>
+          <li>Meet there rather than arranging a pickup; a public spot keeps things comfortable for both of you.</li>
+          <li>Confirm on the day, and arrive on time.</li>
+          <li>Ask open questions and share about yourself in return — a conversation, not an interview.</li>
+          <li>Keep your phone away and face down.</li>
+          <li>Offer to split; whatever you agree, handle payment graciously and without ceremony.</li>
+          <li>Respect boundaries, and end clearly: an honest thank-you, or a specific second-date invitation.</li>
+        </ol>
+      </div>
+      <div class="pbcol">
+        <h3>Bay Area logistics</h3>
+        <ul>
+          <li>Pick a spot near BART or Caltrain, or one that's fair to both commutes — nobody should cross two bridges for coffee.</li>
+          <li>Allow real time for traffic and parking; arriving flustered is a worse start than arriving early.</li>
+          <li>Bring a layer. Microclimates mean the Warming Hut and downtown San José can be twenty degrees apart.</li>
+          <li>Check official hours and prices before leaving — the costs and times shown here are as stated by each source and may have changed.</li>
+          <li>Keep the plan to one simple activity with an optional extension nearby; escalate to booked, paid experiences only once interest is mutual.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="invite">
+      <p class="q">"Want to grab coffee at Caffe Trieste Saturday at 2 and walk around North Beach? We can keep it to about an hour."</p>
+      <p class="qcap">A good invite names the place, the day, the time, and the exit — all in two sentences.</p>
+    </div>
+  </div>
+
+  <div class="tablesec">
+    <h2>All 16 options</h2>
+    <table id="tbl">
+      <thead>
+        <tr><th>Region</th><th>Place</th><th>Style</th><th>Conversation</th><th>Length</th><th>Flexibility</th><th>Cost*</th><th>Source</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <p class="method">Method: curated shortlist of 16 first-date options drawn from a broader scan of 760 extracted venue and activity mentions across 1,718 unique search results, researched 2026-08-27. The 16 were selected for geographic variety and first-date suitability, not as an exhaustive ranking. Conversation room, flexibility, and suggested length are editorial ratings per source rationale; *costs and times are source-stated, were not consistently verifiable against official pages, and should be confirmed on each venue's official site. Full rationale text and source-stated logistics were trimmed to hover detail for space.</p>
+
+</div>
+
+<div id="tip"></div>
+
+<script>
+(function(){
+  var DATA=[
+    {"region":"East Bay","place":"Albany Bulb","activity":"Explore Some Art at Albany Bulb","date_style":"Outdoor explore","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":null,"logistics":null,"rationale":"With 360-degree views of The Bay and art to seek and find, this is a great place to take a date for a day of exploring.","url":"https://brokeassstuart.com/p/east-bay-bliss-unique-memorable-first-date-spots"},
+    {"region":"East Bay","place":"North Light","activity":"Craft cocktails and vinyl","date_style":"Drinks + conversation","conversation_room":"Medium-high","suggested_length":"60–90 min","flexibility":"Easy to extend; order lightly first","cost":null,"timing":null,"logistics":"Location: 4915 Telegraph Ave, Oakland, CA 94609","rationale":"Lite bites, great drinks and vinyl playing throughout the night are just some of the reasons this is a wonderful option for a first date.","url":"https://brokeassstuart.com/p/east-bay-bliss-unique-memorable-first-date-spots"},
+    {"region":"East Bay","place":"Pacific Pinball Museum","activity":"Play pinball","date_style":"Playful activity","conversation_room":"Medium","suggested_length":"90–120 min","flexibility":"More commitment; confirm interest first","cost":null,"timing":null,"logistics":null,"rationale":"The sights and sounds remind me of being a kid and the vibes inside this interactive museum are perfect for a date night.","url":"https://brokeassstuart.com/p/east-bay-bliss-unique-memorable-first-date-spots"},
+    {"region":"Peninsula","place":"Filoli","activity":"Stroll the gardens, tour the house, and take tea at the café","date_style":"Outdoor explore","conversation_room":"Medium-high","suggested_length":"90–120 min","flexibility":"More commitment; confirm interest first","cost":"22","timing":"Tuesday through Sunday, 10 a.m. to 5 p.m.","logistics":"Last admission is at 4:30 p.m.","rationale":"Provides a romantic stroll amid amazing gardens and a sprawling estate","url":"https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059"},
+    {"region":"Peninsula","place":"Off the Grid Menlo Park","activity":"Eat from a rotating cast of food trucks and listen to live music","date_style":"Food market stroll","conversation_room":"Medium-high","suggested_length":"60–90 min","flexibility":"Easy to extend; order lightly first","cost":null,"timing":"Every Wednesday from 5 to 9 p.m.","logistics":"Happens in the Caltrain station parking lot, rain or shine","rationale":"It is a relaxed food market setting with diverse food and music options","url":"https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059"},
+    {"region":"Peninsula","place":"Foothill College Observatory","activity":"Stargaze and view astronomical objects through telescopes","date_style":"Scheduled experience","conversation_room":"Medium","suggested_length":"90–120 min","flexibility":"More commitment; confirm interest first","cost":"3","timing":"9 to 11 p.m. every clear Friday","logistics":"Bring $3 for parking, and check online for clear weather confirmations","rationale":"It is a romantic date night spent under the stars with impressive viewing capacity telescopes","url":"https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059"},
+    {"region":"Peninsula","place":"Stanford Theatre","activity":"Watch classic films on the big screen, dress up, and take a stroll down University Avenue to grab dinner nearby","date_style":"Scheduled experience","conversation_room":"Medium","suggested_length":"60–90 min","flexibility":"More commitment; confirm interest first","cost":"7","timing":"Screening times vary from matinees to 10 p.m. (though the norm is early evening)","logistics":"Bring cash, as the theater doesn't take cards","rationale":"A great excuse to dress up for a movie in a beautiful theater with red velvet curtains and accent lighting","url":"https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059"},
+    {"region":"San Francisco","place":"Caffe Trieste","activity":"Visit Caffe Trieste and walk around North Beach","date_style":"Coffee + walk","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":"Daytime","logistics":"Daytime between 11 am and 2 pm, Saturday best","rationale":"Great old time coffee shop and cool sights","url":"https://emlovz.com/top-50-san-francisco-date-ideas"},
+    {"region":"San Francisco","place":"City Lights Bookstore","activity":"Three floors of books and regular author readings","date_style":"Culture + conversation","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":null,"logistics":null,"rationale":"Iconic landmark in San Francisco's literary history","url":"https://classbento.com/best-activities-for-couples-in-the-bay-area"},
+    {"region":"San Francisco","place":"Warming Hut","activity":"Grab a coffee with your date and walk along the bay with views of Angel Island, Alcatraz, the Presidio, and the city","date_style":"Coffee + walk","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":"Daytime","logistics":"Daytime between 11 am and 2 pm, Saturday best","rationale":"Offers a creative spin on the otherwise typical coffee date, stunning view, great people watching","url":"https://emlovz.com/top-50-san-francisco-date-ideas"},
+    {"region":"San Francisco","place":"Ferry Plaza Farmers Market","activity":"Stroll amid stalls selling seasonal produce and find the best food around","date_style":"Food market stroll","conversation_room":"Medium-high","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":"Every Tuesday, Thursday, and Saturday","logistics":"Held every Tuesday, Thursday, and Saturday at Ferry Building Marketplace","rationale":"A great way to explore San Francisco's vibrant food scene and learn easy and simple recipes from a pro!","url":"https://classbento.com/best-activities-for-couples-in-the-bay-area"},
+    {"region":"San Francisco","place":"Stagecoach Greens","activity":"Blends the boom-town Wild West with historic San Fran landmarks","date_style":"Playful activity","conversation_room":"Medium","suggested_length":"90–120 min","flexibility":"More commitment; confirm interest first","cost":null,"timing":null,"logistics":null,"rationale":"Enjoy some friendly competition","url":"https://classbento.com/best-activities-for-couples-in-the-bay-area"},
+    {"region":"South Bay","place":"Institute of Contemporary Art San José","activity":"Explore new exhibitions","date_style":"Culture + conversation","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":"0","timing":null,"logistics":null,"rationale":"Admission is always free","url":"https://sjtoday.6amcity.com/date-night-ideas-san-jose-ca"},
+    {"region":"South Bay","place":"Japanese Friendship Garden","activity":"Walking around koi ponds and across bridges","date_style":"Outdoor explore","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":null,"logistics":null,"rationale":"It is quiet, meditative, and a good place to decompress after a stressful week","url":"https://rojal.lv/why-couples-activities-san-jose-usually-miss-the-mark-and-what-to-do-instead-il9"},
+    {"region":"South Bay","place":"Municipal Rose Garden","activity":"Having a mid-day picnic among thousands of rose plantings","date_style":"Outdoor explore","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":"In May or June","logistics":null,"rationale":"It features over 3,500 plantings, an incredible smell in May or June, and is the highest-rated rose garden in the country","url":"https://rojal.lv/why-couples-activities-san-jose-usually-miss-the-mark-and-what-to-do-instead-il9"},
+    {"region":"South Bay","place":"Voyager Craft Coffee","activity":"Order a pretty latte, and strike up a good conversation","date_style":"Coffee + walk","conversation_room":"High","suggested_length":"60–90 min","flexibility":"Easy early exit or extend nearby","cost":null,"timing":null,"logistics":null,"rationale":"Strike up a good conversation","url":"https://sjtoday.6amcity.com/date-night-ideas-san-jose-ca"}
+  ];
+
+  var AGG={
+    "San Francisco":{count:5,hc:3,fl:4,url:"https://classbento.com/best-activities-for-couples-in-the-bay-area"},
+    "East Bay":{count:3,hc:1,fl:1,url:"https://brokeassstuart.com/p/east-bay-bliss-unique-memorable-first-date-spots"},
+    "South Bay":{count:4,hc:4,fl:4,url:"https://rojal.lv/why-couples-activities-san-jose-usually-miss-the-mark-and-what-to-do-instead-il9"},
+    "Peninsula":{count:4,hc:0,fl:0,url:"https://medium.com/thesixfifty/ten-original-date-ideas-for-singles-on-the-sf-peninsula-5aba906c4059"}
+  };
+
+  var REGIONS=["San Francisco","East Bay","South Bay","Peninsula"];
+  var LANES=[
+    {key:"Easy early exit or extend nearby",title:"Meet and see",sub:"lowest pressure — easy early exit or extend nearby"},
+    {key:"Easy to extend; order lightly first",title:"Lean in",sub:"easy to extend — order lightly first"},
+    {key:"More commitment; confirm interest first",title:"Plan ahead",sub:"more commitment — confirm interest first"}
+  ];
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+  function host(u){try{return u.split("/")[2].replace(/^www\./,"");}catch(e){return u;}}
+  function convCls(c){return c==="High"?"c-high":(c==="Medium-high"?"c-medhigh":"c-med");}
+  function costTxt(c){return c===null?null:(c==="0"?"free (source-stated)":"$"+c+" source-stated");}
+
+  var board=document.getElementById("board");
+  var html="";
+
+  html+='<div class="colhead" style="background:transparent"></div>';
+  REGIONS.forEach(function(r){
+    var a=AGG[r];
+    html+='<div class="colhead"><div class="rname">'+esc(r)+'</div><div class="rstats">'+a.count+' options · '+a.hc+' high-conversation · '+a.fl+' highly flexible · <a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(host(a.url))+'</a></div></div>';
+  });
+
+  var idx=0;
+  LANES.forEach(function(lane){
+    html+='<div class="lanelabel"><div class="lt">'+esc(lane.title)+'</div><div class="ls">'+esc(lane.sub)+'</div></div>';
+    REGIONS.forEach(function(r){
+      html+='<div class="cell">';
+      DATA.forEach(function(d){
+        if(d.region!==r||d.flexibility!==lane.key)return;
+        var i=DATA.indexOf(d);
+        html+='<div class="card '+convCls(d.conversation_room)+'" data-i="'+i+'" style="animation-delay:'+(idx*70)+'ms">'
+          +'<div class="place"><a href="'+esc(d.url)+'" target="_blank" rel="noopener noreferrer">'+esc(d.place)+'</a></div>'
+          +'<div class="meta">'+esc(d.date_style)+' · '+esc(d.suggested_length)+'</div>'
+          +(costTxt(d.cost)?'<span class="cost">'+esc(costTxt(d.cost))+'</span>':'')
+          +'</div>';
+        idx++;
+      });
+      html+='</div>';
+    });
+  });
+  board.innerHTML=html;
+
+  var tip=document.getElementById("tip");
+  board.addEventListener("mouseover",function(e){
+    var card=e.target.closest(".card");
+    if(!card)return;
+    board.classList.add("hovering");
+    card.classList.add("focus");
+    var d=DATA[+card.getAttribute("data-i")];
+    var t='<div class="tname">'+esc(d.place)+' · '+esc(d.region)+'</div>'
+      +esc(d.activity)
+      +'<div class="trat">"'+esc(d.rationale)+'"</div>';
+    var log=[];
+    if(d.timing)log.push("Timing (source-stated): "+d.timing);
+    if(d.logistics)log.push(d.logistics);
+    if(costTxt(d.cost))log.push("Cost: "+costTxt(d.cost));
+    if(log.length)t+='<div class="tlog">'+esc(log.join(" · "))+'</div>';
+    tip.innerHTML=t;
+    tip.style.display="block";
+  });
+  board.addEventListener("mousemove",function(e){
+    if(tip.style.display!=="block")return;
+    var x=e.clientX+16,y=e.clientY+16;
+    var w=tip.offsetWidth,h=tip.offsetHeight;
+    if(x+w>window.innerWidth-8)x=e.clientX-w-16;
+    if(y+h>window.innerHeight-8)y=e.clientY-h-16;
+    tip.style.left=x+"px";tip.style.top=y+"px";
+  });
+  board.addEventListener("mouseout",function(e){
+    var card=e.target.closest(".card");
+    if(!card)return;
+    card.classList.remove("focus");
+    board.classList.remove("hovering");
+    tip.style.display="none";
+  });
+
+  var tbody=document.querySelector("#tbl tbody");
+  var rows="";
+  REGIONS.forEach(function(r){
+    DATA.forEach(function(d){
+      if(d.region!==r)return;
+      rows+='<tr><td>'+esc(d.region)+'</td>'
+        +'<td class="pl">'+esc(d.place)+'</td>'
+        +'<td>'+esc(d.date_style)+'</td>'
+        +'<td>'+esc(d.conversation_room)+'</td>'
+        +'<td>'+esc(d.suggested_length)+'</td>'
+        +'<td>'+esc(d.flexibility)+'</td>'
+        +'<td>'+(costTxt(d.cost)?esc(costTxt(d.cost)):"—")+'</td>'
+        +'<td><a href="'+esc(d.url)+'" target="_blank" rel="noopener noreferrer">'+esc(host(d.url))+'</a></td></tr>';
+    });
+  });
+  tbody.innerHTML=rows;
+})();
+</script>
+</body>
+</html>
