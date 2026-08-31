@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/america-s-gigawatt-ai-data-center-buildout/hstpAP2XjpgLC4f_EPdx0w",
+ "artifact": {
+  "token": "hstpAP2XjpgLC4f_EPdx0w",
+  "title": "America\u2019s Gigawatt AI Data-Center Buildout",
+  "visibility": "public",
+  "bytes_size": "26677",
+  "created_at": "2026-08-31 21:25:19.397626+00:00",
+  "expires_at": "2026-11-29 21:25:19.397626+00:00"
+ },
+ "conversation": {
+  "title": "map every giant AI datacenter in the US, sized by gigawatts, and show who's building it",
+  "created_at": "2026-08-31 21:10:00.669039+00:00",
+  "updated_at": "2026-08-31 21:25:26.507284+00:00"
+ }
+}
