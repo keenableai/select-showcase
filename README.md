@@ -2,7 +2,9 @@
 
 Selected reports made with [SELECT](https://select.keenable.ai), each with the
 full agent run behind it: every query, every tool result, and the result sets
-the run produced. The collection is published as a static site on GitHub Pages.
+the run produced.
+
+**Site: https://keenableai.github.io/select-showcase/**
 
 ## Layout
 
