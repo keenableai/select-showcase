@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/death-by-gps-documented-water-desert-cliff-incidents/mjRM0B4iYSguR-s7thn7ag",
+ "artifact": {
+  "token": "mjRM0B4iYSguR-s7thn7ag",
+  "title": "Death by GPS: Documented Water, Desert & Cliff Incidents",
+  "visibility": "public",
+  "bytes_size": "70915",
+  "created_at": "2026-08-31 23:06:25.324586+00:00",
+  "expires_at": "2026-11-29 23:06:25.324586+00:00"
+ },
+ "conversation": {
+  "title": "Map every documented case of a driver following GPS into a lake, desert, or cliff \u2014 'death by GPS' incidents",
+  "created_at": "2026-08-31 22:59:05.402765+00:00",
+  "updated_at": "2026-08-31 23:06:38.683684+00:00"
+ }
+}
