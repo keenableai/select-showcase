@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/orbital-launch-atlas-1957-2026/i6n7x9Dw1y_DLZ6keDpz7Q",
+ "artifact": {
+  "token": "i6n7x9Dw1y_DLZ6keDpz7Q",
+  "title": "Orbital Launch Atlas, 1957\u20132026",
+  "visibility": "public",
+  "bytes_size": "415426",
+  "created_at": "2026-08-31 20:44:39.600453+00:00",
+  "expires_at": "2026-11-29 20:44:39.600453+00:00"
+ },
+ "conversation": {
+  "title": "Every orbital launch from 1957 to today \u2014 for each one list the year, the launch site, the operating bloc and whether the site is still active.",
+  "created_at": "2026-08-31 20:44:39.585154+00:00",
+  "updated_at": "2026-08-31 20:44:39.586308+00:00"
+ }
+}
