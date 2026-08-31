@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en"><head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The AI lab founder family tree — 33 lineage edges, 27 labs</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+<style>
+body{margin:0;background:#fff;color:#111;font-family:'Stack Sans Headline',system-ui,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 24px 40px}
+h1{font-size:52px;line-height:1.05;margin:0 0 24px;letter-spacing:-.5px}
+.asked{border-left:4px solid #111;padding:10px 18px;margin:0 0 28px;background:#f6f6f6}
+.asked .lbl{font-size:12px;color:#8D8D8D;font-family:'TASA Orbiter',system-ui;text-transform:none;margin-bottom:4px}
+.asked p{margin:0;font-size:18px;font-style:italic}
+.lede{font-size:19px;line-height:1.5;max-width:820px;margin:0 0 56px;color:#333}
+#viz{position:relative}
+svg text{font-family:'TASA Orbiter',system-ui;}
+.tip{position:absolute;pointer-events:none;background:#111;color:#fff;padding:10px 14px;font-family:'TASA Orbiter',system-ui;font-size:13px;line-height:1.45;max-width:320px;opacity:0;z-index:5}
+.legend{font-family:'TASA Orbiter',system-ui;font-size:13px;color:#555;margin:14px 0 0}
+.legend span{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin:0 6px 0 16px}
+.findings{margin:64px 0}
+.findings div{padding:14px 0;border-bottom:1px solid #DDDDDD;font-size:17px;line-height:1.5}
+.findings div:first-child{border-top:1px solid #DDDDDD}
+a{color:#0a5bd3;text-decoration:none}
+h2{font-size:28px;margin:64px 0 16px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;padding:8px 10px 6px;border-bottom:2px solid #111}
+td{padding:9px 10px;border-bottom:1px solid #DDDDDD;vertical-align:top}
+.method{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;margin:56px 0 0;line-height:1.6}
+.bars{margin-top:8px}
+.brow{display:flex;align-items:center;margin:6px 0;font-family:'TASA Orbiter',system-ui;font-size:14px}
+.brow .nm{width:200px;flex:none}
+.brow .bar{height:22px;background:#111}
+.brow .val{margin-left:8px;color:#555}
+@media (max-width:700px){
+ h1{font-size:32px}
+ .wrap{padding:32px 14px}
+ .lede{font-size:16px;margin-bottom:36px}
+ .brow .nm{width:120px;font-size:12px}
+ #vizpanel{overflow-x:auto}
+ #viz{min-width:760px}
+ .tblwrap{overflow-x:auto}
+}
+</style></head><body><div class="wrap">
+<h1>Eleven labs trace back to Google DeepMind — and the whole field to a handful of doors</h1>
+<div class="asked"><div class="lbl">Asked:</div><p>“Chart which AI labs were founded by people who left which other labs — a founder family tree”</p></div>
+<p class="lede">A curated, source-backed map of 33 documented founder-lineage edges linking 9 parent labs to 27 distinct child labs founded between 2015 and 2026 (through 2026-08-31). An edge means at least one founder previously worked at the parent lab — not a formal corporate spinout — so a founding team can create several incoming edges.</p>
+<div id="vizpanel"><div id="viz" data-og-hero></div>
+<div class="legend">Ribbon colour follows the parent lab. Node height = number of lineage edges touching the lab. Hover a lab or ribbon for founders, year and citation.<br><b>Chains to read:</b> Google Brain / Google AI → OpenAI → Anthropic → Humans&amp;, Ricursive, Mirendil · Google Brain → Adept → Essential AI · Cohere → Adaption Labs.</div></div>
+<div class="findings" id="findings"></div>
+<h2>Who spawned the most labs</h2><div class="bars" id="bars"></div>
+<h2>Every documented edge</h2><div class="tblwrap"><table id="tbl"><thead><tr><th>Parent</th><th>Child lab</th><th>Year</th><th>Founders from parent</th><th>Pages</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+<p class="method">Curated founder-lineage map, not an exhaustive census: 33 parent→child edges over 27 child labs, researched through 2026-08-31. Inclusion means at least one founder previously worked at the parent lab; Google Brain / Google AI is kept distinct from Google DeepMind because they were separate organizations for much of the period. Major labs and foundation-model companies are emphasized; generic vertical AI startups are mostly excluded. Most edges were supported by at least two pages in the scan; the link on each row is a representative citation.</p>
+</div>
+<script>
+(function(){
+var D = {"edges": [{"p": "Google DeepMind", "c": "Inflection AI", "y": 2022, "f": "Mustafa Suleyman; Kar\u00e9n Simonyan", "rel": "Mustafa Suleyman (DeepMind co-founder) and Kar\u00e9n Simonyan (ex-DeepMind Principal Research Scientist)", "sp": 2, "u": "https://businessinsider.com/executives-and-researchers-who-left-google-in-2025-2026-1"}, {"p": "Google DeepMind", "c": "Reka AI", "y": 2022, "f": "Dani Yogatama, Cyprien de Masson d'Autume", "rel": "founded by former researchers", "sp": 4, "u": "https://nextomoro.com/reka-ai"}, {"p": "Google DeepMind", "c": "Latent Labs", "y": 2023, "f": "Simon Kohl", "rel": "Simon Kohl (ex-DeepMind, AlphaFold/AlphaDesign team lead) \u2013 CEO of Latent Labs (biotech AI for protein design)", "sp": 2, "u": "https://techcrunch.com/2025/02/12/founded-by-deepmind-alumnus-latent-labs-launches-with-50m-to-make-biology-programmable"}, {"p": "Google DeepMind", "c": "Mistral AI", "y": 2023, "f": "Arthur Mensch", "rel": "Arthur Mensch founded Mistral AI after working as an employee at Google DeepMind.", "sp": 7, "u": "https://reuters.com/world/europe/asml-becomes-mistral-ais-top-shareholder-after-leading-latest-funding-round-2025-09-07"}, {"p": "Google DeepMind", "c": "H Company", "y": 2024, "f": "Charles Kantor", "rel": "Karl Tuyls, Laurent Sifre, Julien Perolat, Daan Wierstra (all ex-DeepMind research scientists)", "sp": 4, "u": "https://nextomoro.com/h-company"}, {"p": "Google DeepMind", "c": "Reflection AI", "y": 2024, "f": "Misha Laskin, Ioannis Antonoglou", "rel": "Misha Laskin and Ioannis Antonoglou left DeepMind to found Reflection AI.", "sp": 35, "u": "https://fortune.com/2026/08/27/google-deepmind-losing-talent-to-rival-ai-labs-startups-new-data-show"}, {"p": "Google DeepMind", "c": "Humans&", "y": 2025, "f": "Founders not named in source", "rel": "co-founder of U.S. AI startup Humans&", "sp": 2, "u": "http://forbes.com/sites/sofiachierchio/2026/04/16/the-ai-50-brink-list"}, {"p": "Google DeepMind", "c": "Periodic Labs", "y": 2025, "f": "former OpenAI and DeepMind staff", "rel": "founded by former OpenAI and DeepMind staff", "sp": 3, "u": "https://businessinsider.com/weil-valuation-750-million-for-ai-science-startup-2026-8"}, {"p": "Google DeepMind", "c": "Ricursive Intelligence", "y": 2025, "f": "Anna Goldie, Azalia Mirhoseini", "rel": "Google DeepMind researchers Anna Goldie and Azalia Mirhoseini founded Ricursive Intelligence in 2025.", "sp": 8, "u": "https://is.gd/I3lWZH"}, {"p": "Google DeepMind", "c": "Ineffable Intelligence", "y": 2026, "f": "David Silver", "rel": "founded by former Google DeepMind reinforcement learning lead David Silver", "sp": 8, "u": "https://fortune.com/2026/08/27/google-deepmind-losing-talent-to-rival-ai-labs-startups-new-data-show"}, {"p": "Google DeepMind", "c": "Inherent", "y": 2026, "f": "Tantum Collins, Edward Hughes, Louis Kirsch", "rel": "Founders Tantum Collins, Edward Hughes, and Louis Kirsch previously worked at DeepMind before founding Inherent.", "sp": 8, "u": "https://wordupnews.com/tech/ex-deepmind-researchers-raised-50m-to-build-ai-that-figures-out-which-scientific-questions-are-worth-asking"}, {"p": "OpenAI", "c": "Anthropic", "y": 2021, "f": "Dario Amodei, Daniela Amodei", "rel": "Dario Amodei (former VP of Research, OpenAI), Daniela Amodei (former OpenAI exec)", "sp": 2, "u": "https://techcrunch.com/2026/02/20/the-openai-mafia-15-of-the-most-notable-startups-founded-by-alumni"}, {"p": "OpenAI", "c": "Adept", "y": 2022, "f": "David Luan", "rel": "David Luan (former VP of Engineering, OpenAI); co-founded with ex-Google Brain researchers Ashish Vaswani & Niki Parmar", "sp": 2, "u": "https://techcrunch.com/2026/02/20/the-openai-mafia-15-of-the-most-notable-startups-founded-by-alumni"}, {"p": "OpenAI", "c": "Perplexity AI", "y": 2022, "f": "Aravind Srinivas", "rel": "Aravind Srinivas (former OpenAI research scientist) \u2013 co-founder/CEO of this AI answer engine", "sp": 2, "u": "https://techcrunch.com/2026/02/20/the-openai-mafia-15-of-the-most-notable-startups-founded-by-alumni"}, {"p": "OpenAI", "c": "Eureka Labs", "y": 2024, "f": "Andrej Karpathy", "rel": "Andrej Karpathy, former OpenAI co-founder, founded Eureka Labs", "sp": 2, "u": "https://techcrunch.com/2026/02/20/the-openai-mafia-15-of-the-most-notable-startups-founded-by-alumni"}, {"p": "OpenAI", "c": "Safe Superintelligence (SSI)", "y": 2024, "f": "Ilya Sutskever, Daniel Gross, Daniel Levy", "rel": "Ilya Sutskever, former OpenAI Chief Scientist, co-founded Safe Superintelligence Inc. (SSI)", "sp": 2, "u": "https://businessinsider.com/ai-labs-fragmenting-ego-clashes-new-startups-openai-2024-10"}, {"p": "OpenAI", "c": "Periodic Labs", "y": 2025, "f": "Liam Fedus", "rel": "Liam Fedus (former VP of Research (post-training), OpenAI)", "sp": 2, "u": "https://techcrunch.com/2026/02/20/the-openai-mafia-15-of-the-most-notable-startups-founded-by-alumni"}, {"p": "OpenAI", "c": "Thinking Machines Lab", "y": 2025, "f": "Mira Murati", "rel": "Mira Murati, former OpenAI CTO, co-founded Thinking Machine Labs", "sp": 3, "u": "https://techcrunch.com/2026/07/15/thinking-machines-amps-up-its-bet-against-one-size-fits-all-ai-with-its-first-open-model-inkling"}, {"p": "OpenAI", "c": "Core Automation", "y": 2026, "f": "Jerry Tworek", "rel": "Jerry Tworek left OpenAI after spending nearly seven years there to found Core Automation in late March 2026.", "sp": 4, "u": "https://africa.businessinsider.com/news/new-ai-lab-core-automation-nerdsniped-researchers-from-anthropic-google-deepmind/wb61k0m"}, {"p": "Google Brain / Google AI", "c": "OpenAI", "y": 2015, "f": "Ilya Sutskever", "rel": "Sutskever left Google at the end of 2015 to become cofounder and chief scientist of OpenAI.", "sp": 2, "u": "https://fortune.com/europe/2023/04/28/the-google-brain-deepmind-merger-alphabet-pichai-risks-eye-on-a-i"}, {"p": "Google Brain / Google AI", "c": "Cohere", "y": 2019, "f": "Aidan Gomez", "rel": "Aidan Gomez founded Cohere after previously working at Google.", "sp": 14, "u": "https://forbes.com/companies/cohere?list=canadas-best-startup-employers"}, {"p": "Google Brain / Google AI", "c": "Character.AI", "y": 2021, "f": "Noam Shazeer", "rel": "Noam Shazeer resigned from Google to co-found Character.AI.", "sp": 15, "u": "https://businessinsider.com/google-ai-talent-wars-anthropic-jumper-shazeer-karpathy-openai-2026-6"}, {"p": "Google Brain / Google AI", "c": "Adept", "y": 2022, "f": "Ashish Vaswani, Niki Parmar, and David Luan", "rel": "Google researchers Ashish Vaswani and Niki Parmar co-founded Adept AI in 2021 with David Luan.", "sp": 5, "u": "https://ft.com/content/37bb01af-ee46-4483-982f-ef3921436a50?accessToken=zwAGASoZXEbgkc83uwGv7kZEg9OYL-85IUNqUA.MEUCIGAX418D_QPFvxq-QLYReJE4g1m7wcZRXGk6pf1HqVQQAiEAn53oHV1zcVD3MYxeTbCWsSf_BIiSf_E_JcvZfhzlScw&sharetype=gift&token=4178b09d-f17c-4285-a18c-446dce2bdb54"}, {"p": "Google Brain / Google AI", "c": "Sakana AI", "y": 2023, "f": "David Ha and Llion Jones", "rel": "Llion Jones and David Ha founded Sakana AI after previously working as researchers at Google.", "sp": 4, "u": "https://ciobulletin.com/artificial-intelligence/sakana-ai-released-open-source-ai-models"}, {"p": "Anthropic", "c": "Humans&", "y": 2025, "f": "Founders not named in source", "rel": "Humans& was launched by former employees of Anthropic and xAI.", "sp": 2, "u": "https://is.gd/I3lWZH"}, {"p": "Anthropic", "c": "Ricursive Intelligence", "y": 2025, "f": "Founders not named in source", "rel": NaN, "sp": 14, "u": "https://rwatimes.io/articles/cnbc-meta-google-open-ai-among-big-tech-firms-seeing-top-staff-leaving-to-launch-ai-startups-263027782"}, {"p": "Anthropic", "c": "Mirendil", "y": 2026, "f": "Behnam Neyshabur, Harsh Mehta", "rel": "They left in December 2025, and within weeks they had raised $200 million at a $1 billion valuation, led by Andreessen Horowitz and Kleiner Perkins with NVIDIA participating, for a company with no product.", "sp": 14, "u": "https://capitalandcompute.net/blog/ex-openai-anthropic-startups-funding"}, {"p": "Meta AI / FAIR", "c": "Mistral AI", "y": 2023, "f": "Guillaume Lample", "rel": "Guillaume Lample and Timoth\u00e9e Lacroix co-founded Mistral AI after working for Meta Platforms.", "sp": 5, "u": "https://benched.ai/companies/meta-ai"}, {"p": "Meta AI / FAIR", "c": "Advanced Machine Intelligence (AMI) Labs", "y": 2025, "f": "Yann LeCun", "rel": "founded after LeCun stepped down as Meta\u2019s chief AI scientist", "sp": 32, "u": "https://perplexityaimagazine.com/ai-news/ai-talent-exodus"}, {"p": "Adept", "c": "Essential AI", "y": 2023, "f": "Ashish Vaswani and Niki Parmar", "rel": "Ashish Vaswani and Niki Parmar left Adept AI and founded Essential AI.", "sp": 3, "u": "https://vuink.com/post/erhgref-d-dpbz/technology/top-ex-google-ai-researchers-raise-funding-thrive-capital-sources-2023-05-04"}, {"p": "Cohere", "c": "Adaption Labs", "y": 2026, "f": "Sara Hooker", "rel": "Former Cohere executives Sara Hooker and Sudip Roy founded Adaption Labs.", "sp": 17, "u": "https://fortune.com/2026/02/04/adaption-labs-50-million-seed-funding-emergence-captial-sara-hooker-sudip-roy-ai-models-that-learn-on-the-fly"}, {"p": "Stability AI", "c": "Black Forest Labs", "y": 2024, "f": "Robin Rombach, Andreas Blattmann, Patrick Esser", "rel": "Robin Rombach, Andreas Blattmann, and Patrick Esser, along with seven others, founded Black Forest Labs after working as former employees of Stability AI.", "sp": 30, "u": "https://podcasts.apple.com/au/podcast/the-researcher-to-founder-journey-and-the/id1740178076?i=1000665678592"}, {"p": "xAI", "c": "Humans&", "y": 2025, "f": "Founders not named in source", "rel": "Eric Zelikman and Yuchen He co-founded Humans& after working as researchers at xAI on the Grok large-language-model program.", "sp": 2, "u": "https://reuters.com/business/ai-startup-humans-raises-480-million-45-billion-valuation-seed-round-2026-01-20"}], "summ": [{"parent_lab": "Google DeepMind", "labs_spawned": 11, "distinct_labs_spawned": 11, "earliest_child_year": 2022, "latest_child_year": 2026, "child_labs": "Inflection AI, Reka AI, Latent Labs, Mistral AI, H Company, Reflection AI, Humans&, Periodic Labs, Ricursive Intelligence, Ineffable Intelligence, Inherent", "source_url": "https://businessinsider.com/executives-and-researchers-who-left-google-in-2025-2026-1"}, {"parent_lab": "OpenAI", "labs_spawned": 8, "distinct_labs_spawned": 8, "earliest_child_year": 2021, "latest_child_year": 2026, "child_labs": "Anthropic, Adept, Perplexity AI, Eureka Labs, Safe Superintelligence (SSI), Periodic Labs, Thinking Machines Lab, Core Automation", "source_url": "https://techcrunch.com/2026/02/20/the-openai-mafia-15-of-the-most-notable-startups-founded-by-alumni"}, {"parent_lab": "Google Brain / Google AI", "labs_spawned": 5, "distinct_labs_spawned": 5, "earliest_child_year": 2015, "latest_child_year": 2023, "child_labs": "OpenAI, Cohere, Character.AI, Adept, Sakana AI", "source_url": "https://fortune.com/europe/2023/04/28/the-google-brain-deepmind-merger-alphabet-pichai-risks-eye-on-a-i"}, {"parent_lab": "Anthropic", "labs_spawned": 3, "distinct_labs_spawned": 3, "earliest_child_year": 2025, "latest_child_year": 2026, "child_labs": "Humans&, Ricursive Intelligence, Mirendil", "source_url": "https://is.gd/I3lWZH"}, {"parent_lab": "Meta AI / FAIR", "labs_spawned": 2, "distinct_labs_spawned": 2, "earliest_child_year": 2023, "latest_child_year": 2025, "child_labs": "Mistral AI, Advanced Machine Intelligence (AMI) Labs", "source_url": "https://benched.ai/companies/meta-ai"}, {"parent_lab": "Adept AI", "labs_spawned": 1, "distinct_labs_spawned": 1, "earliest_child_year": 2023, "latest_child_year": 2023, "child_labs": "Essential AI", "source_url": "https://vuink.com/post/erhgref-d-dpbz/technology/top-ex-google-ai-researchers-raise-funding-thrive-capital-sources-2023-05-04"}, {"parent_lab": "Cohere", "labs_spawned": 1, "distinct_labs_spawned": 1, "earliest_child_year": 2026, "latest_child_year": 2026, "child_labs": "Adaption Labs", "source_url": "https://fortune.com/2026/02/04/adaption-labs-50-million-seed-funding-emergence-captial-sara-hooker-sudip-roy-ai-models-that-learn-on-the-fly"}, {"parent_lab": "Stability AI", "labs_spawned": 1, "distinct_labs_spawned": 1, "earliest_child_year": 2024, "latest_child_year": 2024, "child_labs": "Black Forest Labs", "source_url": "https://podcasts.apple.com/au/podcast/the-researcher-to-founder-journey-and-the/id1740178076?i=1000665678592"}, {"parent_lab": "xAI", "labs_spawned": 1, "distinct_labs_spawned": 1, "earliest_child_year": 2025, "latest_child_year": 2025, "child_labs": "Humans&", "source_url": "https://reuters.com/business/ai-startup-humans-raises-480-million-45-billion-valuation-seed-round-2026-01-20"}]};
+var edges=D.edges, summ=D.summ;
+var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var color={"Google DeepMind":"#1f6feb","OpenAI":"#0d9488","Google Brain / Google AI":"#d97706","Anthropic":"#b45309","Meta AI / FAIR":"#7c3aed","Adept":"#dc2626","Cohere":"#db2777","Stability AI":"#059669","xAI":"#475569"};
+function col(n){return color[n]||"#999";}
+var host=function(u){try{return u.replace(/^https?:\/\//,'').split('/')[0].replace(/^www\./,'');}catch(e){return 'source';}};
+// findings
+var f=[
+ ['Google DeepMind is the largest parent with 11 direct child labs (2022–2026), followed by OpenAI with 8 and Google Brain / Google AI with 5.', summ[0].source_url],
+ ['Five labs have multiple parents: Mistral AI (DeepMind + Meta AI/FAIR), Adept (Google Brain + OpenAI), Periodic Labs (DeepMind + OpenAI), Ricursive Intelligence (Anthropic + DeepMind) and Humans& — the only three-parent lab (Anthropic, DeepMind, xAI).', edges.filter(function(e){return e.c==='Humans&'&&e.p==='xAI';})[0].u],
+ ['The tree is now three generations deep: Google Brain / Google AI seeded OpenAI in 2015, OpenAI seeded Anthropic in 2021, and Anthropic has already spawned three labs of its own in 2025–26.', edges.filter(function(e){return e.c==='Mirendil';})[0].u],
+ ['Second-generation branches keep forming: Adept (itself born of Google Brain and OpenAI) seeded Essential AI in 2023, and Cohere seeded Adaption Labs in 2026.', edges.filter(function(e){return e.c==='Adaption Labs';})[0].u]
+];
+d3.select('#findings').selectAll('div').data(f).join('div').html(function(d){return d[0]+' — <a href="'+d[1]+'" target="_blank" rel="noopener noreferrer">'+host(d[1])+'</a>';});
+// bars
+var bmax=d3.max(summ,function(d){return d.labs_spawned;});
+d3.select('#bars').selectAll('div').data(summ).join('div').attr('class','brow').html(function(d){
+ return '<div class="nm">'+d.parent_lab+'</div><div class="bar" style="width:'+(d.labs_spawned/bmax*55)+'%;background:'+col(d.parent_lab==='Adept AI'?'Adept':d.parent_lab)+'"></div><div class="val">'+d.labs_spawned+' lab'+(d.labs_spawned>1?'s':'')+' · '+d.earliest_child_year+(d.latest_child_year!==d.earliest_child_year?'–'+String(d.latest_child_year).slice(2):'')+'</div>';});
+// table
+d3.select('#tbl tbody').selectAll('tr').data(edges).join('tr').html(function(d){
+ return '<td>'+d.p+'</td><td><b>'+d.c+'</b></td><td>'+d.y+'</td><td>'+d.f+'</td><td>'+d.sp+'</td><td><a href="'+d.u+'" target="_blank" rel="noopener noreferrer">'+host(d.u)+'</a></td>';});
+// sankey
+var tip=d3.select('#viz').append('div').attr('class','tip');
+function draw(){
+ d3.select('#viz svg').remove();
+ var W=Math.max(document.getElementById('viz').clientWidth,320), H=Math.max(680, edges.length*22);
+ var names={};
+ edges.forEach(function(e){names[e.p]=1;names[e.c]=1;});
+ var nodes=Object.keys(names).map(function(n){return {name:n};});
+ var idx={}; nodes.forEach(function(n,i){idx[n.name]=i;});
+ var links=edges.map(function(e){return {source:idx[e.p],target:idx[e.c],value:1,d:e};});
+ var sk=d3.sankey().nodeWidth(12).nodePadding(14).extent([[0,10],[W-1,H-10]]).nodeAlign(d3.sankeyLeft);
+ var g=sk({nodes:nodes.map(function(d){return Object.assign({},d);}),links:links.map(function(d){return Object.assign({},d);})});
+ var svg=d3.select('#viz').append('svg').attr('width',W).attr('height',H);
+ var lg=svg.append('g');
+ var ribbons=lg.selectAll('path').data(g.links).join('path')
+  .attr('d',d3.sankeyLinkHorizontal()).attr('fill','none')
+  .attr('stroke',function(d){return col(d.source.name);})
+  .attr('stroke-width',function(d){return Math.max(2,d.width);})
+  .attr('stroke-opacity',.45);
+ var ng=svg.append('g').selectAll('g').data(g.nodes).join('g');
+ ng.append('rect').attr('x',function(d){return d.x0;}).attr('y',function(d){return d.y0;})
+  .attr('width',function(d){return d.x1-d.x0;}).attr('height',function(d){return Math.max(2,d.y1-d.y0);})
+  .attr('fill',function(d){return col(d.name)!=='#999'?col(d.name):'#111';});
+ ng.append('text')
+  .attr('x',function(d){return d.x0<W/2?d.x1+7:d.x0-7;})
+  .attr('y',function(d){return (d.y0+d.y1)/2;})
+  .attr('dy','0.35em')
+  .attr('text-anchor',function(d){return d.x0<W/2?'start':'end';})
+  .attr('font-size',W<800?11:13).attr('font-weight',600).attr('fill','#111')
+  .text(function(d){
+    var yrs=edges.filter(function(e){return e.c===d.name;}).map(function(e){return e.y;});
+    var kids=edges.filter(function(e){return e.p===d.name;}).length;
+    var t=d.name;
+    if(yrs.length)t+=' · '+yrs[0];
+    if(kids)t+=' → '+kids;
+    return t;});
+ function focus(pred){
+  ribbons.attr('stroke-opacity',function(d){return pred(d)?.8:.05;});
+  ng.attr('opacity',function(n){
+    var hit=g.links.some(function(l){return pred(l)&&(l.source===n||l.target===n);});
+    return hit?1:.15;});
+ }
+ function unfocus(){ribbons.attr('stroke-opacity',.45);ng.attr('opacity',1);}
+ function showTip(html,ev){
+  var r=document.getElementById('viz').getBoundingClientRect();
+  tip.style('opacity',1).html(html)
+   .style('left',Math.min(ev.clientX-r.left+14,W-330)+'px').style('top',(ev.clientY-r.top+10)+'px');
+ }
+ ribbons.on('mousemove',function(ev,d){
+   focus(function(l){return l===d;});
+   showTip('<b>'+d.source.name+' → '+d.target.name+'</b> · '+d.d.y+'<br>'+d.d.f+'<br><span style="opacity:.7">'+d.d.rel+'</span><br><span style="opacity:.6">'+d.d.sp+' supporting pages</span>',ev);
+  }).on('mouseleave',function(){unfocus();tip.style('opacity',0);});
+ ng.on('mousemove',function(ev,d){
+   focus(function(l){return l.source===d||l.target===d;});
+   var outs=edges.filter(function(e){return e.p===d.name;});
+   var ins=edges.filter(function(e){return e.c===d.name;});
+   var h='<b>'+d.name+'</b><br>'+ins.length+' parent edge'+(ins.length===1?'':'s')+' · '+outs.length+' child edge'+(outs.length===1?'':'s');
+   if(ins.length)h+='<br><span style="opacity:.7">From: '+ins.map(function(e){return e.p+' ('+e.y+')';}).join(', ')+'</span>';
+   if(outs.length)h+='<br><span style="opacity:.7">Spawned: '+outs.map(function(e){return e.c;}).join(', ')+'</span>';
+   showTip(h,ev);
+  }).on('mouseleave',function(){unfocus();tip.style('opacity',0);});
+ if(!reduced){
+  ribbons.each(function(){var L=this.getTotalLength();d3.select(this).attr('stroke-dasharray',L+' '+L).attr('stroke-dashoffset',L).transition().duration(900).delay(function(d,i){return i*30;}).attr('stroke-dashoffset',0).on('end',function(){d3.select(this).attr('stroke-dasharray',null);});});
+ }
+}
+draw();
+var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(draw,200);});
+})();
+</script></body></html>

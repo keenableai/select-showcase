@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/the-ai-lab-founder-family-tree/mBdvSshHRLf7WkNAAOzytw",
+ "artifact": {
+  "token": "mBdvSshHRLf7WkNAAOzytw",
+  "title": "The AI Lab Founder Family Tree",
+  "visibility": "public",
+  "bytes_size": "23942",
+  "created_at": "2026-08-31 22:42:40.416606+00:00",
+  "expires_at": "2026-11-29 22:42:40.416606+00:00"
+ },
+ "conversation": {
+  "title": "Chart which AI labs were founded by people who left which other labs \u2014 a founder family tree",
+  "created_at": "2026-08-31 22:35:28.665939+00:00",
+  "updated_at": "2026-08-31 22:42:56.182442+00:00"
+ }
+}
