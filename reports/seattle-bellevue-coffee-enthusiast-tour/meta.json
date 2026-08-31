@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/seattle-bellevue-coffee-enthusiast-tour/XPk1rWX3V2Iy07T5pw5QlA",
+ "artifact": {
+  "token": "XPk1rWX3V2Iy07T5pw5QlA",
+  "title": "Seattle & Bellevue Coffee Enthusiast Tour",
+  "visibility": "public",
+  "bytes_size": "14782",
+  "created_at": "2026-08-31 23:06:15.822941+00:00",
+  "expires_at": "2026-11-29 23:06:15.822941+00:00"
+ },
+ "conversation": {
+  "title": "Plan a coffee tour through seattle / Bellevue for a coffee enthusiast",
+  "created_at": "2026-08-31 22:59:26.347827+00:00",
+  "updated_at": "2026-08-31 23:06:27.743075+00:00"
+ }
+}
