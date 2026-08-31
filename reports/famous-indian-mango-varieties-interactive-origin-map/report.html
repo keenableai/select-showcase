@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Famous Indian mango varieties — interactive origin map</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://select.keenable.ai/geo/countries-110m.js"></script>
+<style>
+:root{
+  --ink:#2E2A1F; --orange:#E8590C; --gold:#F5A623; --leaf:#4C8C2B;
+  --hair:#DDDDDD; --paper:#FFFDF6; --muted:#8D8D8D;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Stack Sans Headline',system-ui,sans-serif;}
+.wrap{max-width:1150px;margin:0 auto;padding:56px 24px 40px;}
+h1{font-size:52px;line-height:1.05;letter-spacing:-0.01em;max-width:20ch}
+h1 em{font-style:normal;color:var(--orange)}
+.sub{margin-top:18px;font-size:18px;color:#5C554A;max-width:70ch}
+.panel{margin-top:56px;position:relative;background:#FFF9EC;padding:18px 18px 8px;}
+.panel svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:26px;align-items:center;padding:10px 4px 12px;font-family:'TASA Orbiter',system-ui,sans-serif;font-size:12px;color:#5C554A}
+.legend .sw{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-2px}
+.mapnote{font-family:'TASA Orbiter',system-ui,sans-serif;font-size:12px;color:var(--muted);padding:0 4px 12px}
+#pop{position:absolute;display:none;width:290px;background:#fff;outline:1px solid var(--hair);padding:16px 18px;z-index:5;pointer-events:auto}
+#pop .pv{font-size:19px;font-weight:700;color:var(--orange)}
+#pop .pp{margin-top:4px;font-size:14px;color:var(--ink);font-weight:600}
+#pop .pn{margin-top:8px;font-size:13px;line-height:1.45;color:#4A443A}
+#pop .pm{margin-top:10px;font-family:'TASA Orbiter',system-ui,sans-serif;font-size:12px;color:var(--muted)}
+#pop a{display:inline-block;margin-top:6px;margin-right:12px;font-family:'TASA Orbiter',system-ui,sans-serif;font-size:12px;color:var(--orange);text-decoration:none;border-bottom:1px solid var(--gold)}
+#pop .x{position:absolute;top:6px;right:10px;cursor:pointer;color:var(--muted);font-size:14px;border:none;background:none;font-family:inherit}
+svg text{font-family:'TASA Orbiter',system-ui,sans-serif}
+.mk{cursor:pointer}
+svg.focus .mk{opacity:.08}
+svg.focus .mk.on{opacity:1}
+.mk{transition:opacity .18s ease}
+.pulse{animation:pu 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pu{50%{transform:scale(1.09)}}
+@media (prefers-reduced-motion: reduce){.pulse{animation:none}}
+.findings{margin-top:64px}
+.findings div{padding:16px 2px;border-top:1px solid var(--hair);font-size:16px;line-height:1.5}
+.findings div:last-child{border-bottom:1px solid var(--hair)}
+.findings a{color:var(--orange);text-decoration:none;border-bottom:1px solid var(--gold)}
+h2{margin-top:64px;font-size:26px}
+#q{margin-top:16px;width:320px;max-width:100%;padding:10px 12px;font-family:inherit;font-size:14px;border:1px solid var(--hair);background:#fff;color:var(--ink)}
+table{margin-top:16px;width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-family:'TASA Orbiter',system-ui,sans-serif;font-size:12px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--hair)}
+td{padding:8px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+th.num{text-align:right}
+td a{color:var(--orange);text-decoration:none;border-bottom:1px solid var(--gold)}
+.method{margin-top:64px;font-family:'TASA Orbiter',system-ui,sans-serif;font-size:12px;color:var(--muted);line-height:1.6}
+@media (max-width:760px){
+  h1{font-size:32px}
+  .wrap{padding:32px 14px}
+  .panel{overflow-x:auto}
+  .panel svg{min-width:760px}
+  #q{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Nearly every famous Indian mango carries the name of the <em>place that made it</em></h1>
+  <p class="sub">69 variety–origin associations gathered from web sources, each anchored to a named town, district or state across India — hover or tap a mango to open its story, its origin and its source.</p>
+
+  <div class="panel" id="panel" data-og-hero>
+    <svg id="map" viewBox="0 0 1150 1030" role="img" aria-label="Interactive map of India with one mango marker per variety"></svg>
+    <div id="pop"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#E8590C"></span>deep orange — 10 or more web source mentions</span>
+      <span><span class="sw" style="background:#F5C445"></span>golden — fewer mentions</span>
+      <span>mango size grows with mention count · hover to focus, click to pin a card</span>
+    </div>
+    <div class="mapnote">Marker positions are approximate locality or state anchors as stated in the sources; only Ratnagiri and Nuzvid carry verified coordinates. Co-located varieties fan out slightly around their shared place.</div>
+  </div>
+
+  <div class="findings">
+    <div>Dashahari leads the field with 21 web mentions, traced to the village of Dasheri near Lucknow — well clear of Alphonso's 19 for Ratnagiri. <a href="https://mmafarms.com/mango-varieties/india" target="_blank" rel="noopener noreferrer">mmafarms.com</a></div>
+    <div>The small town of Nuzvid in Andhra Pradesh anchors four separate entries — Peddarasamu, Cherukurasamu, Chinna Rasalu and Chinnarasamu — making it the densest single mango locality on the map. <a href="http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars" target="_blank" rel="noopener noreferrer">library.eshikshya.org</a></div>
+    <div>Only two localities in the set have verified latitude–longitude anchors: Ratnagiri for Alphonso and Nuzvid for Peddarasamu; every other marker sits on the named place as stated. <a href="https://en.wikipedia.org/wiki/Ratnagiri,_Maharashtra" target="_blank" rel="noopener noreferrer">en.wikipedia.org</a> · <a href="https://mapcarta.com/14881726" target="_blank" rel="noopener noreferrer">mapcarta.com</a></div>
+    <div>One origin lies outside present-day India: Sindhri is tied to Sindhri village near Mirpur Khas, in Sindh — the map shows it just across the western border. <a href="https://food.ndtv.com/food-drinks/langra-totapuri-dasheri-strange-names-of-mango-varieties-and-stories-behind-them-8923086" target="_blank" rel="noopener noreferrer">food.ndtv.com</a></div>
+  </div>
+
+  <h2>All 69 varieties and their sources</h2>
+  <input id="q" type="search" placeholder="Search variety, place or state…" aria-label="Search table">
+  <table>
+    <thead><tr><th>Variety</th><th>Origin place</th><th>State</th><th class="num">Mentions</th><th>Source</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table>
+
+  <p class="method">Data: 69 variety–place associations compiled from public web pages, one row per normalized candidate variety, ordered by web source mentions; two rows carry verified coordinates (Ratnagiri, Nuzvid). A mention counts the number of source pages naming the association. Some entries are aliases or broad regional attributions and are placed at the locality or state as stated, not an exact orchard. Variety notes appear in the map pop-ups and were cut from the table for space.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var D=[
+{v:"Dashahari",p:"Lucknow",s:"Uttar Pradesh",n:"It is believed to have originated in the village of Dasheri near Lucknow in Uttar Pradesh.",m:21,u:"https://mmafarms.com/mango-varieties/india",la:26.85,lo:80.95,big:1},
+{v:"Alphonso",p:"Ratnagiri",s:"Maharashtra",n:"Grows in laterite soil near the Arabian Sea, with humid monsoon air and specific temperature ranges.",m:19,u:"https://en.wikipedia.org/wiki/List_of_mango_cultivars",la:16.983333333333334,lo:73.3,big:1,e:1,g:"https://en.wikipedia.org/wiki/Ratnagiri,_Maharashtra"},
+{v:"Kesar",p:"Gir",s:"Gujarat",n:"This mango's name translates to \u201csaffron,\u201d and it is believed that the mango gained the title because of its deep orange pulp, which resembles the colour of saffron strands.",m:15,u:"https://mmafarms.com/mango-varieties/india",la:21.16,lo:70.75,big:1},
+{v:"Banganapalle",p:"Banganapalle",s:"Andhra Pradesh",n:"Known for its large size, firm flesh and mild sweetness, Banganapalli is one of the most widely consumed mangoes in the country.",m:14,u:"https://mmafarms.com/mango-varieties/india",la:15.32,lo:78.23,big:1},
+{v:"Langra",p:"Varanasi",s:"Uttar Pradesh",n:"The word 'langra' means 'limping' in Hindi and according to popular belief, the variety originated in Varanasi when a farmer with a limp cultivated a particularly delicious mango tree in his orchard.",m:14,u:"https://mmafarms.com/mango-varieties/india",la:25.32,lo:83.0,big:1},
+{v:"Himsagar",p:"West Bengal",s:"West Bengal",n:"While the exact origin of the name is uncertain, it is believed that the name was chosen to reflect the mango's juicy texture and refreshing sweetness.",m:10,u:"https://mmafarms.com/mango-varieties/india",la:23.6,lo:87.8,big:1},
+{v:"Chaunsa",p:"Chausa",s:"Uttar Pradesh",n:"It is said that the Mughal ruler Humayun was defeated by Sher Shah Suri in the Battle of Chausa and he was so fond of mangoes from the region that he named the variety after the town.",m:10,u:"https://mmafarms.com/mango-varieties/india",la:25.51,lo:83.9,big:1},
+{v:"Totapuri",p:"South",s:"Karnataka",n:"\u201cTota\u201d means parrot in Hindi and the mango's pointed top actually resembles a parrot's beak, which is why it is called Totapuri.",m:9,u:"https://mmafarms.com/mango-varieties/india",la:13.5,lo:76.5},
+{v:"Raspuri",p:"Karnataka",s:"Karnataka",n:"Raspuri is known for its juicy, sweet pulp, while Totapuri, with its slightly tangy flavour, is often used in juices and culinary preparations.",m:9,u:"https://mmafarms.com/mango-varieties/india",la:12.97,lo:77.2},
+{v:"Badami",p:"Karnataka",s:"Karnataka",n:"Badami mangoes are also known as the Alphonso of Karnataka state.",m:7,u:"https://mmafarms.com/mango-varieties/india",la:15.92,lo:75.68},
+{v:"Gir Kesar",p:"Junagadh, Gir forest region",s:"Gujarat",n:null,m:5,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:21.52,lo:70.46},
+{v:"Panchadharakalasa",p:"East Godavari district",s:"Andhra Pradesh",n:"This is a juicy mango variety from India. Its name means \u201csugar pot\u201d in Telugu, referring to its sweetness.",m:4,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:17.0,lo:82.1},
+{v:"Neelam",p:"Andhra Pradesh",s:"Tamil Nadu",n:"Tamil Nadu offers distinctive mangoes like Neelam mango, known for its late-season availability and strong flavour.",m:4,u:"https://mmafarms.com/mango-varieties/india",la:15.9,lo:79.3},
+{v:"Manohar",p:"Punjab",s:"Punjab",n:"A large mango that grows in bunches. It has an excellent, complex flavor and is very sweet. The tree grows very strongly.",m:4,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:31.0,lo:75.4},
+{v:"Anwar Rataul",p:"Rataul village",s:"Uttar Pradesh",n:null,m:4,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:28.96,lo:77.26},
+{v:"Kothapalli Kobbari",p:"Pithapuram",s:"Andhra Pradesh",n:"Also known as Kobbari Mamidi.",m:4,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:17.12,lo:82.25},
+{v:"Amrapali",p:"All Over India",s:"Uttar Pradesh",n:null,m:3,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:23.2,lo:78.3},
+{v:"Peddarasamu",p:"Nuzvid",s:"Andhra Pradesh",n:null,m:3,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:16.43871,lo:80.7647,e:1,g:"https://mapcarta.com/14881726"},
+{v:"Imam Pasand",p:"Andhra Pradesh / Telangana / Tamil Nadu",s:"Andhra Pradesh",n:"Other southern varieties, such as Imam Pasand mango, offer a richer, more complex flavour profile.",m:3,u:"https://firstpost.com/lifestyle/best-mango-in-india-which-state-mango-varieties-india-comparison-alphonso-vs-dasheri-vs-langra-mango-which-mango-tastes-best-india-14003137.html/amp",la:16.6,lo:79.6},
+{v:"Bombay Green",p:"North India",s:"Uttar Pradesh and Haryana",n:"You will be surprised to know that, while it is called Bombay Green, it has no connection to Mumbai.",m:3,u:"https://timesofindia.indiatimes.com/life-style/food-news/from-langra-to-bombay-which-has-no-mumbai-connection-famous-mangoes-of-india-and-why-they-are-called-so/photostory/131836859.cms",la:28.7,lo:77.6},
+{v:"Fazli",p:"Malda, Murshidabad",s:"West Bengal",n:null,m:3,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:24.9,lo:88.1},
+{v:"Black and Rose",p:"Kerala",s:"Kerala",n:"Black and Rose.",m:3,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:10.2,lo:76.4},
+{v:"Dudhiya Malda",p:"Digha, Patna",s:"Bihar",n:null,m:3,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:25.62,lo:85.05},
+{v:"Swarnarekha",p:"Andhra Pradesh",s:"Andhra Pradesh",n:null,m:2,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:16.9,lo:81.0},
+{v:"Cherukurasamu",p:"Nuzvid",s:"Andhra Pradesh",n:null,m:2,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:16.43871,lo:80.7647},
+{v:"Malda",p:"Bihar and Bengal",s:"Bihar",n:"Another Bihar and Bengal favorite, famous for its thin skin and sheer juice content.",m:2,u:"https://firstpost.com/lifestyle/best-mango-in-india-which-state-mango-varieties-india-comparison-alphonso-vs-dasheri-vs-langra-mango-which-mango-tastes-best-india-14003137.html/amp",la:25.4,lo:87.3},
+{v:"Jardalu",p:"Bhagalpur",s:"Bihar",n:"These mangoes are deeply aromatic and rooted in local traditions, often consumed fresh rather than exported.",m:2,u:"https://firstpost.com/lifestyle/best-mango-in-india-which-state-mango-varieties-india-comparison-alphonso-vs-dasheri-vs-langra-mango-which-mango-tastes-best-india-14003137.html/amp",la:25.24,lo:86.98},
+{v:"Dudhiya Malda, Malda or Maldeo",p:"Digha, Patna district",s:"Bihar",n:"This famous mango from Patna, India, is sometimes called the \u201cKing of Mangoes.\u201d It's known for being very sweet, having thin skin, small seeds, few stringy bits, and a unique sweet smell. People say it's irrigated with milk, and when you scratch its skin, a milk-like liquid comes out.",m:2,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:25.62,lo:85.05},
+{v:"Mulgoba",p:"Salem",s:"Tamil Nadu",n:null,m:2,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:11.66,lo:78.15},
+{v:"Mankurad",p:"Goa",s:"Goa",n:"Goa\u2019s famous Mankurad mango is celebrated for its bright yellow skin and rich flavour.",m:2,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:15.4,lo:74.0},
+{v:"Vanraj",p:"Vadodara city",s:"Gujarat",n:"These lesser-known varieties from Andhra Pradesh and Odisha are admired for their attractive appearance and reliable yields.",m:2,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:22.31,lo:73.19},
+{v:"Kohitoor",p:"Murshidabad district",s:"West Bengal",n:null,m:2,u:"https://indianexpress.com/article/research/a-fruit-fit-for-emperors-the-history-of-mangoes-in-india-9478987",la:24.18,lo:88.27},
+{v:"Panakalu",p:"Andhra Pradesh",s:"Andhra Pradesh",n:null,m:2,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:15.8,lo:80.0},
+{v:"Himayath",p:"Hyderabad",s:"Telangana",n:"These are not just variety names, they are place names written in flavor.",m:2,u:"https://swadeshimangoes.com/first-timers-guide-indian-mangoes",la:17.38,lo:78.48},
+{v:"Alphonso (Hapus)",p:"Ratnagiri, Sindhudurg, Raigad, Konkan",s:"Maharashtra",n:"Known for its rich sweetness and smooth texture, mainly grown in Maharashtra.",m:2,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:16.983333333333334,lo:73.3},
+{v:"Chinna Rasalu",p:"Nuzvid",s:"Andhra Pradesh",n:"These are not just variety names, they are place names written in flavor.",m:2,u:"http://library.eshikshya.org/kiwix/content/wikipedia_en_all_maxi_2023-05/A/List_of_mango_cultivars",la:16.43871,lo:80.7647},
+{v:"Paheri/Pairi",p:"Gujarat",s:"Gujarat",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:22.6,lo:71.6},
+{v:"Gulab Khaas",p:"Bihar, Jharkhand, and West Bengal",s:"Bihar, Jharkhand, and West Bengal",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:24.2,lo:86.3},
+{v:"Safeda",p:"Banganpalle",s:"Andhra Pradesh",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:15.32,lo:78.23},
+{v:"Ramkela",p:"North India",s:null,n:"The Ramkela mango from North India is grown specifically for pickling.",m:1,u:"https://telefonorojo.mx/types-of-mangoes-india-offers-what-most-people-get-wrong-about-the-king-of-fruits-87j",la:28.2,lo:77.9},
+{v:"Suvarnarekha",p:null,s:"Andhra Pradesh and Odisha",n:"These lesser-known varieties from Andhra Pradesh and Odisha are admired for their attractive appearance and reliable yields.",m:1,u:"https://dailynewsupdate.net/life-style/indias-mango-map-from-alphonso-to-langra-meet-countrys-most-loved-varieties",la:18.8,lo:84.0},
+{v:"Appemidi",p:"South",s:null,n:"In the South, the small, wild Appemidi mangoes are prized for their intense aroma; a single tiny mango can flavor an entire jar of pickle.",m:1,u:"https://telefonorojo.mx/types-of-mangoes-india-offers-what-most-people-get-wrong-about-the-king-of-fruits-87j",la:14.2,lo:74.9},
+{v:"Banganapalle (Safeda)",p:"Kurnool/Nandyal",s:"Andhra Pradesh",n:null,m:1,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:15.48,lo:78.48},
+{v:"Ratnagiri Alphonso",p:"Ratnagiri",s:"Maharastra",n:null,m:1,u:"https://alphamangoes.com/post/the-exotic-mango-varieties-of-india",la:16.983333333333334,lo:73.3},
+{v:"Malgova",p:null,s:"Tamil Nadu",n:null,m:1,u:"https://mmafarms.com/mango-varieties/india",la:11.1,lo:78.7},
+{v:"Malihabadi Dashehari",p:"Malihabad, Lucknow",s:"Uttar Pradesh",n:null,m:1,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:26.92,lo:80.71},
+{v:"Mallika",p:"All Over India",s:null,n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:22.9,lo:79.2},
+{v:"Bombai",p:null,s:"Bihar and West Bengal",n:"Popular in Bihar and West Bengal, Bombai mangoes are medium-sized with yellow skin and balanced sweetness.",m:1,u:"https://dailynewsupdate.net/life-style/indias-mango-map-from-alphonso-to-langra-meet-countrys-most-loved-varieties",la:25.1,lo:86.6},
+{v:"Chinnarasamu",p:"Nuzvid",s:"Andhra Pradesh",n:null,m:1,u:"https://a.osmarks.net/content/wikipedia_en_all_maxi_2020-08/A/List_of_mango_cultivars",la:16.43871,lo:80.7647},
+{v:"Laxman Bhog",p:"Malda district",s:"West Bengal",n:null,m:1,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:25.0,lo:88.14},
+{v:"Kalepad",p:"Kalepad",s:"Andhra Pradesh",n:null,m:1,u:"https://ipfs.ssi.eecc.de/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Sammar_Bahisht.html",la:14.4,lo:79.9},
+{v:"Banganapalli (Benishan)",p:null,s:"Andhra Pradesh",n:"A large, sweet variety from Andhra Pradesh.",m:1,u:"https://abvmangoes.com/a-nation-of-mango-diversity",la:15.32,lo:78.23},
+{v:"Fernandin",p:"Goan",s:"Goa",n:"This Goan mango variety features yellow skin with a reddish blush and medium shelf life.",m:1,u:"https://dailynewsupdate.net/life-style/indias-mango-map-from-alphonso-to-langra-meet-countrys-most-loved-varieties",la:15.4,lo:74.0},
+{v:"Kuttiattoor Mango",p:"Kuttiattoor",s:"Kerala",n:null,m:1,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:11.98,lo:75.44},
+{v:"Devgad Alphonso",p:"Devgad",s:"Goa and Maharashtra",n:null,m:1,u:"https://alphamangoes.com/post/the-exotic-mango-varieties-of-india",la:16.37,lo:73.38},
+{v:"Rataul",p:"Rataul",s:"Uttar Pradesh",n:null,m:1,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:28.96,lo:77.26},
+{v:"Kilichundan",p:"Kerala",s:"Kerala",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:10.8,lo:76.1},
+{v:"Kuttiattoor",p:"Kannur district",s:"Kerala",n:null,m:1,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:11.98,lo:75.44},
+{v:"Mancurado",p:"Goa",s:"Goa",n:"It hits the markets even before the Alphonso.",m:1,u:"https://telefonorojo.mx/types-of-mangoes-india-offers-what-most-people-get-wrong-about-the-king-of-fruits-87j",la:15.4,lo:74.0},
+{v:"Kishan Bhog",p:"Murshidabad",s:"West Bengal",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:24.18,lo:88.27},
+{v:"Benishan Mango",p:"Banganapalli",s:"Andhra Pradesh",n:null,m:1,u:"https://quora.com/How-many-mangoes-variety-are-there-in-India-and-which-variety-is-the-best",la:15.32,lo:78.23},
+{v:"Goa Mankurad Mango",p:"Goa",s:"Goa",n:null,m:1,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:15.4,lo:74.0},
+{v:"Husn-e-Aara",p:"Kolkata",s:"West Bengal",n:null,m:1,u:"https://thebetterindia.com/57267/mango-national-fruit-of-india-history",la:22.57,lo:88.36},
+{v:"Rumani",p:"Chennai",s:"Tamil Nadu",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:13.08,lo:80.27},
+{v:"Rewa Sunderja Mango",p:"Rewa",s:"Madhya Pradesh",n:null,m:1,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:24.53,lo:81.3},
+{v:"Sindhri",p:"Sindhri village near Mirpur Khas",s:null,n:"Origin lies in Sindh, outside present-day India.",m:1,u:"https://food.ndtv.com/food-drinks/langra-totapuri-dasheri-strange-names-of-mango-varieties-and-stories-behind-them-8923086",la:25.53,lo:69.0},
+{v:"Khirsapati (Himsagar type)",p:null,s:"West Bengal",n:null,m:1,u:"https://gknow.in/gi-tagged-mango-varieties-of-india-complete-list-and-importance",la:24.6,lo:88.0},
+{v:"Marathwada Kesar",p:"Marathwada",s:"Maharashtra",n:null,m:1,u:"http://en.wikipedia.org/wiki/List_of_mango_cultivars",la:19.2,lo:76.4},
+{v:"Lakshmanbhog",p:"Malda",s:"West Bengal",n:null,m:1,u:"https://ratnagirihapus.store/24-varieties-of-mangoes-found-in-india/",la:25.0,lo:88.14}
+];
+
+var W=1150,H=1030;
+var svg=d3.select("#map");
+var countries=topojson.feature(window.WORLD_TOPO,window.WORLD_TOPO.objects.countries);
+var india=countries.features.find(function(f){return f.properties.name==="India";});
+var proj=d3.geoMercator().fitExtent([[30,20],[1120,1000]],india);
+var path=d3.geoPath(proj);
+
+var defs=svg.append("defs");
+var gA=defs.append("radialGradient").attr("id","gA").attr("cx","35%").attr("cy","30%");
+gA.append("stop").attr("offset","0%").attr("stop-color","#FFB84D");
+gA.append("stop").attr("offset","100%").attr("stop-color","#E8590C");
+var gB=defs.append("radialGradient").attr("id","gB").attr("cx","35%").attr("cy","30%");
+gB.append("stop").attr("offset","0%").attr("stop-color","#FFE38A");
+gB.append("stop").attr("offset","100%").attr("stop-color","#F5A623");
+
+var base=svg.append("g");
+base.selectAll("path").data(countries.features).enter().append("path")
+  .attr("d",path).attr("fill",function(f){return f===india?"#FCEFC7":"#EFECE2";})
+  .attr("stroke",function(f){return f===india?"#D9A441":"#DDD8CB";})
+  .attr("stroke-width",function(f){return f===india?1.2:0.6;});
+
+// sea labels
+[["Arabian Sea",70.2,13.5],["Bay of Bengal",87.5,14.5]].forEach(function(s){
+  var pt=proj([s[1],s[2]]);
+  svg.append("text").attr("x",pt[0]).attr("y",pt[1]).attr("text-anchor","middle")
+    .attr("fill","#B9B2A0").attr("font-size",13).attr("font-style","italic").text(s[0]);
+});
+
+// project + collision spiral for co-located markers
+var GA=2.399963;
+var cells={};
+D.forEach(function(d,i){
+  d.i=i;
+  var pt=proj([d.lo,d.la]); d.x=pt[0]; d.y=pt[1];
+  var k=Math.round(d.x/18)+"_"+Math.round(d.y/18);
+  (cells[k]=cells[k]||[]).push(d);
+});
+Object.keys(cells).forEach(function(k){
+  var g=cells[k];
+  if(g.length>1){
+    g.sort(function(a,b){return b.m-a.m;});
+    g.forEach(function(d,j){
+      if(j>0){var r=8*Math.sqrt(j+0.8),a=j*GA;d.x+=Math.cos(a)*r;d.y+=Math.sin(a)*r;}
+    });
+  }
+});
+
+function host(u){try{return new URL(u).hostname.replace(/^www\./,"");}catch(e){return u;}}
+function rad(m){return 4.2+Math.sqrt(m)*1.55;}
+
+var pop=document.getElementById("pop");
+var panel=document.getElementById("panel");
+var pinned=null;
+
+function showPop(d){
+  var h='<button class="x" aria-label="close">✕</button>'
+    +'<div class="pv">🥭 '+d.v+'</div>'
+    +'<div class="pp">'+(d.p||"—")+(d.s?' · '+d.s:'')+'</div>'
+    +(d.n?'<div class="pn">'+d.n+'</div>':'')
+    +'<div class="pm">'+d.m+' source mention'+(d.m>1?'s':'')+(d.e?' · verified coordinates':'')+'</div>'
+    +'<a href="'+d.u+'" target="_blank" rel="noopener noreferrer">'+host(d.u)+'</a>'
+    +(d.g?'<a href="'+d.g+'" target="_blank" rel="noopener noreferrer">'+host(d.g)+'</a>':'');
+  pop.innerHTML=h;
+  pop.querySelector(".x").addEventListener("click",function(ev){ev.stopPropagation();pinned=null;hidePop();unfocus();});
+  var rect=svg.node().getBoundingClientRect();
+  var sx=rect.width/W, sy=rect.height/H;
+  var left=d.x*sx+18+18, top=d.y*sy-10+18; // +panel padding
+  pop.style.display="block";
+  var pw=pop.offsetWidth, ph=pop.offsetHeight;
+  if(left+pw>panel.clientWidth-8) left=d.x*sx-pw-18+18;
+  if(left<4) left=4;
+  if(top+ph>panel.clientHeight-8) top=panel.clientHeight-ph-8;
+  if(top<4) top=4;
+  pop.style.left=left+"px"; pop.style.top=top+"px";
+}
+function hidePop(){pop.style.display="none";}
+function focusOn(sel){svg.classed("focus",true);svg.selectAll(".mk").classed("on",false);sel.classed("on",true);}
+function unfocus(){svg.classed("focus",false);svg.selectAll(".mk").classed("on",false);}
+
+var marks=svg.append("g").selectAll("g.mk")
+  .data(D.slice().sort(function(a,b){return a.m-b.m;}))
+  .enter().append("g").attr("class","mk")
+  .attr("transform",function(d){return "translate("+d.x+","+d.y+") scale(0)";});
+
+marks.each(function(d){
+  var g=d3.select(this).append("g").attr("class",d.big?"pulse":null);
+  var r=rad(d.m);
+  g.append("line").attr("x1",0).attr("y1",-r).attr("x2",1.5).attr("y2",-r-3.5)
+    .attr("stroke","#7A5C2E").attr("stroke-width",1.4);
+  g.append("ellipse").attr("rx",r*0.5).attr("ry",r*0.2)
+    .attr("transform","translate("+(r*0.55)+","+(-r*0.95)+") rotate(-28)")
+    .attr("fill","#4C8C2B");
+  g.append("ellipse").attr("rx",r*0.84).attr("ry",r)
+    .attr("transform","rotate(-22)")
+    .attr("fill",d.m>=10?"url(#gA)":"url(#gB)");
+  g.append("circle").attr("r",r+6).attr("fill","transparent");
+});
+
+marks.transition().duration(500).delay(function(d,i){return 180+i*16;})
+  .ease(d3.easeBackOut.overshoot(1.4))
+  .attr("transform",function(d){return "translate("+d.x+","+d.y+") scale(1)";});
+
+// labels for the seven best-supported varieties
+D.filter(function(d){return d.big;}).forEach(function(d){
+  var right=d.x<W*0.55;
+  svg.append("text")
+    .attr("x",d.x+(right?rad(d.m)+7:-rad(d.m)-7)).attr("y",d.y+4)
+    .attr("text-anchor",right?"start":"end")
+    .attr("font-size",12).attr("font-weight",700).attr("fill","#5C4218")
+    .attr("pointer-events","none")
+    .text(d.v+" · "+(d.p||d.s));
+});
+
+marks.on("mouseenter",function(ev,d){if(pinned)return;focusOn(d3.select(this));showPop(d);})
+  .on("mouseleave",function(){if(pinned)return;unfocus();hidePop();})
+  .on("click",function(ev,d){ev.stopPropagation();pinned=d;focusOn(d3.select(this));showPop(d);});
+svg.on("click",function(){pinned=null;unfocus();hidePop();});
+
+// table
+var tb=document.getElementById("tb");
+D.forEach(function(d){
+  var tr=document.createElement("tr");
+  tr.innerHTML="<td>"+d.v+"</td><td>"+(d.p||"—")+"</td><td>"+(d.s||"—")+"</td>"
+    +"<td class='num'>"+d.m+"</td>"
+    +"<td><a href='"+d.u+"' target='_blank' rel='noopener noreferrer'>"+host(d.u)+"</a></td>";
+  tr.dataset.k=(d.v+" "+(d.p||"")+" "+(d.s||"")).toLowerCase();
+  tb.appendChild(tr);
+});
+document.getElementById("q").addEventListener("input",function(){
+  var q=this.value.trim().toLowerCase();
+  Array.prototype.forEach.call(tb.rows,function(r){
+    r.style.display=(!q||r.dataset.k.indexOf(q)>-1)?"":"none";
+  });
+});
+})();
+</script>
+</body>
+</html>
