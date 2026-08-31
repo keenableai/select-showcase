@@ -1,28 +1,56 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SELECT showcase</title><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SELECT showcase</title><link rel="icon" href="keenable-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="fonts/brand.css"><style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#fff;color:#1a1a1a;font-family:system-ui,sans-serif;line-height:1.5}
-.wrap{max-width:960px;margin:0 auto;padding:48px 24px 64px}
-h1{font-size:34px;letter-spacing:-.02em;margin-bottom:8px}
-.sub{color:#777;font-size:14px;margin-bottom:32px}
-a{color:#0b5cad}
-.msg{border:1px solid #e3e3e3;border-radius:8px;margin:14px 0;overflow:hidden}
-.msg-head{padding:8px 14px;font-size:12px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:#555;background:#f6f6f6;border-bottom:1px solid #e3e3e3}
-.msg-user .msg-head{background:#eaf2fa;color:#0b5cad}
-.msg-assistant .msg-head{background:#eef7ee;color:#20702a}
-.msg-body{padding:14px}
+body{background:#fff;color:#2A2A2A;font-family:'Stack Sans Headline',system-ui,sans-serif;
+  font-weight:300;font-size:16px;line-height:1.5;letter-spacing:.010em}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px 64px}
+a{color:#0A57E8;text-decoration:none}
+a:hover{text-decoration:underline}
+header.site{display:flex;align-items:center;gap:14px;padding:22px 0;
+  border-bottom:1px solid #DDDDDD;margin-bottom:44px}
+header.site img{height:28px;display:block}
+header.site .name{font-weight:400;font-size:18px;color:#2A2A2A}
+header.site .spacer{flex:1}
+header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
+  letter-spacing:-.004em;color:#646464}
+h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
+  margin-bottom:20px;max-width:900px}
+.sub{color:#646464;margin-bottom:44px;max-width:700px}
+.label{font-family:'TASA Orbiter',system-ui;font-size:12px;letter-spacing:-.004em;
+  color:#8D8D8D;text-transform:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.card{background:#fff;border:1px solid #DDDDDD;padding:0 0 20px;
+  display:flex;flex-direction:column}
+.card .shot{display:block;width:100%;height:220px;object-fit:cover;object-position:top;
+  border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.card .noshot{height:220px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.card h2{font-weight:400;font-size:24px;line-height:1.05;margin:18px 20px 8px}
+.card h2 a{color:#2A2A2A}
+.card .q{color:#646464;font-size:14px;margin:0 20px 14px;flex:1}
+.card .links{margin:0 20px 10px}
+.card .links a{margin-right:18px}
+.card .meta{margin:0 20px}
+.msg{border:1px solid #DDDDDD;margin:0 0 -1px}
+.msg-head{padding:8px 16px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.msg-user .msg-head{background:#DAEBFF}
+.msg-body{padding:16px}
 .msg-body p{white-space:pre-wrap;margin:0 0 10px}
 .msg-body p:last-child{margin-bottom:0}
-pre{background:#0f1419;color:#e6e6e6;padding:14px;border-radius:6px;overflow-x:auto;
-  font-size:13px;line-height:1.45}
-.tool-name{font-size:13px;color:#555;margin:0 0 6px}
-details{margin:0}
-details summary{cursor:pointer;padding:10px 14px;font-size:13px;color:#555}
-details pre{margin:0 14px 14px;background:#f6f6f6;color:#222;max-height:420px;overflow:auto}
-.card{border:1px solid #e3e3e3;border-radius:10px;padding:20px;margin:16px 0}
-.card h2{font-size:22px;margin-bottom:6px}
-.card .q{color:#555;font-style:italic;margin-bottom:12px}
-.card .links a{margin-right:18px}
-.meta{color:#999;font-size:13px;margin-top:10px}
-</style></head><body><div class="wrap"><h1>SELECT showcase</h1><p class="sub">Selected WebQL reports with their full agent trajectories.</p><div class="card"><h2>Great Bird Migrations of the World</h2><p class="q">How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map</p><p class="links"><a href="great-bird-migrations-of-the-world/report.html">Report</a><a href="great-bird-migrations-of-the-world/trajectory.html">Trajectory</a></p><p class="meta">2026-08-31 &middot; 19 messages &middot; 10 queries</p></div></div></body></html>
+.tool-name{margin:0 0 8px}
+pre{background:#F9F9F9;border:1px solid #DDDDDD;padding:14px 16px;overflow-x:auto;
+  font-size:13px;line-height:1.5;margin:0 0 10px}
+pre:last-child{margin-bottom:0}
+pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:none;padding:0}
+details summary{cursor:pointer;padding:10px 16px}
+details pre{margin:0;border:0;border-top:1px solid #DDDDDD;max-height:420px;overflow:auto}
+footer.site{margin-top:64px;padding-top:20px;border-top:1px solid #DDDDDD;
+  display:flex;align-items:center;gap:20px}
+footer.site img{height:16px;display:block}
+footer.site a{font-family:'TASA Orbiter',system-ui;font-size:12px;
+  letter-spacing:-.004em;color:#646464}
+.hljs-keyword{color:#005CFF}
+.hljs-string{color:#646464}
+.hljs-number{color:#F25F34}
+.hljs-comment{color:#8D8D8D}
+.hljs-operator,.hljs-punctuation{color:#2A2A2A}
+</style></head><body><div class="wrap"><header class="site"><a href="index.html"><img src="keenable-mark.svg" alt="Keenable"></a><span class="name">SELECT showcase</span><span class="spacer"></span><a class="gh" href="https://github.com/keenableai/select-showcase">GitHub</a></header><h1>Selected reports with their trajectories</h1><p class="sub">WebQL reports built by the SELECT agent, each with the full agent run behind it: every query, every tool result.</p><div class="cards"><div class="card"><a href="great-bird-migrations-of-the-world/report.html"><img class="shot" src="great-bird-migrations-of-the-world/preview.png" alt=""></a><h2><a href="great-bird-migrations-of-the-world/report.html">Great Bird Migrations of the World</a></h2><p class="q">How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map</p><p class="links"><a href="great-bird-migrations-of-the-world/report.html">Report</a><a href="great-bird-migrations-of-the-world/trajectory.html">Trajectory</a></p><p class="meta label">2026-08-31 &middot; 19 messages &middot; 10 queries</p></div></div><footer class="site"><a href="https://keenable.ai"><img src="keenable-wordmark-footer.svg" alt="Keenable"></a><a href="https://github.com/keenableai/select-showcase">Source and data on GitHub</a></footer></div></body></html>

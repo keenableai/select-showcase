@@ -1,31 +1,59 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Great Bird Migrations of the World — trajectory</title><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Great Bird Migrations of the World — trajectory</title><link rel="icon" href="../keenable-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../fonts/brand.css"><style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#fff;color:#1a1a1a;font-family:system-ui,sans-serif;line-height:1.5}
-.wrap{max-width:960px;margin:0 auto;padding:48px 24px 64px}
-h1{font-size:34px;letter-spacing:-.02em;margin-bottom:8px}
-.sub{color:#777;font-size:14px;margin-bottom:32px}
-a{color:#0b5cad}
-.msg{border:1px solid #e3e3e3;border-radius:8px;margin:14px 0;overflow:hidden}
-.msg-head{padding:8px 14px;font-size:12px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:#555;background:#f6f6f6;border-bottom:1px solid #e3e3e3}
-.msg-user .msg-head{background:#eaf2fa;color:#0b5cad}
-.msg-assistant .msg-head{background:#eef7ee;color:#20702a}
-.msg-body{padding:14px}
+body{background:#fff;color:#2A2A2A;font-family:'Stack Sans Headline',system-ui,sans-serif;
+  font-weight:300;font-size:16px;line-height:1.5;letter-spacing:.010em}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px 64px}
+a{color:#0A57E8;text-decoration:none}
+a:hover{text-decoration:underline}
+header.site{display:flex;align-items:center;gap:14px;padding:22px 0;
+  border-bottom:1px solid #DDDDDD;margin-bottom:44px}
+header.site img{height:28px;display:block}
+header.site .name{font-weight:400;font-size:18px;color:#2A2A2A}
+header.site .spacer{flex:1}
+header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
+  letter-spacing:-.004em;color:#646464}
+h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
+  margin-bottom:20px;max-width:900px}
+.sub{color:#646464;margin-bottom:44px;max-width:700px}
+.label{font-family:'TASA Orbiter',system-ui;font-size:12px;letter-spacing:-.004em;
+  color:#8D8D8D;text-transform:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.card{background:#fff;border:1px solid #DDDDDD;padding:0 0 20px;
+  display:flex;flex-direction:column}
+.card .shot{display:block;width:100%;height:220px;object-fit:cover;object-position:top;
+  border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.card .noshot{height:220px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.card h2{font-weight:400;font-size:24px;line-height:1.05;margin:18px 20px 8px}
+.card h2 a{color:#2A2A2A}
+.card .q{color:#646464;font-size:14px;margin:0 20px 14px;flex:1}
+.card .links{margin:0 20px 10px}
+.card .links a{margin-right:18px}
+.card .meta{margin:0 20px}
+.msg{border:1px solid #DDDDDD;margin:0 0 -1px}
+.msg-head{padding:8px 16px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.msg-user .msg-head{background:#DAEBFF}
+.msg-body{padding:16px}
 .msg-body p{white-space:pre-wrap;margin:0 0 10px}
 .msg-body p:last-child{margin-bottom:0}
-pre{background:#0f1419;color:#e6e6e6;padding:14px;border-radius:6px;overflow-x:auto;
-  font-size:13px;line-height:1.45}
-.tool-name{font-size:13px;color:#555;margin:0 0 6px}
-details{margin:0}
-details summary{cursor:pointer;padding:10px 14px;font-size:13px;color:#555}
-details pre{margin:0 14px 14px;background:#f6f6f6;color:#222;max-height:420px;overflow:auto}
-.card{border:1px solid #e3e3e3;border-radius:10px;padding:20px;margin:16px 0}
-.card h2{font-size:22px;margin-bottom:6px}
-.card .q{color:#555;font-style:italic;margin-bottom:12px}
-.card .links a{margin-right:18px}
-.meta{color:#999;font-size:13px;margin-top:10px}
-</style></head><body><div class="wrap"><h1>Great Bird Migrations of the World — trajectory</h1><p class="sub">19 messages, 10 tool calls &middot; <a href="report.html">report</a> &middot; <a href="../index.html">all reports</a></p><div class="msg msg-user"><div class="msg-head">user</div><div class="msg-body"><p>How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map</p></div></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+.tool-name{margin:0 0 8px}
+pre{background:#F9F9F9;border:1px solid #DDDDDD;padding:14px 16px;overflow-x:auto;
+  font-size:13px;line-height:1.5;margin:0 0 10px}
+pre:last-child{margin-bottom:0}
+pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:none;padding:0}
+details summary{cursor:pointer;padding:10px 16px}
+details pre{margin:0;border:0;border-top:1px solid #DDDDDD;max-height:420px;overflow:auto}
+footer.site{margin-top:64px;padding-top:20px;border-top:1px solid #DDDDDD;
+  display:flex;align-items:center;gap:20px}
+footer.site img{height:16px;display:block}
+footer.site a{font-family:'TASA Orbiter',system-ui;font-size:12px;
+  letter-spacing:-.004em;color:#646464}
+.hljs-keyword{color:#005CFF}
+.hljs-string{color:#646464}
+.hljs-number{color:#F25F34}
+.hljs-comment{color:#8D8D8D}
+.hljs-operator,.hljs-punctuation{color:#2A2A2A}
+</style></head><body><div class="wrap"><header class="site"><a href="../index.html"><img src="../keenable-mark.svg" alt="Keenable"></a><span class="name">SELECT showcase</span><span class="spacer"></span><a class="gh" href="https://github.com/keenableai/select-showcase">GitHub</a></header><h1>Great Bird Migrations of the World</h1><p class="sub label">Trajectory — 19 messages, 10 tool calls &middot; <a href="report.html">report</a> &middot; <a href="../index.html">all reports</a></p><div class="msg msg-user"><div class="msg-head label">user</div><div class="msg-body"><p>How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map</p></div></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   url,
   title,
   SEM_EXTRACT_ALL(
@@ -48,9 +76,9 @@ FROM WEB_SEARCH(
   'longest bird migrations famous species route New Zealand Alaska Antarctica',
   'iconic bird migration route world map species flyways'
 )
-WHERE SEM_MATCH(content, 'describes the seasonal route of one or more named migratory bird species')</pre><pre>{
+WHERE SEM_MATCH(content, 'describes the seasonal route of one or more named migratory bird species')</code></pre><pre>{
  "show_preview": false
-}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (3571 chars)</summary><pre>result_set_id: rc30a7492464
+}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (3571 chars)</summary><pre>result_set_id: rc30a7492464
 total_rows: 447
 columns[3]: birds,title,url
 preview:
@@ -98,7 +126,7 @@ notes[4,]{text}:
   "The full table is too large to return in one response. This is a preview, not the data — do not draw conclusions from it alone. Query the result set by id: SEM_EXTRACT fields, filter with exact WHERE, aggregate, or page with LIMIT/OFFSET. Even if the preview looks irrelevant, probe the full result set before searching again."
   Merged 8 queries (1507 total) → 1445 unique results
   "Search result set: rb40cc89679c (1445 rows), reference it as FROM rb40cc89679c in follow-up queries"
-  "WARNING: semantic extraction failed on 1 of 1000 rows — extracted values are null on those rows. First error: timed_out after 90.0s"</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+  "WARNING: semantic extraction failed on 1 of 1000 rows — extracted values are null on those rows. First error: timed_out after 90.0s"</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   url,
   title,
   UNNEST(
@@ -125,9 +153,9 @@ FROM WEB_SEARCH(
   'northern wheatear migration Alaska Africa route study',
   'sooty shearwater migration New Zealand North Pacific route study'
 )
-WHERE SEM_MATCH(content, 'gives geographic endpoints or waypoints for the migration of at least one specified bird')</pre><pre>{
+WHERE SEM_MATCH(content, 'gives geographic endpoints or waypoints for the migration of at least one specified bird')</code></pre><pre>{
  "show_preview": false
-}</pre><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+}</pre><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   url,
   title,
   UNNEST(
@@ -154,9 +182,9 @@ FROM WEB_SEARCH(
   'European bee eater migration Europe Africa Sahara route official',
   'barn swallow migration Europe southern Africa route official'
 )
-WHERE SEM_MATCH(content, 'gives geographic endpoints or waypoints for the migration of at least one specified bird')</pre><pre>{
+WHERE SEM_MATCH(content, 'gives geographic endpoints or waypoints for the migration of at least one specified bird')</code></pre><pre>{
  "show_preview": false
-}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (50019 chars)</summary><pre>result_set_id: r7222fb4253c
+}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (50019 chars)</summary><pre>result_set_id: r7222fb4253c
 total_rows: 42
 columns[14]: annual_km,annual_km_evidence,breeding_area,breeding_area_evidence,nonbreeding_area,nonbreeding_area_evidence,one_way_km,one_way_km_evidence,route_details,route_details_evidence,species,species_evidence,title,url
 rows[42]:
@@ -724,7 +752,7 @@ odwits during their fall migration from Siberia to Australia in the October of 2
     annual_km_evidence: null
 notes[2,]{text}:
   Merged 8 queries (1599 total) → 1591 unique results
-  "Search result set: re40ac1251b9 (1591 rows), reference it as FROM re40ac1251b9 in follow-up queries"</pre></details></div><div class="msg msg-tool"><details><summary>tool result (5274 chars)</summary><pre>result_set_id: rc53987c57b6
+  "Search result set: re40ac1251b9 (1591 rows), reference it as FROM re40ac1251b9 in follow-up queries"</pre></details></div><div class="msg msg-tool"><details><summary class="label">tool result (5274 chars)</summary><pre>result_set_id: rc53987c57b6
 total_rows: 6
 columns[14]: annual_km,annual_km_evidence,breeding_area,breeding_area_evidence,nonbreeding_area,nonbreeding_area_evidence,one_way_km,one_way_km_evidence,route_details,route_details_evidence,species,species_evidence,title,url
 rows[6]:
@@ -814,7 +842,7 @@ rows[6]:
     annual_km_evidence: null
 notes[2,]{text}:
   Merged 8 queries (1600 total) → 1588 unique results
-  "Search result set: rca49cc4f926 (1588 rows), reference it as FROM rca49cc4f926 in follow-up queries"</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+  "Search result set: rca49cc4f926 (1588 rows), reference it as FROM rca49cc4f926 in follow-up queries"</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   url,
   title,
   UNNEST(
@@ -841,9 +869,9 @@ FROM WEB_SEARCH(
   'site:csiro.au short-tailed shearwater migration Tasmania Bering Sea',
   'site:birdlife.org oriental honey buzzard migration East Asia route'
 )
-WHERE SEM_MATCH(content, 'states both endpoints or named waypoints of a bird migration route')</pre><pre>{
+WHERE SEM_MATCH(content, 'states both endpoints or named waypoints of a bird migration route')</code></pre><pre>{
  "show_preview": false
-}</pre><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+}</pre><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   url,
   title,
   UNNEST(
@@ -870,9 +898,9 @@ FROM WEB_SEARCH(
   'site:doc.govt.nz sooty shearwater migration New Zealand North Pacific',
   'site:noaa.gov albatross migration route Pacific famous'
 )
-WHERE SEM_MATCH(content, 'states both endpoints or named waypoints of a bird migration route')</pre><pre>{
+WHERE SEM_MATCH(content, 'states both endpoints or named waypoints of a bird migration route')</code></pre><pre>{
  "show_preview": false
-}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (3681 chars)</summary><pre>result_set_id: ra64b8a50434
+}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (3681 chars)</summary><pre>result_set_id: ra64b8a50434
 total_rows: 502
 columns[14]: breeding_area,breeding_area_evidence,distance,distance_evidence,distinction,distinction_evidence,nonbreeding_area,nonbreeding_area_evidence,species,species_evidence,title,url,waypoints,waypoints_evidence
 preview:
@@ -922,7 +950,7 @@ preview:
 notes[3,]{text}:
   "The full table is too large to return in one response. This is a preview, not the data — do not draw conclusions from it alone. Query the result set by id: SEM_EXTRACT fields, filter with exact WHERE, aggregate, or page with LIMIT/OFFSET. Even if the preview looks irrelevant, probe the full result set before searching again."
   Merged 8 queries (1452 total) → 1370 unique results
-  "Search result set: r94596850222 (1370 rows), reference it as FROM r94596850222 in follow-up queries"</pre></details></div><div class="msg msg-tool"><details><summary>tool result (3681 chars)</summary><pre>result_set_id: r51f8609d0bd
+  "Search result set: r94596850222 (1370 rows), reference it as FROM r94596850222 in follow-up queries"</pre></details></div><div class="msg msg-tool"><details><summary class="label">tool result (3681 chars)</summary><pre>result_set_id: r51f8609d0bd
 total_rows: 352
 columns[14]: breeding_area,breeding_area_evidence,distance,distance_evidence,distinction,distinction_evidence,nonbreeding_area,nonbreeding_area_evidence,species,species_evidence,title,url,waypoints,waypoints_evidence
 preview:
@@ -972,7 +1000,7 @@ preview:
 notes[3,]{text}:
   "The full table is too large to return in one response. This is a preview, not the data — do not draw conclusions from it alone. Query the result set by id: SEM_EXTRACT fields, filter with exact WHERE, aggregate, or page with LIMIT/OFFSET. Even if the preview looks irrelevant, probe the full result set before searching again."
   Merged 8 queries (1527 total) → 1476 unique results
-  "Search result set: r73fdeaa56b8 (1476 rows), reference it as FROM r73fdeaa56b8 in follow-up queries"</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+  "Search result set: r73fdeaa56b8 (1476 rows), reference it as FROM r73fdeaa56b8 in follow-up queries"</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   species,
   breeding_area,
   nonbreeding_area,
@@ -1001,9 +1029,9 @@ ORDER BY species,
     WHEN url LIKE '%cms.int%' OR url LIKE '%birdlife.org%' OR url LIKE '%bto.org%' OR url LIKE '%csiro.au%' THEN 0
     ELSE 1
   END
-LIMIT 100</pre><pre>{
+LIMIT 100</code></pre><pre>{
  "show_preview": false
-}</pre><p class="tool-name">tool call: <code>select</code></p><pre>SELECT
+}</pre><p class="tool-name label">tool call — select</p><pre><code class="language-sql">SELECT
   species,
   breeding_area,
   nonbreeding_area,
@@ -1032,9 +1060,9 @@ ORDER BY species,
     WHEN url LIKE '%fws.gov%' OR url LIKE '%usgs.gov%' OR url LIKE '%doc.govt.nz%' OR url LIKE '%allaboutbirds.org%' OR url LIKE '%audubon.org%' THEN 0
     ELSE 1
   END
-LIMIT 100</pre><pre>{
+LIMIT 100</code></pre><pre>{
  "show_preview": false
-}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (13929 chars)</summary><pre>result_set_id: r880cdbb426d
+}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (13929 chars)</summary><pre>result_set_id: r880cdbb426d
 total_rows: 53
 columns[8]: breeding_area,distance,distinction,nonbreeding_area,species,title,url,waypoints
 rows[53,]{species,breeding_area,nonbreeding_area,waypoints,distance,distinction,url,title}:
@@ -1091,7 +1119,7 @@ rows[53,]{species,breeding_area,nonbreeding_area,waypoints,distance,distinction,
   short-tailed shearwater,null,null,"from the edge of the Southern Ocean, to the rim of the Arctic Circle",null,null,"https://blog.publish.csiro.au/windcatcher","Windcatcher: an amazing tale of migration, conservation and survival"
   short-tailed shearwater,null,null,from the edge of the Southern Ocean to the rim of the Arctic Circle,null,null,"https://ebooks.publish.csiro.au/content/windcatcher",Windcatcher
   short-tailed shearwater,null,null,Southern Ocean to Arctic Ocean,null,null,"https://blog.publish.csiro.au/science-illustrated-craig-smith","Science Illustrated: Q&amp;A with Craig Smith"
-notes[0]:</pre></details></div><div class="msg msg-tool"><details><summary>tool result (18818 chars)</summary><pre>result_set_id: rb609652878f
+notes[0]:</pre></details></div><div class="msg msg-tool"><details><summary class="label">tool result (18818 chars)</summary><pre>result_set_id: rb609652878f
 total_rows: 92
 columns[8]: breeding_area,distance,distinction,nonbreeding_area,species,title,url,waypoints
 rows[92,]{species,breeding_area,nonbreeding_area,waypoints,distance,distinction,url,title}:
@@ -1187,7 +1215,7 @@ rows[92,]{species,breeding_area,nonbreeding_area,waypoints,distance,distinction,
   red knot,null,null,Delaware Bay,null,null,"https://fws.gov/story/2022-03/banding-red-knots",Banding red knots | U.S. Fish &amp; Wildlife Service
   ruby-throated hummingbird,null,null,"from points as far north as Canada, heading south to Mexico, Guatemala, even Panama",null,null,"https://audubon.org/magazine/banding-hummingbirds-solve-their-mysterious-ways",Banding Hummingbirds to Solve their Mysterious Ways
   ruby-throated hummingbird,null,null,across the Gulf of Mexico,null,null,"https://academy.allaboutbirds.org/live-event/exploring-bird-migration-your-questions-answered/","Exploring Bird Migration: Your Questions Answered | Bird Academy • The Cornell Lab"
-notes[0]:</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>select</code></p><pre>WITH chosen AS (
+notes[0]:</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — select</p><pre><code class="language-sql">WITH chosen AS (
   SELECT
     'Arctic Tern' AS species,
     url,
@@ -1452,11 +1480,11 @@ SELECT
   title AS source_title
 FROM routes
 ORDER BY species,
-  sequence</pre><pre>{
+  sequence</code></pre><pre>{
  "show_preview": false
-}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (928 chars)</summary><pre>error: "SQL execution failed: Parser Error: syntax error at or near \"UNION\"\n\nLINE 1: ... AND species = 'Arctic Tern' AND NOT annual_km IS NULL LIMIT 1 UNION ALL SELECT 'Northern Wheatear', url, title FROM r7222...\n                                                                          ^\nTables in this query: r880cdbb426d(breeding_area, distance, distinction, nonbreeding_area, species, title, url, waypoints); rb609652878f(breeding_area, distance, distinction, nonbreeding_area, species, title, url, waypoints); r7222fb4253c(annual_km, annual_km_evidence, breeding_area, breeding_area_evidence, nonbreeding_area, nonbreeding_area_evidence, one_way_km, one_way_km_evidence, route_details, route_details_evidence, species, species_evidence, title, url)"
+}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (928 chars)</summary><pre>error: "SQL execution failed: Parser Error: syntax error at or near \"UNION\"\n\nLINE 1: ... AND species = 'Arctic Tern' AND NOT annual_km IS NULL LIMIT 1 UNION ALL SELECT 'Northern Wheatear', url, title FROM r7222...\n                                                                          ^\nTables in this query: r880cdbb426d(breeding_area, distance, distinction, nonbreeding_area, species, title, url, waypoints); rb609652878f(breeding_area, distance, distinction, nonbreeding_area, species, title, url, waypoints); r7222fb4253c(annual_km, annual_km_evidence, breeding_area, breeding_area_evidence, nonbreeding_area, nonbreeding_area_evidence, one_way_km, one_way_km_evidence, route_details, route_details_evidence, species, species_evidence, title, url)"
 notes[1,]{text}:
-  The ORDER BY on sequence references UNNEST output that does not exist until after the unnest — it was applied above the unnest level automatically.</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>select</code></p><pre>WITH source_rows AS (
+  The ORDER BY on sequence references UNNEST output that does not exist until after the unnest — it was applied above the unnest level automatically.</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — select</p><pre><code class="language-sql">WITH source_rows AS (
   SELECT
     species,
     url,
@@ -1587,9 +1615,9 @@ FROM (
 )
 ORDER BY
   species,
-  sequence</pre><pre>{
+  sequence</code></pre><pre>{
  "show_preview": false
-}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (16972 chars)</summary><pre>result_set_id: r964a4a8964e
+}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (16972 chars)</summary><pre>result_set_id: r964a4a8964e
 total_rows: 53
 columns[10]: distance_note,latitude,longitude,migration_pattern,place,route_summary,sequence,source_title,source_url,species
 rows[53,]{species,migration_pattern,route_summary,distance_note,sequence,place,latitude,longitude,source_url,source_title}:
@@ -1646,14 +1674,14 @@ rows[53,]{species,migration_pattern,route_summary,distance_note,sequence,place,l
   White Stork,Europe–Africa soaring migration,Northern Europe → Mediterranean corridor → Sahara → southern Africa.,null,2,Mediterranean corridor,37.0,15.0,"https://birdlife.org/news/2024/09/27/global-bird-weekend-celebrating-birds-across-the-worlds-flyways","Global Bird Weekend: Celebrating Birds Across the World’s Flyways - BirdLife International"
   White Stork,Europe–Africa soaring migration,Northern Europe → Mediterranean corridor → Sahara → southern Africa.,null,3,Sahara,24.0,15.0,"https://birdlife.org/news/2024/09/27/global-bird-weekend-celebrating-birds-across-the-worlds-flyways","Global Bird Weekend: Celebrating Birds Across the World’s Flyways - BirdLife International"
   White Stork,Europe–Africa soaring migration,Northern Europe → Mediterranean corridor → Sahara → southern Africa.,null,4,Southern Africa,-25.0,25.0,"https://birdlife.org/news/2024/09/27/global-bird-weekend-celebrating-birds-across-the-worlds-flyways","Global Bird Weekend: Celebrating Birds Across the World’s Flyways - BirdLife International"
-notes[0]:</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p class="tool-name">tool call: <code>generate_html_report</code></p><pre>{"brief":"The user asked verbatim: “How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map”\n\nCreate a beautiful, highly visual global report led by ONE large interactive world map. The principal finding: migration strategy changes with geography and flight ecology. Ocean specialists use immense looping or pole-to-pole routes (Arctic Tern ≈71,000 km/year in the cited tracked population; Sooty Shearwater ≈64,037 km/year). Shorebirds chain scarce coastal wetlands, though the Bar-tailed Godwit also makes an ≈11,000–12,000 km nonstop trans-Pacific fall flight. Tiny landbirds can cross formidable barriers: the Blackpoll Warbler’s nonstop Atlantic leg reaches 2,770 km, and the Alaskan Northern Wheatear travels ≈14,600 km one way across Eurasia to Africa. Soaring birds such as storks concentrate at land bridges and avoid broad sea crossings; cranes follow wetland stepping stones; hummingbirds and falcons cross the Gulf of Mexico and Arabian Sea respectively.\n\nr964a4a8964e is the final map-ready dataset: 53 rows, 12 famous representative species, one row per ordered route waypoint, with species, migration pattern, route summary, distance note, waypoint sequence, place, latitude, longitude, and source URL/title. Draw each species as a distinct colored great-circle/polyline route, connect points in sequence, handle antimeridian crossings correctly, and add directional arrows or animated particles. Provide species toggles/legend so readers can isolate routes. Use route summaries and distance notes in map tooltips and species cards. Follow the map with a concise explanation of how birds migrate in different regions: Atlantic and Pacific ocean loops; Americas coastal and trans-Gulf routes; Europe–Africa thermal-soaring corridors; Central/East Asian wetland chains; East Asian–Australasian tidal-flat network; trans-Indian-Ocean falcon migration. Add one compact card or table per species, linked to its source.\n\nEmphasize the Arctic Tern’s pole-to-pole span, the Bar-tailed Godwit’s nonstop ocean leg, the Northern Wheatear’s counterintuitive Alaska-to-Africa path across Eurasia, and the clustering of East Asian routes around the Yellow Sea and Chinese wetlands. Explain that the plotted lines are simplified representative corridors joining cited regions/stopovers, not GPS tracks and not complete species ranges; populations may use alternative flyways and routes vary by season, weather, age and year. Coordinates are approximate geographic centers added solely to visualize source-described locations. Distances are shown only when sources explicitly support them and should retain whether they are annual, one-way, or a nonstop leg.\n\nThe 12 species represented are Arctic Tern, Bar-tailed Godwit, Sooty Shearwater, Short-tailed Shearwater, Northern Wheatear, Blackpoll Warbler, Ruby-throated Hummingbird, Red Knot, White Stork, Amur Falcon, Siberian Crane, and Great Knot. Research was assembled on 2026-08-31 from live web sources, prioritizing government, intergovernmental, scientific and conservation sources. Make the design polished and evocative—dark ocean basemap, restrained land colors, luminous route lines, readable labels, and excellent mobile behavior.","result_set_ids":["r964a4a8964e"],"title":"Great Bird Migrations of the World","prev_report_token":null}</pre></div></div><div class="msg msg-tool"><details><summary>tool result (276 chars)</summary><pre>token: X9ALkkfQZeIu96FxNMOffg
+notes[0]:</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p class="tool-name label">tool call — generate_html_report</p><pre>{"brief":"The user asked verbatim: “How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map”\n\nCreate a beautiful, highly visual global report led by ONE large interactive world map. The principal finding: migration strategy changes with geography and flight ecology. Ocean specialists use immense looping or pole-to-pole routes (Arctic Tern ≈71,000 km/year in the cited tracked population; Sooty Shearwater ≈64,037 km/year). Shorebirds chain scarce coastal wetlands, though the Bar-tailed Godwit also makes an ≈11,000–12,000 km nonstop trans-Pacific fall flight. Tiny landbirds can cross formidable barriers: the Blackpoll Warbler’s nonstop Atlantic leg reaches 2,770 km, and the Alaskan Northern Wheatear travels ≈14,600 km one way across Eurasia to Africa. Soaring birds such as storks concentrate at land bridges and avoid broad sea crossings; cranes follow wetland stepping stones; hummingbirds and falcons cross the Gulf of Mexico and Arabian Sea respectively.\n\nr964a4a8964e is the final map-ready dataset: 53 rows, 12 famous representative species, one row per ordered route waypoint, with species, migration pattern, route summary, distance note, waypoint sequence, place, latitude, longitude, and source URL/title. Draw each species as a distinct colored great-circle/polyline route, connect points in sequence, handle antimeridian crossings correctly, and add directional arrows or animated particles. Provide species toggles/legend so readers can isolate routes. Use route summaries and distance notes in map tooltips and species cards. Follow the map with a concise explanation of how birds migrate in different regions: Atlantic and Pacific ocean loops; Americas coastal and trans-Gulf routes; Europe–Africa thermal-soaring corridors; Central/East Asian wetland chains; East Asian–Australasian tidal-flat network; trans-Indian-Ocean falcon migration. Add one compact card or table per species, linked to its source.\n\nEmphasize the Arctic Tern’s pole-to-pole span, the Bar-tailed Godwit’s nonstop ocean leg, the Northern Wheatear’s counterintuitive Alaska-to-Africa path across Eurasia, and the clustering of East Asian routes around the Yellow Sea and Chinese wetlands. Explain that the plotted lines are simplified representative corridors joining cited regions/stopovers, not GPS tracks and not complete species ranges; populations may use alternative flyways and routes vary by season, weather, age and year. Coordinates are approximate geographic centers added solely to visualize source-described locations. Distances are shown only when sources explicitly support them and should retain whether they are annual, one-way, or a nonstop leg.\n\nThe 12 species represented are Arctic Tern, Bar-tailed Godwit, Sooty Shearwater, Short-tailed Shearwater, Northern Wheatear, Blackpoll Warbler, Ruby-throated Hummingbird, Red Knot, White Stork, Amur Falcon, Siberian Crane, and Great Knot. Research was assembled on 2026-08-31 from live web sources, prioritizing government, intergovernmental, scientific and conservation sources. Make the design polished and evocative—dark ocean basemap, restrained land colors, luminous route lines, readable labels, and excellent mobile behavior.","result_set_ids":["r964a4a8964e"],"title":"Great Bird Migrations of the World","prev_report_token":null}</pre></div></div><div class="msg msg-tool"><details><summary class="label">tool result (276 chars)</summary><pre>token: X9ALkkfQZeIu96FxNMOffg
 url: "https://staging-webql.keenable.ai/artifacts/X9ALkkfQZeIu96FxNMOffg"
 title: Great Bird Migrations of the World
 visibility: public
 bytes_size: 19658
 created_at: "2026-08-31T12:45:03.728391+00:00"
-expires_at: "2026-11-29T12:45:03.728391+00:00"</pre></details></div><div class="msg msg-assistant"><div class="msg-head">assistant</div><div class="msg-body"><p>[Explore the interactive world map and species migration routes →](https://staging-webql.keenable.ai/artifacts/X9ALkkfQZeIu96FxNMOffg)
+expires_at: "2026-11-29T12:45:03.728391+00:00"</pre></details></div><div class="msg msg-assistant"><div class="msg-head label">assistant</div><div class="msg-body"><p>[Explore the interactive world map and species migration routes →](https://staging-webql.keenable.ai/artifacts/X9ALkkfQZeIu96FxNMOffg)
 
 The report maps 12 famous migratory species, with route summaries, notable distances, regional migration strategies, and linked sources. The map lines represent simplified corridors between documented locations—not exact GPS tracks.
 
-The link is unlisted but can be opened by anyone who has it.</p></div></div></div></body></html>
+The link is unlisted but can be opened by anyone who has it.</p></div></div><footer class="site"><a href="https://keenable.ai"><img src="../keenable-wordmark-footer.svg" alt="Keenable"></a><a href="https://github.com/keenableai/select-showcase">Source and data on GitHub</a></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script><script>hljs.highlightAll()</script></body></html>
