@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en"><head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>India's Famous Mango Origins Map</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://select.keenable.ai/geo/countries-110m.js"></script>
+<style>
+:root{--mango:#F59E0B;--saffron:#E8590C;--leaf:#2F7D32;--ink:#151310;--hair:#DDDDDD;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--ink);font-family:'Stack Sans Headline',system-ui,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 24px 40px}
+h1{font-size:46px;line-height:1.08;letter-spacing:-0.5px;max-width:20ch}
+h1 em{font-style:normal;color:var(--saffron)}
+.asked{margin:28px 0 0;border-left:4px solid var(--mango);background:#FFF8EC;padding:14px 18px;max-width:760px}
+.asked .lbl{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;display:block;margin-bottom:4px}
+.asked q{font-size:17px}
+.lede{margin-top:26px;font-size:18px;line-height:1.5;max-width:70ch;color:#3A362F}
+h2{font-size:24px;margin:64px 0 16px}
+.legend{font-family:'TASA Orbiter',system-ui;font-size:13px;color:#555;display:flex;gap:22px;flex-wrap:wrap;margin:10px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:12px;height:12px;display:inline-block}
+#mapbox{position:relative;margin-top:8px}
+#tip{position:absolute;pointer-events:none;background:#fff;border:1px solid var(--hair);padding:10px 12px;font-family:'TASA Orbiter',system-ui;font-size:13px;line-height:1.45;max-width:260px;display:none;z-index:5}
+#tip b{font-size:15px;font-family:'Stack Sans Headline',system-ui}
+.controls{display:flex;gap:12px;flex-wrap:wrap;margin:40px 0 14px;align-items:center}
+.controls input{font-family:'Stack Sans Headline',system-ui;font-size:15px;padding:9px 12px;border:1px solid #bbb;width:280px}
+.chip{font-family:'TASA Orbiter',system-ui;font-size:13px;padding:8px 14px;border:1px solid #bbb;background:#fff;cursor:pointer}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.findings{margin-top:64px}
+.findings div{padding:14px 0;border-bottom:1px solid var(--hair);font-size:16px;line-height:1.5}
+.findings div:first-of-type{border-top:1px solid var(--hair)}
+a{color:var(--leaf)}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+th{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#666;text-align:left;padding:8px 10px 8px 0;border-bottom:2px solid var(--ink)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+td.num{text-align:right}
+th.num{text-align:right}
+.method{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;margin-top:56px;line-height:1.6}
+#bars text{font-family:'TASA Orbiter',system-ui}
+@media (max-width:640px){
+ h1{font-size:30px}
+ .wrap{padding:32px 14px}
+ .controls input{width:100%}
+ td:nth-child(4),th:nth-child(4){display:none}
+ table{font-size:12px}
+ #tblwrap{overflow-x:auto}
+ #tbl{min-width:520px}
+ h2{font-size:20px;margin-top:44px}
+}
+</style></head><body><div class="wrap">
+<h1>Andhra Pradesh and Bengal lead: <em>34 famous mangoes</em> trace home to 27 localities in 12 states</h1>
+<div class="asked"><span class="lbl">Asked:</span><q>show me map of india where famous mango variety came from, find all places</q></div>
+<p class="lede">A broad scan of 3,500+ unique web results yielded 34 well-supported famous or distinctive mango varieties, each pinned to its origin, birthplace or famous-home locality — 27 mapped places across 12 states and union territories, from Alphonso's Ratnagiri to Kesar's Gir and Zardalu's Bhagalpur. Marker size reflects how many sources back each link.</p>
+
+<h2>Every mapped mango home</h2>
+<div class="legend">
+ <span><span class="dot" style="background:var(--leaf)"></span>documented origin / birthplace / developed</span>
+ <span><span class="dot" style="background:var(--mango)"></span>famous association or principal locality</span>
+ <span><span class="dot" style="border:2px solid #999;width:9px;height:9px"></span>marker size = source mentions</span>
+</div>
+<div id="mapbox" data-og-hero><svg id="map"></svg><div id="tip"></div></div>
+
+<h2>Varieties mapped per state</h2>
+<svg id="bars"></svg>
+
+<div class="controls">
+ <input id="q" type="search" placeholder="Search variety, place or state…">
+ <button class="chip on" data-f="all">All 34</button>
+ <button class="chip" data-f="origin">Documented origin</button>
+ <button class="chip" data-f="assoc">Famous association</button>
+</div>
+<div id="tblwrap"><table id="tbl"><thead><tr>
+<th>Variety</th><th>Place</th><th>State</th><th>Relationship</th><th class="num">Mentions</th><th>Sources</th>
+</tr></thead><tbody></tbody></table></div>
+
+<div class="findings">
+<div>Nuzvid in Andhra Pradesh alone is the recorded origin of three rasalu-type varieties — Cherukurasamu, Chinna rasalu and Peddarasamu. <a href="https://en.wikipedia.org/wiki/List_of_mango_cultivars" target="_blank" rel="noopener noreferrer">en.wikipedia.org</a></div>
+<div>West Bengal's six varieties concentrate in just two districts: Malda (Khirsapati, Lakshmanbhog, Fazli) and Murshidabad (Himsagar, Kishan Bhog, Kohitoor). <a href="https://indianeconomicobserver.com/news/mango-varieties-from-north-india-on-showcase-in-dubai20210715192745" target="_blank" rel="noopener noreferrer">indianeconomicobserver.com</a></div>
+<div>Uttar Pradesh holds four historically prominent origins — Dashehari of Malihabad, Langda of Varanasi, Chaunsa of Hardoi and Anwar Ratol of Rataul — with the strongest sourcing in the set (28 mentions). <a href="https://agriculturewale.com/best-mango-varieties-in-india" target="_blank" rel="noopener noreferrer">agriculturewale.com</a></div>
+<div>Amrapali is the only lab-bred entry: a 1970s hybrid whose birthplace is IARI, New Delhi rather than an orchard district. <a href="https://svpss.in/issues/vol-6-issue-1/saha-et-al.pdf" target="_blank" rel="noopener noreferrer">svpss.in</a></div>
+</div>
+
+<p class="method">Data: 34 mango varieties with a specific, supportable origin, birthplace, development, namesake or famous-home link, distilled from 3,500+ unique web results; state totals come from a separate precomputed table of 12 rows. Coordinates are approximate locality or district centroids; each source link supports the mango–place claim and each map-pin link supports the position. Some rows record famous association or principal locality, not proven genetic birthplace. This is not an exhaustive census of India's hundreds of local cultivars.</p>
+</div>
+<script>
+(function(){
+var DATA=[{"variety": "Banaganapalle", "place": "Banganapalle", "state": "Andhra Pradesh", "latitude": 15.31771, "longitude": 78.22669, "relationship": "origin", "source_mentions": 15, "source_url": "https://en.wikipedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://geloky.com/geocoding/place/Banganapalle+India", "cat": "origin"}, {"variety": "Panchadharakalasa", "place": "East Godavari district", "state": "Andhra Pradesh", "latitude": 16.996111, "longitude": 81.800278, "relationship": "origin", "source_mentions": 3, "source_url": "https://en.wikipedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://en.wikipedia.org/wiki/East_Godavari_district", "cat": "origin"}, {"variety": "Cherukurasamu", "place": "Nuzvid", "state": "Andhra Pradesh", "latitude": 16.78854, "longitude": 80.84593, "relationship": "origin", "source_mentions": 6, "source_url": "https://en.wikipedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://database.earth/countries/india/regions/andhra-pradesh/cities/nuzvid", "cat": "origin"}, {"variety": "Chinna rasalu", "place": "Nuzvid", "state": "Andhra Pradesh", "latitude": 16.78854, "longitude": 80.84593, "relationship": "origin", "source_mentions": 5, "source_url": "https://en.wikipedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://en.wikipedia.org/wiki/Vijayawada_Metropolitan_Region", "cat": "origin"}, {"variety": "Peddarasamu", "place": "Nuzvid", "state": "Andhra Pradesh", "latitude": 16.78854, "longitude": 80.84593, "relationship": "origin", "source_mentions": 6, "source_url": "https://en.wikipedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://database.earth/countries/india/regions/andhra-pradesh/cities/nuzvid", "cat": "origin"}, {"variety": "Kothapalli Kobbari", "place": "Pithapuram", "state": "Andhra Pradesh", "latitude": 17.117, "longitude": 82.25282, "relationship": "origin", "source_mentions": 6, "source_url": "https://en.bharatpedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://maps.apple.com/place?auid=10510087061613225375", "cat": "origin"}, {"variety": "Zardalu", "place": "Bhagalpur", "state": "Bihar", "latitude": 25.25, "longitude": 87.0, "relationship": "origin", "source_mentions": 4, "source_url": "https://mypunepulse.com/9-unique-gi-tagged-mango-varieties-to-savor-this-summer", "geo_url": "https://en.wikipedia.org/wiki/bhagalpur", "cat": "origin"}, {"variety": "Dudhiya Malda", "place": "Digha Ghat region of Patna", "state": "Bihar", "latitude": 25.641111, "longitude": 85.090556, "relationship": "mangoes of", "source_mentions": 3, "source_url": "https://en.rattibha.com/thread/1517393302705770496", "geo_url": "https://en.wikipedia.org/wiki/Digha,_Patna", "cat": "assoc"}, {"variety": "Amrapali", "place": "New Delhi", "state": "Delhi", "latitude": 28.6139391, "longitude": 77.2090212, "relationship": "birthplace", "source_mentions": 2, "source_url": "https://svpss.in/issues/vol-6-issue-1/saha-et-al.pdf", "geo_url": "https://distancesto.com/coordinates/in/new-delhi-latitude-longitude/history/10.html", "cat": "origin"}, {"variety": "Mussarat", "place": "Bardez", "state": "Goa", "latitude": 15.5, "longitude": 73.83, "relationship": "origin", "source_mentions": 3, "source_url": "https://thegoan.net/global-goenkar/mango-mania-grips-goa/42231.html", "geo_url": "https://en.wikipedia.org/wiki/Goa", "cat": "origin"}, {"variety": "Mankurad", "place": "Mapusa", "state": "Goa", "latitude": 15.5915, "longitude": 73.809, "relationship": "developed", "source_mentions": 3, "source_url": "https://thegoan.net/life-sunday/trail-of-the-origin-of-goan-mango-varieties/127619.html", "geo_url": "https://mapsofindia.com/lat_long/goa", "cat": "origin"}, {"variety": "Hilario", "place": "Siolim", "state": "Goa", "latitude": 15.614537, "longitude": 73.770447, "relationship": "origin", "source_mentions": 9, "source_url": "https://en.rattibha.com/thread/1517393302705770496", "geo_url": "https://en.wikipedia.org/wiki/Siolim", "cat": "origin"}, {"variety": "Kesar", "place": "Gir", "state": "Gujarat", "latitude": 21.13555555, "longitude": 70.79666666, "relationship": "origin", "source_mentions": 10, "source_url": "https://todaystraveller.net/the-indian-mango-story-a-delicious-journey", "geo_url": "https://en.wikipedia.org/wiki/Gir_National_Park", "cat": "origin"}, {"variety": "Vanraj", "place": "Vadodra district", "state": "Gujarat", "latitude": 22.3072, "longitude": 73.1812, "relationship": "highly prized variety", "source_mentions": 3, "source_url": "https://agritech.tnau.ac.in/govt_schemes_services/aas/mango.html", "geo_url": "https://newstrackindia.com/information/worldinfo/latitudelongitude/CountryCities/India/city-vadodra-1050738.htm", "cat": "assoc"}, {"variety": "Kari Ishad", "place": "Ankola", "state": "Karnataka", "latitude": 14.66056, "longitude": 74.30472, "relationship": "grown primarily", "source_mentions": 2, "source_url": "https://deccanherald.com/india/karnataka/bengaluru/mango-mania-kicks-in-3488796", "geo_url": "https://en.wikipedia.org/wiki?title=Ankola", "cat": "assoc"}, {"variety": "Totapuri", "place": "Bangalore", "state": "Karnataka", "latitude": 12.972442, "longitude": 77.580643, "relationship": "popularly found", "source_mentions": 3, "source_url": "https://india-info.org/food-herbs/snippets_mango_varieties.html", "geo_url": "https://latlong.net/place/bengaluru-karnataka-india-499.html", "cat": "assoc"}, {"variety": "Badami", "place": "Karnataka state", "state": "Karnataka", "latitude": 12.97, "longitude": 77.5, "relationship": "famous association", "source_mentions": 2, "source_url": "https://wikiwand.com/en/articles/List_of_mango_cultivars", "geo_url": "https://en.wikipedia.org/wiki/Karnataka_(India)", "cat": "assoc"}, {"variety": "Raspuri", "place": "Old Mysuru region", "state": "Karnataka", "latitude": 12.29581, "longitude": 76.639381, "relationship": "cultivated", "source_mentions": 2, "source_url": "https://en.rattibha.com/thread/1517393302705770496", "geo_url": "https://latlong.net/place/mysuru-karnataka-india-10269.html", "cat": "assoc"}, {"variety": "Kuttiattoor", "place": "Kannur", "state": "Kerala", "latitude": 11.86376, "longitude": 75.37687, "relationship": "origin", "source_mentions": 3, "source_url": "https://vanamrit.in/gi-tag-mangoes-of-india", "geo_url": "https://maps.apple.com/place?auid=6915351648101687047", "cat": "origin"}, {"variety": "Aroor Olor", "place": "Purameri", "state": "Kerala", "latitude": 11.633333333333333, "longitude": 75.76666666666667, "relationship": "famous association", "source_mentions": 2, "source_url": "https://newindianexpress.com/states/kerala/2025/Oct/13/aroor-olor-mango-sets-sight-on-sweet-gi-tag-work-on-says-minister", "geo_url": "https://en.wikipedia.org/wiki/Purameri", "cat": "assoc"}, {"variety": "Noor Jahan", "place": "Alirajpur", "state": "Madhya Pradesh", "latitude": 22.30313, "longitude": 74.35462, "relationship": "famous association", "source_mentions": 2, "source_url": "https://mangoshop.in", "geo_url": "https://mapcarta.com/14863308", "cat": "assoc"}, {"variety": "Sundarja", "place": "Rewa", "state": "Madhya Pradesh", "latitude": 24.55, "longitude": 81.29, "relationship": "origin", "source_mentions": 5, "source_url": "https://cavalier.in/cds-ota-current-affairs/2026-06-27/gi-tags-rewa-sundarja-mango-2026", "geo_url": "https://en.wikipedia.org/wiki/Rewa_district", "cat": "origin"}, {"variety": "Alphonso", "place": "Ratnagiri", "state": "Maharashtra", "latitude": 16.98, "longitude": 73.3, "relationship": "origin", "source_mentions": 28, "source_url": "https://a1overseas.com/indian-mangoes-supply-export-to-qatar", "geo_url": "https://en.wikipedia.org/wiki/Ratnagiri", "cat": "origin"}, {"variety": "Kalapadi (Kalapatti)", "place": "Salem", "state": "Tamil Nadu", "latitude": 11.6643, "longitude": 78.146, "relationship": "developed by", "source_mentions": 2, "source_url": "https://agriculturewale.com/best-mango-varieties-in-india", "geo_url": "https://latlong.net/place/idappadi-salem-tamil-nadu-india-29661.html", "cat": "origin"}, {"variety": "Dashehari", "place": "Malihabad", "state": "Uttar Pradesh", "latitude": 26.94, "longitude": 80.72, "relationship": "origin", "source_mentions": 26, "source_url": "https://agriculturewale.com/best-mango-varieties-in-india", "geo_url": "https://en.wikipedia.org/wiki/Malihabad", "cat": "origin"}, {"variety": "Anwar Ratol", "place": "Rataul", "state": "Uttar Pradesh", "latitude": 28.833333, "longitude": 77.35, "relationship": "birthplace", "source_mentions": 10, "source_url": "https://en.bharatpedia.org/wiki/List_of_mango_cultivars", "geo_url": "https://en.wikipedia.org/wiki/Rataul", "cat": "origin"}, {"variety": "Chaunsa", "place": "Sandila district Hardoi", "state": "Uttar Pradesh", "latitude": 27.0596924, "longitude": 80.5162964, "relationship": "originated", "source_mentions": 3, "source_url": "https://agritech.tnau.ac.in/govt_schemes_services/aas/mango.html", "geo_url": "https://geloky.com/geocoding/place/Sand%C4%ABla+India", "cat": "origin"}, {"variety": "Langda", "place": "Varanasi", "state": "Uttar Pradesh", "latitude": 25.3176, "longitude": 82.9739, "relationship": "origin", "source_mentions": 28, "source_url": "https://aamwalla.com/organic/mango-types-and-indian-states", "geo_url": "https://mapsofindia.com/lat_long/uttarpradesh", "cat": "origin"}, {"variety": "Khirsapati", "place": "Malda", "state": "West Bengal", "latitude": 25.0108, "longitude": 88.1411, "relationship": "famous association", "source_mentions": 2, "source_url": "https://indianeconomicobserver.com/news/mango-varieties-from-north-india-on-showcase-in-dubai20210715192745", "geo_url": "https://en.wikipedia.org/wiki/Harishchandrapur_II_(Community_development_block)", "cat": "assoc"}, {"variety": "Lakshmanbhog", "place": "Malda", "state": "West Bengal", "latitude": 25.0108, "longitude": 88.1411, "relationship": "popularly found", "source_mentions": 5, "source_url": "https://a1overseas.com/indian-mangoes-supply-export-to-qatar", "geo_url": "https://en.wikipedia.org/wiki/Harishchandrapur_II_(Community_development_block)", "cat": "assoc"}, {"variety": "Fazli", "place": "Malda district", "state": "West Bengal", "latitude": 25.1, "longitude": 88.1, "relationship": "origin", "source_mentions": 3, "source_url": "https://news18.com/lifestyle/what-the-fork-forget-about-alphonso-pairi-lets-explore-other-indian-mangoes-writes-kunal-vijayakar-8052097.html", "geo_url": "https://en.wikipedia.org/wiki/Malda_district", "cat": "origin"}, {"variety": "Himsagar", "place": "Murshidabad", "state": "West Bengal", "latitude": 24.175904, "longitude": 88.280179, "relationship": "origin", "source_mentions": 11, "source_url": "https://india-info.org/food-herbs/snippets_mango_varieties.html", "geo_url": "https://distancesto.com/coordinates/in/murshidabad-latitude-longitude/history/58837.html", "cat": "origin"}, {"variety": "Kishan Bhog", "place": "Murshidabad", "state": "West Bengal", "latitude": 24.18, "longitude": 88.27, "relationship": "origin", "source_mentions": 10, "source_url": "https://aamwalla.com/organic/mango-types-and-indian-states", "geo_url": "https://en.wikipedia.org/wiki/Murshidabad", "cat": "origin"}, {"variety": "Kohitoor", "place": "Murshidabad", "state": "West Bengal", "latitude": 24.175904, "longitude": 88.280179, "relationship": "famous association", "source_mentions": 2, "source_url": "https://news18.com/lifestyle/what-the-fork-forget-about-alphonso-pairi-lets-explore-other-indian-mangoes-writes-kunal-vijayakar-8052097.html", "geo_url": "https://distancesto.com/coordinates/in/murshidabad-latitude-longitude/history/58837.html", "cat": "assoc"}];
+var ST=[{"state": "Andhra Pradesh", "varieties_mapped": 6, "places_mapped": 4, "strongest_source_mentions": 15, "source_url": "https://en.wikipedia.org/wiki/List_of_mango_cultivars"}, {"state": "West Bengal", "varieties_mapped": 6, "places_mapped": 3, "strongest_source_mentions": 11, "source_url": "https://indianeconomicobserver.com/news/mango-varieties-from-north-india-on-showcase-in-dubai20210715192745"}, {"state": "Karnataka", "varieties_mapped": 4, "places_mapped": 4, "strongest_source_mentions": 3, "source_url": "https://deccanherald.com/india/karnataka/bengaluru/mango-mania-kicks-in-3488796"}, {"state": "Uttar Pradesh", "varieties_mapped": 4, "places_mapped": 4, "strongest_source_mentions": 28, "source_url": "https://agriculturewale.com/best-mango-varieties-in-india"}, {"state": "Goa", "varieties_mapped": 3, "places_mapped": 3, "strongest_source_mentions": 9, "source_url": "https://thegoan.net/global-goenkar/mango-mania-grips-goa/42231.html"}, {"state": "Bihar", "varieties_mapped": 2, "places_mapped": 2, "strongest_source_mentions": 4, "source_url": "https://mypunepulse.com/9-unique-gi-tagged-mango-varieties-to-savor-this-summer"}, {"state": "Gujarat", "varieties_mapped": 2, "places_mapped": 2, "strongest_source_mentions": 10, "source_url": "https://todaystraveller.net/the-indian-mango-story-a-delicious-journey"}, {"state": "Kerala", "varieties_mapped": 2, "places_mapped": 2, "strongest_source_mentions": 3, "source_url": "https://vanamrit.in/gi-tag-mangoes-of-india"}, {"state": "Madhya Pradesh", "varieties_mapped": 2, "places_mapped": 2, "strongest_source_mentions": 5, "source_url": "https://mangoshop.in"}, {"state": "Delhi", "varieties_mapped": 1, "places_mapped": 1, "strongest_source_mentions": 2, "source_url": "https://svpss.in/issues/vol-6-issue-1/saha-et-al.pdf"}, {"state": "Maharashtra", "varieties_mapped": 1, "places_mapped": 1, "strongest_source_mentions": 28, "source_url": "https://a1overseas.com/indian-mangoes-supply-export-to-qatar"}, {"state": "Tamil Nadu", "varieties_mapped": 1, "places_mapped": 1, "strongest_source_mentions": 2, "source_url": "https://agriculturewale.com/best-mango-varieties-in-india"}];
+var isPhone=function(){return window.innerWidth<640};
+var tip=document.getElementById('tip');
+
+function drawMap(){
+ var box=document.getElementById('mapbox');
+ var W=box.clientWidth, H=isPhone()?Math.round(W*1.25):700;
+ var svg=d3.select('#map').attr('width',W).attr('height',H);
+ svg.selectAll('*').remove();
+ var countries=topojson.feature(window.WORLD_TOPO,window.WORLD_TOPO.objects.countries);
+ var india=countries.features.filter(function(f){return f.properties.name==='India'});
+ var proj=d3.geoMercator().fitExtent([[10,10],[W-10,H-10]],{type:'FeatureCollection',features:india});
+ var path=d3.geoPath(proj);
+ svg.append('g').selectAll('path').data(countries.features).join('path')
+  .attr('d',path).attr('fill',function(f){return f.properties.name==='India'?'#FFF4DE':'#F2F0EC'})
+  .attr('stroke','#D8D2C6').attr('stroke-width',1);
+ // spread overlapping points
+ var groups={};
+ DATA.forEach(function(d){var k=d.latitude.toFixed(2)+','+d.longitude.toFixed(2);(groups[k]=groups[k]||[]).push(d)});
+ var pts=[];
+ Object.keys(groups).forEach(function(k){
+   var g=groups[k];
+   g.forEach(function(d,i){
+     var p=proj([d.longitude,d.latitude]);
+     if(g.length>1){var a=i/g.length*2*Math.PI; p=[p[0]+Math.cos(a)*14,p[1]+Math.sin(a)*14];}
+     pts.push({d:d,x:p[0],y:p[1]});
+   });
+ });
+ var rScale=d3.scaleSqrt().domain([2,28]).range(isPhone()?[4,12]:[6,18]);
+ var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var marks=svg.append('g').selectAll('circle').data(pts).join('circle')
+  .attr('cx',function(p){return p.x}).attr('cy',function(p){return p.y})
+  .attr('fill',function(p){return p.d.cat==='origin'?'#2F7D32':'#F59E0B'})
+  .attr('fill-opacity',0.82).attr('stroke','#fff').attr('stroke-width',1.5)
+  .attr('r',0);
+ marks.transition().delay(function(p,i){return reduce?0:i*30}).duration(reduce?0:400)
+  .attr('r',function(p){return rScale(p.d.source_mentions)});
+ // labels for headline places
+ var lab={'Alphonso':'Ratnagiri · Alphonso','Kesar':'Gir · Kesar','Zardalu':'Bhagalpur · Zardalu','Dashehari':'Malihabad · Dashehari','Langda':'Varanasi · Langda','Banaganapalle':'Banganapalle','Khirsapati':'Malda','Himsagar':'Murshidabad','Cherukurasamu':'Nuzvid'};
+ if(!isPhone()){
+  svg.append('g').selectAll('text').data(pts.filter(function(p){return lab[p.d.variety]})).join('text')
+   .attr('x',function(p){return p.x+rScale(p.d.source_mentions)+4}).attr('y',function(p){return p.y+4})
+   .text(function(p){return lab[p.d.variety]})
+   .attr('text-anchor',function(p){return (p.d.variety==='Langda'||p.d.variety==='Zardalu')?'end':'start'})
+   .attr('dx',function(p){return (p.d.variety==='Langda'||p.d.variety==='Zardalu')?-(2*rScale(p.d.source_mentions)+8):0})
+   .attr('dy',function(p){return p.d.variety==='Khirsapati'?-12:(p.d.variety==='Himsagar'?12:0)})
+   .attr('font-family','TASA Orbiter,system-ui').attr('font-size',12).attr('fill','#4A4437');
+ }
+ marks.on('mousemove',function(ev,p){
+   d3.selectAll('#map circle').attr('fill-opacity',function(q){return q===p?1:0.15});
+   var d=p.d;
+   tip.style.display='block';
+   tip.innerHTML='<b>'+d.variety+'</b><br>'+d.place+', '+d.state+'<br>'+d.relationship+' · '+d.source_mentions+' source mention'+(d.source_mentions>1?'s':'');
+   var bx=document.getElementById('mapbox').getBoundingClientRect();
+   var x=ev.clientX-bx.left+14, y=ev.clientY-bx.top+10;
+   if(x>bx.width-270)x-=290;
+   tip.style.left=x+'px'; tip.style.top=y+'px';
+ }).on('mouseleave',function(){
+   d3.selectAll('#map circle').attr('fill-opacity',0.82);
+   tip.style.display='none';
+ });
+}
+
+function drawBars(){
+ var W=Math.min(document.querySelector('.wrap').clientWidth-0,1112);
+ var mL=isPhone()?100:150, rowH=30, H=ST.length*rowH+30;
+ var svg=d3.select('#bars').attr('width',W).attr('height',H);
+ svg.selectAll('*').remove();
+ var x=d3.scaleLinear().domain([0,6]).range([0,W-mL-160]);
+ var g=svg.append('g').attr('transform','translate('+mL+',10)');
+ ST.forEach(function(s,i){
+  var y=i*rowH;
+  g.append('text').attr('x',-8).attr('y',y+15).attr('text-anchor','end').attr('font-size',12).attr('fill','#333').text(s.state);
+  g.append('rect').attr('x',0).attr('y',y).attr('height',20).attr('width',x(s.varieties_mapped)).attr('fill','#F59E0B');
+  g.append('text').attr('x',x(s.varieties_mapped)+6).attr('y',y+15).attr('font-size',12).attr('fill','#333')
+   .text(s.varieties_mapped+(s.varieties_mapped>1?' varieties · ':' variety · ')+s.places_mapped+' place'+(s.places_mapped>1?'s':''));
+ });
+}
+
+var host=function(u){try{return u.replace(/^https?:\/\//,'').split('/')[0].replace(/^www\./,'')}catch(e){return u}};
+var filt='all';
+function drawTable(){
+ var q=document.getElementById('q').value.toLowerCase();
+ var tb=document.querySelector('#tbl tbody'); tb.innerHTML='';
+ DATA.filter(function(d){
+   if(filt!=='all'&&d.cat!==filt)return false;
+   return (d.variety+' '+d.place+' '+d.state).toLowerCase().indexOf(q)>=0;
+ }).sort(function(a,b){return b.source_mentions-a.source_mentions}).forEach(function(d){
+   var tr=document.createElement('tr');
+   tr.innerHTML='<td><b>'+d.variety+'</b></td><td>'+d.place+'</td><td>'+d.state+'</td><td>'+d.relationship+'</td><td class="num">'+d.source_mentions+'</td>'+
+   '<td><a href="'+d.source_url+'" target="_blank" rel="noopener noreferrer">'+host(d.source_url)+'</a> · <a href="'+d.geo_url+'" target="_blank" rel="noopener noreferrer">map: '+host(d.geo_url)+'</a></td>';
+   tb.appendChild(tr);
+ });
+}
+document.getElementById('q').addEventListener('input',drawTable);
+document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){
+ document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});
+ c.classList.add('on'); filt=c.getAttribute('data-f'); drawTable();
+})});
+drawMap(); drawBars(); drawTable();
+var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){drawMap();drawBars()},200)});
+})();
+</script></body></html>
