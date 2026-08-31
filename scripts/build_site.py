@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import html
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -68,6 +69,18 @@ pre:last-child{margin-bottom:0}
 pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:none;padding:0}
 details summary{cursor:pointer;padding:10px 16px}
 details pre{margin:0;border:0;border-top:1px solid #DDDDDD;max-height:420px;overflow:auto}
+.rs{border-top:1px solid #DDDDDD;padding:12px 16px 16px}
+.rs>.label{margin:0 0 10px}
+.rs-scroll{overflow-x:auto;border:1px solid #DDDDDD;margin-bottom:12px}
+.rs table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.4}
+.rs th{font-family:'TASA Orbiter',system-ui;font-weight:500;letter-spacing:-.004em;
+  color:#8D8D8D;text-align:left;background:#F9F9F9}
+.rs th,.rs td{padding:7px 10px;border-bottom:1px solid #DDDDDD;vertical-align:top;
+  max-width:420px;min-width:120px}
+.rs tbody tr:last-child td{border-bottom:0}
+.btn{display:inline-block;background:#005CFF;color:#fff;padding:9px 16px;
+  font-family:'TASA Orbiter',system-ui;font-size:12px;letter-spacing:-.004em}
+.btn:hover{background:#0151E2;text-decoration:none}
 footer.site{margin-top:64px;padding-top:20px;border-top:1px solid #DDDDDD;
   display:flex;align-items:center;gap:20px}
 footer.site img{height:16px;display:block}
@@ -109,14 +122,47 @@ def render_assistant(message: dict) -> str:
     return "".join(parts)
 
 
-def render_message(message: dict) -> str:
+RESULT_SET_ID_RE = re.compile(r"result_set_id: (\S+)")
+PREVIEW_ROWS = 5
+CELL_CHARS = 160
+
+
+def cell_text(value: object) -> str:
+    text = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
+    return text if len(text) <= CELL_CHARS else text[: CELL_CHARS - 1] + "…"
+
+
+def render_result_set(result_set: dict, size_bytes: int) -> str:
+    rows = result_set["rows"]
+    columns = list(rows[0].keys()) if rows else []
+    head = "".join(f"<th>{esc(column)}</th>" for column in columns)
+    body = "".join(
+        "<tr>" + "".join(f"<td>{esc(cell_text(row.get(column)))}</td>" for column in columns)
+        + "</tr>"
+        for row in rows[:PREVIEW_ROWS]
+    )
+    return (
+        f'<div class="rs"><p class="label">result set {esc(result_set["id"])}'
+        f" — {len(rows)} rows</p>"
+        f'<div class="rs-scroll"><table><thead><tr>{head}</tr></thead>'
+        f"<tbody>{body}</tbody></table></div>"
+        f'<a class="btn" href="result_sets/{esc(result_set["id"])}.json" download>'
+        f"Download all {len(rows)} rows · {size_bytes / 1024:.0f} KB</a></div>"
+    )
+
+
+def render_message(message: dict, result_sets: dict[str, dict]) -> str:
     role = message.get("role", "?")
     if role == "tool":
+        content = message.get("content") or ""
         body = (
             f'<details><summary class="label">tool result'
-            f" ({len(message.get('content') or '')} chars)</summary>"
-            f"<pre>{esc(message.get('content') or '')}</pre></details>"
+            f" ({len(content)} chars)</summary>"
+            f"<pre>{esc(content)}</pre></details>"
         )
+        for rs_id in RESULT_SET_ID_RE.findall(content):
+            if rs_id in result_sets:
+                body += render_result_set(**result_sets[rs_id])
         return f'<div class="msg msg-tool">{body}</div>'
     body = render_assistant(message) if role == "assistant" else (
         f"<p>{esc(message.get('content') or '')}</p>"
@@ -125,6 +171,23 @@ def render_message(message: dict) -> str:
         f'<div class="msg msg-{esc(role)}"><div class="msg-head label">{esc(role)}</div>'
         f'<div class="msg-body">{body}</div></div>'
     )
+
+
+def trim_transcript(transcript: list[dict]) -> list[dict]:
+    report_call_ids = {
+        call.get("id")
+        for message in transcript
+        for call in message.get("tool_calls") or []
+        if call.get("function", {}).get("name") == "generate_html_report"
+    }
+    trimmed = [
+        message
+        for message in transcript
+        if not (message.get("role") == "tool" and message.get("tool_call_id") in report_call_ids)
+    ]
+    if trimmed and trimmed[-1].get("role") == "assistant" and not trimmed[-1].get("tool_calls"):
+        trimmed.pop()
+    return trimmed
 
 
 def page(title: str, body: str, root: str = "", scripts: str = "") -> str:
@@ -183,10 +246,24 @@ def copy_assets() -> None:
         shutil.copyfile(ASSETS / name, DOCS / name)
 
 
+def load_result_sets(src: Path, out: Path) -> dict[str, dict]:
+    rs_dir = src / "result_sets"
+    if not rs_dir.is_dir():
+        return {}
+    shutil.copytree(rs_dir, out / "result_sets", dirs_exist_ok=True)
+    return {
+        path.stem: {
+            "result_set": json.loads(path.read_text()),
+            "size_bytes": path.stat().st_size,
+        }
+        for path in rs_dir.glob("*.json")
+    }
+
+
 def build_report(slug: str) -> dict:
     src = REPORTS / slug
     meta = json.loads((src / "meta.json").read_text())
-    transcript = json.loads((src / "trajectory.json").read_text()) or []
+    transcript = trim_transcript(json.loads((src / "trajectory.json").read_text()) or [])
 
     out = DOCS / slug
     out.mkdir(parents=True, exist_ok=True)
@@ -194,6 +271,7 @@ def build_report(slug: str) -> dict:
     has_preview = (src / "preview.png").exists()
     if has_preview:
         shutil.copyfile(src / "preview.png", out / "preview.png")
+    result_sets = load_result_sets(src, out)
 
     title = meta["artifact"]["title"]
     n_queries = sum(len(m.get("tool_calls") or []) for m in transcript)
@@ -202,7 +280,7 @@ def build_report(slug: str) -> dict:
         f'<p class="sub label">Trajectory — {len(transcript)} messages, {n_queries} tool calls'
         f' &middot; <a href="report.html">report</a>'
         f' &middot; <a href="../index.html">all reports</a></p>'
-        + "".join(render_message(m) for m in transcript)
+        + "".join(render_message(m, result_sets) for m in transcript)
     )
     scripts = f'<script src="{HLJS_JS}"></script><script>hljs.highlightAll()</script>'
     (out / "trajectory.html").write_text(
@@ -234,9 +312,6 @@ def build_index(entries: list[dict]) -> None:
             f' &middot; {e["n_queries"]} queries</p></div>'
         )
     body = (
-        "<h1>Selected reports with their trajectories</h1>"
-        '<p class="sub">WebQL reports built by the SELECT agent, each with the full'
-        " agent run behind it: every query, every tool result.</p>"
         f'<div class="cards">{"".join(cards)}</div>'
     )
     (DOCS / "index.html").write_text(page("SELECT showcase", body))
