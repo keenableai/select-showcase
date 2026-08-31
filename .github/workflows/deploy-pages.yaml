@@ -21,6 +21,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - run: python3 scripts/build_site.py
       - uses: actions/upload-pages-artifact@v3
         with:
