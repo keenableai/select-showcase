@@ -57,13 +57,6 @@ header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
   letter-spacing:-.004em;color:#646464;margin-left:20px}
 header.site a.ask{color:#0A57E8}
 .intro{max-width:760px;margin-bottom:36px;font-size:17px;color:#333}
-body.framed{display:flex;flex-direction:column;height:100vh}
-.wrap.bar{width:100%;padding-bottom:0}
-.wrap.bar header.site{margin-bottom:0}
-.frame{flex:1;width:100%;border:0;display:block}
-footer.site.foot{margin:0;padding:14px 0 18px;gap:12px}
-footer.site.foot .spacer{flex:1}
-footer.site.foot a.traj{color:#0A57E8}
 h1.small{font-size:28px;line-height:1.05}
 h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
   margin-bottom:20px;max-width:900px}
@@ -73,13 +66,14 @@ h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
 .card{background:#fff;border:1px solid #DDDDDD;padding:0 0 20px;
   display:flex;flex-direction:column}
-.card .shot{display:block;width:100%;height:220px;object-fit:cover;object-position:top;
+.card .shot{display:block;width:100%;height:230px;object-fit:cover;object-position:top;
   border-bottom:1px solid #DDDDDD;background:#F9F9F9}
-.card .noshot{height:220px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
+.card .noshot{height:230px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
 .card-foot{display:flex;justify-content:space-between;align-items:baseline;
-  gap:12px;margin:16px 20px 0}
-.card-foot a.traj{color:#0A57E8}
-.card .meta{margin:0 20px}
+  gap:14px;margin:16px 20px 0;flex:1}
+.card-foot h2{font-weight:400;font-size:20px;line-height:1.15;margin:0}
+.card-foot h2 a{color:#2A2A2A}
+.card-foot a.traj{color:#0A57E8;white-space:nowrap;align-self:flex-end}
 .msg{border:1px solid #DDDDDD;margin:0 0 -1px}
 .msg-head{padding:8px 16px;border-bottom:1px solid #DDDDDD;background:#F9F9F9}
 .msg-user .msg-head{background:#DAEBFF}
@@ -274,17 +268,6 @@ def page(
     )
 
 
-def frame_page(title: str, frame_src: str, root: str, foot: str, description: str = "") -> str:
-    foot_bar = f'<div class="wrap bar"><footer class="site foot">{foot}</footer></div>' if foot else ""
-    return (
-        f'{page_head(title, root, description)}<body class="framed">'
-        f'<div class="wrap bar">{site_header(root)}</div>'
-        f'<iframe class="frame" src="{frame_src}" title="{esc(title)}"></iframe>'
-        f"{foot_bar}"
-        "</body></html>\n"
-    )
-
-
 def brand_css() -> str:
     latin = (
         "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,"
@@ -323,13 +306,14 @@ def copy_assets() -> None:
         shutil.copyfile(ASSETS / "og.png", DOCS / "og.png")
 
 
-def write_thumb(src: Path, dest: Path) -> None:
-    with Image.open(src) as preview:
-        scale = THUMB_WIDTH / preview.width
-        crop_height = min(preview.height, round(THUMB_HEIGHT / scale))
-        top = preview.crop((0, 0, preview.width, crop_height))
+def write_thumb(src: Path, dest: Path) -> tuple[int, int]:
+    with Image.open(src) as source:
+        scale = THUMB_WIDTH / source.width
+        crop_height = min(source.height, round(THUMB_HEIGHT / scale))
+        top = source.crop((0, 0, source.width, crop_height))
         thumb = top.resize((THUMB_WIDTH, round(crop_height * scale)), Image.LANCZOS)
         thumb.save(dest, "WEBP", quality=82)
+        return thumb.width, thumb.height
 
 
 def load_result_sets(src: Path, out: Path) -> dict[str, dict]:
@@ -353,24 +337,25 @@ def build_report(slug: str) -> dict:
 
     out = DOCS / slug
     out.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(src / "report.html", out / "report_frame.html")
-    has_preview = (src / "preview.png").exists()
-    if has_preview:
-        write_thumb(src / "preview.png", out / "preview_thumb.webp")
+    thumb_src = next(
+        (src / name for name in ("hero.png", "preview.png") if (src / name).exists()), None
+    )
+    thumb_size = (
+        write_thumb(thumb_src, out / "thumb.webp") if thumb_src is not None else None
+    )
     result_sets = load_result_sets(src, out)
 
     title = meta["artifact"]["title"]
-    question = (meta.get("conversation") or {}).get("title") or ""
+    report_url = meta["report_url"]
     n_queries = sum(len(m.get("tool_calls") or []) for m in transcript)
     body = (
         f'<h1 class="small">{esc(title)}</h1>'
         f'<p class="sub label">Trajectory — {len(transcript)} messages, {n_queries} tool calls'
-        f' &middot; <a href="report.html">report</a>'
+        f' &middot; <a href="{report_url}">report</a>'
         f' &middot; <a href="../index.html">all reports</a></p>'
         + "".join(render_message(m, result_sets) for m in transcript)
     )
     scripts = f'<script src="{HLJS_JS}"></script><script>hljs.highlightAll()</script>'
-    foot = ""
     if transcript:
         (out / "trajectory.html").write_text(
             page(
@@ -382,45 +367,37 @@ def build_report(slug: str) -> dict:
                 " tool result, and result set.",
             )
         )
-        foot = (
-            f'<span class="label">{len(transcript)} messages &middot; {n_queries} queries'
-            f' behind this report</span><span class="spacer"></span>'
-            f'<a class="traj label" href="trajectory.html">Trajectory &rarr;</a>'
-        )
-    (out / "report.html").write_text(
-        frame_page(title, "report_frame.html", root="../", foot=foot, description=question)
-    )
     return {
         "slug": slug,
+        "title": title,
+        "report_url": report_url,
         "created_at": meta["artifact"]["created_at"][:10],
-        "n_messages": len(transcript),
-        "n_queries": n_queries,
-        "has_preview": has_preview,
+        "has_trajectory": bool(transcript),
+        "thumb_size": thumb_size,
     }
 
 
 def build_index(entries: list[dict]) -> None:
     cards = []
     for e in sorted(entries, key=lambda e: e["created_at"], reverse=True):
-        shot = (
-            f'<a href="{e["slug"]}/report.html">'
-            f'<img class="shot" src="{e["slug"]}/preview_thumb.webp" alt=""'
-            f' loading="lazy" width="{THUMB_WIDTH}" height="{THUMB_HEIGHT}"></a>'
-            if e["has_preview"]
-            else '<div class="noshot"></div>'
-        )
-        if e["n_messages"]:
-            stats = (
-                f'{e["created_at"]} &middot; {e["n_messages"]} messages'
-                f' &middot; {e["n_queries"]} queries'
+        if e["thumb_size"] is not None:
+            width, height = e["thumb_size"]
+            shot = (
+                f'<a href="{e["report_url"]}">'
+                f'<img class="shot" src="{e["slug"]}/thumb.webp" alt=""'
+                f' loading="lazy" width="{width}" height="{height}"></a>'
             )
-            traj = f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
         else:
-            stats = e["created_at"]
-            traj = ""
+            shot = '<div class="noshot"></div>'
+        traj = (
+            f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
+            if e["has_trajectory"]
+            else ""
+        )
         cards.append(
             f'<div class="card">{shot}'
-            f'<div class="card-foot"><span class="label">{stats}</span>{traj}</div></div>'
+            f'<div class="card-foot"><h2><a href="{e["report_url"]}">{esc(e["title"])}</a></h2>'
+            f"{traj}</div></div>"
         )
     body = (
         '<p class="intro">Research reports built by'
