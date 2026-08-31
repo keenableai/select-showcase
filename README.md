@@ -9,9 +9,11 @@ A collection of selected WebQL reports with their full agent trajectories.
   - `trajectory.json` — the full agent transcript: user and assistant
     messages, every tool call with its SQL, and tool results.
   - `meta.json` — artifact, conversation, and turn metadata.
-- `docs/` — the GitHub Pages site, generated from `reports/`:
-  an index page plus, per example, the report and a rendered trajectory.
+The GitHub Pages site is generated from `reports/` and lives on the
+`gh-pages` branch: an index page plus, per example, the report and a
+rendered trajectory. A push to `gh-pages` triggers the deploy workflow
+on that branch, which publishes the site.
 
 ## Site
 
-https://keenableai.github.io/select-showcase/
+https://cuddly-adventure-1vz52mp.pages.github.io/
