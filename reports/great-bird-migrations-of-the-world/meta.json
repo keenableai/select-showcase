@@ -1,10 +1,10 @@
 {
- "report_url": "https://staging-webql.keenable.ai/r/great-bird-migrations-of-the-world/X9ALkkfQZeIu96FxNMOffg",
+ "report_url": "https://select.keenable.ai/r/great-bird-migrations-of-the-world/X9ALkkfQZeIu96FxNMOffg",
  "artifact": {
   "token": "X9ALkkfQZeIu96FxNMOffg",
   "title": "Great Bird Migrations of the World",
   "visibility": "public",
-  "bytes_size": "19658",
+  "bytes_size": "19644",
   "created_at": "2026-08-31 12:45:03.728391+00:00",
   "expires_at": "2026-11-29 12:45:03.728391+00:00"
  },
