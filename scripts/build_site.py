@@ -275,11 +275,12 @@ def page(
 
 
 def frame_page(title: str, frame_src: str, root: str, foot: str, description: str = "") -> str:
+    foot_bar = f'<div class="wrap bar"><footer class="site foot">{foot}</footer></div>' if foot else ""
     return (
         f'{page_head(title, root, description)}<body class="framed">'
         f'<div class="wrap bar">{site_header(root)}</div>'
         f'<iframe class="frame" src="{frame_src}" title="{esc(title)}"></iframe>'
-        f'<div class="wrap bar"><footer class="site foot">{foot}</footer></div>'
+        f"{foot_bar}"
         "</body></html>\n"
     )
 
@@ -369,21 +370,23 @@ def build_report(slug: str) -> dict:
         + "".join(render_message(m, result_sets) for m in transcript)
     )
     scripts = f'<script src="{HLJS_JS}"></script><script>hljs.highlightAll()</script>'
-    (out / "trajectory.html").write_text(
-        page(
-            f"{title} — trajectory",
-            body,
-            root="../",
-            scripts=scripts,
-            description=f"The full agent run behind “{title}”: every SQL query,"
-            " tool result, and result set.",
+    foot = ""
+    if transcript:
+        (out / "trajectory.html").write_text(
+            page(
+                f"{title} — trajectory",
+                body,
+                root="../",
+                scripts=scripts,
+                description=f"The full agent run behind “{title}”: every SQL query,"
+                " tool result, and result set.",
+            )
         )
-    )
-    foot = (
-        f'<span class="label">{len(transcript)} messages &middot; {n_queries} queries'
-        f' behind this report</span><span class="spacer"></span>'
-        f'<a class="traj label" href="trajectory.html">Trajectory &rarr;</a>'
-    )
+        foot = (
+            f'<span class="label">{len(transcript)} messages &middot; {n_queries} queries'
+            f' behind this report</span><span class="spacer"></span>'
+            f'<a class="traj label" href="trajectory.html">Trajectory &rarr;</a>'
+        )
     (out / "report.html").write_text(
         frame_page(title, "report_frame.html", root="../", foot=foot, description=question)
     )
@@ -406,12 +409,18 @@ def build_index(entries: list[dict]) -> None:
             if e["has_preview"]
             else '<div class="noshot"></div>'
         )
+        if e["n_messages"]:
+            stats = (
+                f'{e["created_at"]} &middot; {e["n_messages"]} messages'
+                f' &middot; {e["n_queries"]} queries'
+            )
+            traj = f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
+        else:
+            stats = e["created_at"]
+            traj = ""
         cards.append(
             f'<div class="card">{shot}'
-            f'<div class="card-foot"><span class="label">{e["created_at"]}'
-            f' &middot; {e["n_messages"]} messages &middot; {e["n_queries"]} queries</span>'
-            f'<a class="traj label" href="{e["slug"]}/trajectory.html">Trajectory &rarr;</a>'
-            "</div></div>"
+            f'<div class="card-foot"><span class="label">{stats}</span>{traj}</div></div>'
         )
     body = (
         '<p class="intro">Research reports built by'
