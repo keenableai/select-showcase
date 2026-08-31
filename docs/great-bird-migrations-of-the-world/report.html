@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><link rel="stylesheet" href="https://staging-webql.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Great Bird Migrations of the World</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://staging-webql.keenable.ai/geo/countries-110m.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:#111;font-family:'Stack Sans Headline',system-ui,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 24px 40px}
+h1{font-size:52px;line-height:1.05;letter-spacing:-.02em;max-width:980px}
+.asked{margin:36px 0 0;border-left:3px solid #111;padding:10px 20px;background:#f6f6f6}
+.asked .lbl{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8d8d8d;margin-bottom:4px}
+.asked p{font-size:18px;font-style:italic}
+.lede{margin-top:28px;font-size:20px;line-height:1.5;max-width:900px;color:#333}
+#mapPanel{margin-top:56px;background:#0b1626;padding:18px 18px 8px}
+#legend{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:12px}
+.chip{cursor:pointer;font-family:'TASA Orbiter',system-ui;font-size:12px;color:#dfe7f2;background:#152238;padding:5px 10px;display:flex;align-items:center;gap:6px;user-select:none}
+.chip.off{opacity:.32}
+.chip .sw{width:12px;height:12px;display:inline-block}
+#tip{position:fixed;pointer-events:none;background:#0b1626;color:#eef4fc;font-family:'TASA Orbiter',system-ui;font-size:12px;line-height:1.45;padding:10px 12px;max-width:290px;display:none;z-index:9}
+#tip b{font-size:13px}
+.hint{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#6f7f96;padding:8px 2px 10px}
+h2{font-size:30px;margin:72px 0 24px;letter-spacing:-.01em}
+.regions{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.regions div{padding:16px 0;border-top:1px solid #ddd;font-size:15px;line-height:1.55;color:#333}
+.regions b{display:block;font-size:16px;color:#111;margin-bottom:4px}
+.findings div{padding:14px 0;border-top:1px solid #ddd;font-size:16px;line-height:1.5}
+.findings div:last-child{border-bottom:1px solid #ddd}
+a{color:#0b57d0;text-decoration:none}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8d8d8d;text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid #111;font-weight:600}
+td{padding:10px 10px 10px 0;border-bottom:1px solid #ddd;vertical-align:top;line-height:1.45}
+td .dot{width:10px;height:10px;display:inline-block;margin-right:6px}
+.method{margin-top:56px;font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8d8d8d;line-height:1.6}
+@media(max-width:720px){
+ h1{font-size:32px}.lede{font-size:17px}h2{font-size:24px}
+ .regions{grid-template-columns:1fr}
+ .wrap{padding:32px 14px}
+ #mapPanel{margin-left:-14px;margin-right:-14px;padding:10px 8px 4px}
+ .tblwrap{overflow-x:auto}
+ table{min-width:640px}
+}
+</style></head><body>
+<div class="wrap">
+<h1>Migration strategy follows geography: ocean loops, wetland chains and land-bridge corridors carry 12 famous species around the world</h1>
+<div class="asked"><div class="lbl">Asked:</div><p>“How do birds migrate in different parts of the world? List most famous species and their routes, draw them on a map”</p></div>
+<p class="lede">Twelve representative long-distance migrants, drawn from 53 cited route waypoints across government, scientific and conservation sources (assembled 31 Aug 2026). Routes span the Arctic Tern’s ≈71,000 km pole-to-pole year to the Bar-tailed Godwit’s ≈11,000–12,000 km nonstop trans-Pacific leg. Distances are annual, one-way or single-leg as noted.</p>
+
+<div id="mapPanel" data-og-hero>
+ <div id="legend"></div>
+ <div id="mapBox"></div>
+ <div class="hint">Hover a route for its story · click a species chip to toggle it · drifting points show direction of travel</div>
+</div>
+<div id="tip"></div>
+
+<h2>How migration works, region by region</h2>
+<div class="regions">
+<div><b>Atlantic and Pacific ocean loops</b>Seabirds ride prevailing winds in immense figure-eight and looping circuits: the Arctic Tern from Greenland to the Weddell Sea, the Sooty and Short-tailed Shearwaters around the whole Pacific rim.</div>
+<div><b>Americas: coastlines and the Gulf</b>The Red Knot chains hemisphere-spanning coastal stopovers such as Delaware Bay; the Ruby-throated Hummingbird and Blackpoll Warbler cross the Gulf of Mexico and open Atlantic in single flights.</div>
+<div><b>Europe–Africa soaring corridors</b>White Storks depend on thermals over land, so they funnel through narrow land bridges and skirt the Mediterranean rather than crossing broad water.</div>
+<div><b>Central and East Asian wetland chains</b>Siberian Cranes step from Yakutia through the Songnen Plain and Bohai coast to Poyang Lake — each wetland an indispensable link.</div>
+<div><b>East Asian–Australasian tidal-flat network</b>Bar-tailed Godwits and Great Knots stage on Yellow Sea mudflats (Yalu Jiang, Bohai) between Siberia or Alaska and Australasia; the godwit’s return is a nonstop ocean crossing.</div>
+<div><b>Trans-Indian-Ocean falcon flight</b>Amur Falcons gather in Nagaland, India, then cross the open Arabian Sea to winter in southern Africa — a rare over-water passage for a raptor.</div>
+</div>
+
+<h2>Findings</h2>
+<div class="findings">
+<div>The Arctic Tern’s tracked Greenland population averages ≈71,000 km a year between the Arctic and the Weddell Sea — the longest known animal migration. <a href="https://natur.gl/wp-content/uploads/2020/12/PhD_CEg_2010.pdf" target="_blank" rel="noopener noreferrer">natur.gl</a></div>
+<div>The Bar-tailed Godwit’s fall return from Alaska to New Zealand is a single ≈11,000–12,000 km nonstop flight over the open Pacific. <a href="https://usgs.gov/centers/asc/science/wind-habitat-dynamics" target="_blank" rel="noopener noreferrer">usgs.gov</a></div>
+<div>The Alaskan Northern Wheatear, a songbird of ~25 g, travels ≈14,600 km one way across all of Eurasia to winter in East Africa. <a href="https://royalsocietypublishing.org/doi/10.1098/rsbl.2011.1223" target="_blank" rel="noopener noreferrer">royalsocietypublishing.org</a></div>
+<div>East Asian routes cluster on the Yellow Sea: godwit, Great Knot and Siberian Crane all depend on the same Chinese coastal wetlands. <a href="https://birdlife.org/news/2026/08/19/great-knots-journey-along-the-east-asian-australasian-flyway" target="_blank" rel="noopener noreferrer">birdlife.org</a></div>
+</div>
+
+<h2>The twelve species</h2>
+<div class="tblwrap"><table><thead><tr><th>Species</th><th>Pattern</th><th>Route</th><th>Distance (as cited)</th><th>Source</th></tr></thead><tbody id="tbody"></tbody></table></div>
+
+<p class="method">Method: 53 route waypoints for 12 representative migratory species, assembled 31 Aug 2026 from government, intergovernmental, scientific and conservation sources. Plotted lines are simplified representative corridors joining cited regions and stopovers — not GPS tracks and not full species ranges; populations use alternative flyways and routes vary by season, weather, age and year. Coordinates are approximate geographic centres added only to visualise source-described places. Distances appear only where a source states them, keeping whether they are annual, one-way, or a nonstop leg.</p>
+</div>
+<script>
+(function(){
+var SP=[{"species": "Arctic Tern", "pattern": "Atlantic pole-to-pole ocean migration", "summary": "Greenland/Iceland → North Atlantic → West Africa → Weddell Sea; tracked average about 71,000 km annually.", "distance": "≈71,000 km/year average", "url": "https://natur.gl/wp-content/uploads/2020/12/PhD_CEg_2010.pdf", "title": "Migration and breeding biology of Arctic terns in Greenland", "points": [{"place": "Greenland", "lat": 70.0, "lon": -40.0}, {"place": "North Atlantic", "lat": 45.0, "lon": -30.0}, {"place": "West African Atlantic", "lat": 10.0, "lon": -20.0}, {"place": "Weddell Sea", "lat": -72.0, "lon": -30.0}]}, {"species": "Sooty Shearwater", "pattern": "Clockwise trans-Pacific ocean circuit", "summary": "New Zealand → Japan/Alaska/California feeding areas → New Zealand; about 64,000 km annually.", "distance": "≈64,037 km/year average", "url": "https://natur.gl/wp-content/uploads/2020/12/PhD_CEg_2010.pdf", "title": "Migration and breeding biology of Arctic terns in Greenland", "points": [{"place": "New Zealand", "lat": -47.0, "lon": 168.0}, {"place": "Japan waters", "lat": 38.0, "lon": 145.0}, {"place": "Alaska waters", "lat": 55.0, "lon": -155.0}, {"place": "California waters", "lat": 35.0, "lon": -125.0}, {"place": "New Zealand", "lat": -47.0, "lon": 168.0}]}, {"species": "Short-tailed Shearwater", "pattern": "North Pacific circuit from Australia", "summary": "Tasmania → Kamchatka → Aleutians → western North America → Tasmania.", "distance": null, "url": "https://birdlife.org/news/2018/06/27/migration-marathons-7-unbelievable-bird-journeys", "title": "Migration marathons: 7 bird journeys - BirdLife", "points": [{"place": "Tasmania", "lat": -42.0, "lon": 147.0}, {"place": "Kamchatka", "lat": 56.0, "lon": 161.0}, {"place": "Aleutian Islands", "lat": 52.0, "lon": -175.0}, {"place": "West North America", "lat": 35.0, "lon": -125.0}, {"place": "Tasmania", "lat": -42.0, "lon": 147.0}]}, {"species": "Bar-tailed Godwit", "pattern": "East Asian–Australasian flyway and nonstop trans-Pacific return", "summary": "New Zealand → Yellow Sea → Alaska → roughly 11,000–12,000 km nonstop trans-Pacific return.", "distance": "≈11,000–12,000 km nonstop fall leg", "url": "https://usgs.gov/centers/asc/science/wind-habitat-dynamics", "title": "Wind - Habitat Dynamics", "points": [{"place": "New Zealand", "lat": -37.0, "lon": 175.0}, {"place": "Yellow Sea", "lat": 35.0, "lon": 123.0}, {"place": "Western Alaska", "lat": 64.0, "lon": -165.0}, {"place": "New Zealand", "lat": -37.0, "lon": 175.0}]}, {"species": "Great Knot", "pattern": "East Asian–Australasian coastal flyway", "summary": "Siberia → Yalu Jiang/Yellow Sea → Gulf of Thailand and Sonadia Island.", "distance": null, "url": "https://birdlife.org/news/2026/08/19/great-knots-journey-along-the-east-asian-australasian-flyway", "title": "Great Knot’s journey along the East Asian-Australasian Flyway - BirdLife International", "points": [{"place": "Siberia", "lat": 60.0, "lon": 130.0}, {"place": "Yalu Jiang", "lat": 40.0, "lon": 124.0}, {"place": "Gulf of Thailand", "lat": 13.0, "lon": 100.5}, {"place": "Sonadia Island", "lat": 21.5, "lon": 91.9}]}, {"species": "Red Knot", "pattern": "Atlantic Americas coastal flyway", "summary": "Tierra del Fuego → Argentina → northern South America → Delaware Bay → Canadian Arctic.", "distance": null, "url": "https://fws.gov/sites/default/files/documents/2024-04/1558.pdf", "title": "SSSPBook", "points": [{"place": "Tierra del Fuego", "lat": -54.0, "lon": -68.0}, {"place": "Argentina coast", "lat": -38.0, "lon": -57.0}, {"place": "Northern South America", "lat": 6.0, "lon": -56.0}, {"place": "Delaware Bay", "lat": 39.0, "lon": -75.0}, {"place": "Canadian Arctic", "lat": 70.0, "lon": -85.0}]}, {"species": "Siberian Crane", "pattern": "East Asian wetland stepping-stone route", "summary": "Yakutia → Songnen Plain → Bohai coast → Poyang Lake.", "distance": null, "url": "https://cms.int/sites/default/files/document/Doc_05_Overview_Report_unedited_draft_as_at_7Jun10_1.pdf", "title": "OVERVIEW REPORT", "points": [{"place": "Yakutia", "lat": 68.0, "lon": 145.0}, {"place": "Songnen Plain", "lat": 46.0, "lon": 124.0}, {"place": "Bohai coast", "lat": 38.0, "lon": 119.0}, {"place": "Poyang Lake", "lat": 29.0, "lon": 116.0}]}, {"species": "White Stork", "pattern": "Europe–Africa soaring migration", "summary": "Northern Europe → Mediterranean corridor → Sahara → southern Africa.", "distance": null, "url": "https://birdlife.org/news/2024/09/27/global-bird-weekend-celebrating-birds-across-the-worlds-flyways", "title": "Global Bird Weekend: Celebrating Birds Across the World’s Flyways - BirdLife International", "points": [{"place": "Northern Europe", "lat": 53.0, "lon": 15.0}, {"place": "Mediterranean corridor", "lat": 37.0, "lon": 15.0}, {"place": "Sahara", "lat": 24.0, "lon": 15.0}, {"place": "Southern Africa", "lat": -25.0, "lon": 25.0}]}, {"species": "Amur Falcon", "pattern": "East Asia–India–southern Africa route", "summary": "Siberia/China/Mongolia → Nagaland → Arabian Sea → southern Africa.", "distance": null, "url": "https://www.cms.int/news/prey-protected-species-how-tide-turned-amur-falcon", "title": "From Prey to Protected Species: How the Tide Turned for the Amur Falcon", "points": [{"place": "Siberia / Mongolia", "lat": 52.0, "lon": 110.0}, {"place": "Northeast China", "lat": 42.0, "lon": 125.0}, {"place": "Nagaland", "lat": 26.0, "lon": 94.0}, {"place": "Arabian Sea", "lat": 14.0, "lon": 65.0}, {"place": "Southern Africa", "lat": -24.0, "lon": 28.0}]}, {"species": "Northern Wheatear", "pattern": "Trans-Eurasian songbird migration", "summary": "Alaska → Russia → Kazakhstan → Arabian Desert → East Africa; about 14,600 km one way.", "distance": "≈14,600 km one way", "url": "https://royalsocietypublishing.org/doi/10.1098/rsbl.2011.1223", "title": "Cross-hemisphere migration of a 25 g songbird", "points": [{"place": "Alaska", "lat": 65.0, "lon": -165.0}, {"place": "Northern Russia", "lat": 62.0, "lon": 100.0}, {"place": "Kazakhstan", "lat": 48.0, "lon": 68.0}, {"place": "Arabian Desert", "lat": 24.0, "lon": 45.0}, {"place": "East Africa", "lat": 8.0, "lon": 33.0}]}, {"species": "Blackpoll Warbler", "pattern": "Atlantic coastal staging and nonstop ocean crossing", "summary": "Canadian boreal forest → northeastern coast → nonstop Atlantic flight → northern South America.", "distance": "Up to 2,770 km nonstop Atlantic leg", "url": "https://research.bangor.ac.uk/cy/publications/a-boreal-songbirds-20000-km-migration-across-north-america-and-th", "title": "A boreal songbird’s 20,000 km migration across North America and the Atlantic Ocean", "points": [{"place": "Canadian boreal forest", "lat": 58.0, "lon": -95.0}, {"place": "Northeast coast", "lat": 43.0, "lon": -70.0}, {"place": "Western Atlantic", "lat": 28.0, "lon": -58.0}, {"place": "Northern South America", "lat": 8.0, "lon": -60.0}]}, {"species": "Ruby-throated Hummingbird", "pattern": "North American route with Gulf crossing", "summary": "Canada/eastern U.S. → Gulf Coast → across Gulf of Mexico or around Texas → Central America.", "distance": null, "url": "https://audubon.org/field-guide/bird/ruby-throated-hummingbird", "title": "Ruby-throated Hummingbird", "points": [{"place": "Eastern Canada", "lat": 45.0, "lon": -75.0}, {"place": "U.S. Gulf Coast", "lat": 29.0, "lon": -90.0}, {"place": "Gulf of Mexico", "lat": 24.0, "lon": -90.0}, {"place": "Costa Rica", "lat": 10.0, "lon": -84.0}]}];
+var colors=["#5ad1ff","#ffb347","#ff7f6e","#ffe066","#7ef0c0","#c5a3ff","#ff9ad5","#9adf5a","#6ea8ff","#f0f0f0","#4dd6a8","#ffd1a3"];
+SP.forEach(function(s,i){s.color=colors[i];s.on=true;});
+var box=document.getElementById("mapBox"),tip=document.getElementById("tip");
+var land=topojson.feature(window.WORLD_TOPO,window.WORLD_TOPO.objects.countries);
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function seg(pts){ // densified great-circle multiline via d3.geoInterpolate
+  var coords=[];
+  for(var i=0;i<pts.length-1;i++){
+    var ip=d3.geoInterpolate([pts[i].lon,pts[i].lat],[pts[i+1].lon,pts[i+1].lat]);
+    for(var t=0;t<=40;t++)coords.push(ip(t/40));
+  }
+  return {type:"LineString",coordinates:coords};
+}
+var svg,proj,path,timer;
+function draw(){
+  box.innerHTML="";
+  var w=box.clientWidth,h=Math.max(340,Math.round(w*0.52));
+  svg=d3.select(box).append("svg").attr("width",w).attr("height",h);
+  proj=d3.geoNaturalEarth1().fitExtent([[8,8],[w-8,h-8]],{type:"Sphere"});
+  path=d3.geoPath(proj);
+  svg.append("path").attr("d",path({type:"Sphere"})).attr("fill","#0e2036");
+  svg.append("path").attr("d",path(land)).attr("fill","#25354b").attr("stroke","#3a4d68").attr("stroke-width",.5);
+  var g=svg.append("g");
+  SP.forEach(function(s){
+    var gs=g.append("g").attr("class","route").style("display",s.on?null:"none");
+    s.geo=seg(s.points);
+    gs.append("path").attr("d",path(s.geo)).attr("fill","none").attr("stroke","#000")
+      .attr("stroke-width",12).attr("stroke-opacity",0).style("cursor","pointer")
+      .on("mousemove",function(ev){show(ev,s);focus(s);})
+      .on("mouseleave",function(){hide();focus(null);});
+    var p=gs.append("path").attr("d",path(s.geo)).attr("fill","none")
+      .attr("stroke",s.color).attr("stroke-width",2).attr("stroke-linecap","round")
+      .style("pointer-events","none");
+    if(!reduced){var L=p.node().getTotalLength();p.attr("stroke-dasharray",L+" "+L).attr("stroke-dashoffset",L).transition().duration(1800).delay(200).attr("stroke-dashoffset",0);}
+    s.points.forEach(function(pt,j){
+      var xy=proj([pt.lon,pt.lat]); if(!xy)return;
+      gs.append("circle").attr("cx",xy[0]).attr("cy",xy[1]).attr("r",2.6).attr("fill",s.color).style("pointer-events","none");
+      if(j===0&&w>700){var right=xy[0]>w-130;gs.append("text").attr("x",xy[0]+(right?-6:6)).attr("y",xy[1]-6).text(s.species)
+        .attr("text-anchor",right?"end":"start")
+        .attr("fill",s.color).attr("font-family","'TASA Orbiter',system-ui").attr("font-size","11px").style("pointer-events","none");}
+    });
+    s.pathNode=p.node(); s.g=gs;
+    s.dot=gs.append("circle").attr("r",3.4).attr("fill","#fff").style("pointer-events","none").style("display",reduced?"none":null);
+    s.len=s.pathNode.getTotalLength(); s.t=Math.random();
+  });
+  if(timer)timer.stop();
+  if(!reduced)timer=d3.timer(function(el){
+    SP.forEach(function(s){ if(!s.on)return;
+      var t=(s.t+el/16000)%1, pt=s.pathNode.getPointAtLength(t*s.len);
+      s.dot.attr("cx",pt.x).attr("cy",pt.y);
+    });
+  });
+}
+function focus(s){SP.forEach(function(o){o.g.attr("opacity",!s||o===s?1:0.12);});}
+function show(ev,s){
+  tip.style.display="block";
+  tip.innerHTML="<b style='color:"+s.color+"'>"+s.species+"</b><br>"+s.summary+
+    (s.distance?"<br><b>"+s.distance+"</b>":"")+"<br><span style='color:#8fa2bd'>Stops: "+
+    s.points.map(function(p){return p.place;}).join(" → ")+"</span>";
+  var x=ev.clientX+14,y=ev.clientY+14;
+  if(x+300>innerWidth)x=ev.clientX-300; if(y+140>innerHeight)y=ev.clientY-150;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+function hide(){tip.style.display="none";}
+var leg=d3.select("#legend");
+SP.forEach(function(s){
+  s.chip=leg.append("div").attr("class","chip").on("click",function(){
+    s.on=!s.on;s.chip.classed("off",!s.on);s.g.style("display",s.on?null:"none");
+  });
+  s.chip.append("span").attr("class","sw").style("background",s.color);
+  s.chip.append("span").text(s.species);
+});
+var tb=document.getElementById("tbody");
+SP.forEach(function(s){
+  var host=s.url.replace(/^https?:\/\//,"").split("/")[0];
+  var tr=document.createElement("tr");
+  tr.innerHTML="<td><span class='dot' style='background:"+s.color+"'></span>"+s.species+"</td><td>"+s.pattern+"</td><td>"+s.summary+"</td><td>"+(s.distance||"—")+"</td><td><a href='"+s.url+"' target='_blank' rel='noopener noreferrer'>"+host+"</a></td>";
+  tb.appendChild(tr);
+});
+draw();
+var rt;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(draw,200);});
+})();
+</script></body></html>
