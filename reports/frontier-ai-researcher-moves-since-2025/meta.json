@@ -1,0 +1,36 @@
+{
+ "report_url": "https://select.keenable.ai/r/frontier-ai-researcher-moves-since-2025/JTPBEMWoebfxxOGuWyaqQg",
+ "namespace": "webql",
+ "artifact": {
+  "token": "JTPBEMWoebfxxOGuWyaqQg",
+  "result_set_id": "r32e3935ed65",
+  "owner_id": "user:5585eb6b-0b3e-455f-8f22-d730f1d30866",
+  "turn_id": "3be1bf68-e41d-4cf5-90ca-410e14bb2e0d",
+  "visibility": "public",
+  "title": "Frontier AI Researcher Moves Since 2025",
+  "bytes_size": "24912",
+  "created_at": "2026-08-31 15:19:16.883711+00:00",
+  "expires_at": "2026-11-29 15:19:16.883711+00:00",
+  "revoked_at": "None",
+  "unpublished_at": "None"
+ },
+ "conversation_id": "6777e88b-e8e2-43df-b6c3-9e50a3793e00",
+ "conversation": {
+  "id": "6777e88b-e8e2-43df-b6c3-9e50a3793e00",
+  "owner_id": "user:5585eb6b-0b3e-455f-8f22-d730f1d30866",
+  "title": "Which AI researchers moved between frontier labs since 2025? For each move list the researcher, the lab they left, where they went and the month.",
+  "visibility": "public",
+  "created_at": "2026-08-31 15:12:52.121926+00:00",
+  "updated_at": "2026-08-31 15:19:34.654637+00:00"
+ },
+ "turns": [
+  {
+   "id": "3be1bf68-e41d-4cf5-90ca-410e14bb2e0d",
+   "status": "completed",
+   "created_at": "2026-08-31 15:12:52.130600+00:00",
+   "updated_at": "2026-08-31 15:19:34.674093+00:00",
+   "pod": "keenable-webql-api-678d95dbbc-42bkm",
+   "trace_id": "03e56276aefc2013d954f6b8af6b81c4"
+  }
+ ]
+}
