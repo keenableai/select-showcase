@@ -3,6 +3,7 @@
  "namespace": "webql-testing",
  "artifact": {
   "token": "X9ALkkfQZeIu96FxNMOffg",
+  "result_set_id": "r964a4a8964e",
   "owner_id": "user:3945f92e-4c02-4f0b-9a58-23bb557a351d",
   "turn_id": "b583ddf3-74f0-4adc-a8d3-c0acbb3d0861",
   "visibility": "public",

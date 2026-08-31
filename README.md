@@ -9,6 +9,10 @@ A collection of selected WebQL reports with their full agent trajectories.
   - `trajectory.json` — the full agent transcript: user and assistant
     messages, every tool call with its SQL, and tool results.
   - `meta.json` — artifact, conversation, and turn metadata.
+  - `result_sets/<id>.json` — every result set the run produced, with
+    full rows and notes. Stored in Git LFS.
+  - `preview.png` — a full-page screenshot of the report (og-render).
+- `site_assets/` — brand fonts (OFL) and logos for the site pages.
 The GitHub Pages site is generated from `reports/` and lives on the
 `gh-pages` branch: an index page plus, per example, the report and a
 rendered trajectory. A push to `gh-pages` triggers the deploy workflow
