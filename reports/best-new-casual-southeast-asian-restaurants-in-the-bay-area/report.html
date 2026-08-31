@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Best New Casual Southeast Asian Restaurants in the Bay Area</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:#141414;font-family:'Stack Sans Headline',system-ui;line-height:1.5}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 24px}
+h1{font-size:44px;line-height:1.1;font-weight:700;max-width:900px}
+.asked{margin:32px 0;border-left:3px solid #C4472B;padding:12px 20px;background:#FBF4EF}
+.asked .lbl{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;letter-spacing:.05em}
+.asked p{font-size:18px;font-style:italic}
+.lede{font-size:19px;max-width:860px;margin-bottom:56px;color:#333}
+#map{height:640px;width:100%}
+.legend{font-family:'TASA Orbiter',system-ui;font-size:13px;margin:12px 0 64px;color:#444;display:flex;gap:24px;flex-wrap:wrap}
+.dot{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:6px}
+.pin{background:#C4472B;color:#fff;font-family:'TASA Orbiter',system-ui;font-weight:700;font-size:13px;
+ width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.pin.easy{background:#2E5E4E}
+h2{font-size:28px;margin:64px 0 24px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#DDD;border:1px solid #DDD}
+.card{background:#fff;padding:22px}
+.card .rank{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#C4472B;font-weight:700}
+.card .rank.easy{color:#2E5E4E}
+.card h3{font-size:21px;margin:4px 0 2px}
+.card .meta{font-family:'TASA Orbiter',system-ui;font-size:13px;color:#8D8D8D;margin-bottom:10px}
+.card p{font-size:14.5px;margin-bottom:8px;color:#333}
+.card .order{font-size:14px;color:#141414}
+.card a{color:#C4472B;font-family:'TASA Orbiter',system-ui;font-size:12px;text-decoration:none}
+.findings{margin:64px 0}
+.findings div{padding:14px 0;border-bottom:1px solid #DDD;font-size:16px}
+.findings div:first-child{border-top:1px solid #DDD}
+.findings a{color:#C4472B;text-decoration:none;font-family:'TASA Orbiter',system-ui;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;text-align:left;padding:8px 10px;border-bottom:1px solid #141414}
+td{padding:10px;border-bottom:1px solid #DDD;vertical-align:top}
+td a{color:#C4472B;text-decoration:none}
+.method{font-family:'TASA Orbiter',system-ui;font-size:12px;color:#8D8D8D;margin-top:64px}
+.leaflet-popup-content{font-family:'TASA Orbiter',system-ui;font-size:13px}
+@media(max-width:720px){h1{font-size:30px}.cards{grid-template-columns:1fr}#map{height:440px}
+ .tblwrap{overflow-x:auto}table{min-width:640px}.lede{font-size:16px}}
+</style></head><body><div class="wrap">
+<h1>Nine 2025–2026 Southeast Asian openings where you can just walk in — led by Cambodian noodles in Oakland and a San Jose spring-roll specialist</h1>
+<div class="asked"><div class="lbl">Asked:</div><p>“What are the best new southeast asian restaurants in the bay area? They should be open since 2025, casual, and take walk-ins.”</p></div>
+<p class="lede">A verified shortlist of nine casual Southeast Asian restaurants that opened across the Bay Area between January 2025 and August 2026 — spanning Cambodian, Vietnamese, Filipino, and Thai kitchens from Oakland to San Jose. All work for walk-ins by format (counter, food hall, café, takeout, or fast-casual); none guarantees immediate seating, so check same-day hours and expect waits at popular small spots.</p>
+<div id="map" data-og-hero></div>
+<div class="legend"><span><span class="dot" style="background:#C4472B"></span>Destination picks (1–3): worth a trip</span><span><span class="dot" style="background:#2E5E4E"></span>Easy casual options (4–9)</span><span>Numbers follow the ranked order · coordinates are approximate</span></div>
+<h2>The picks</h2>
+<div class="cards" id="cards"></div>
+<div class="findings" id="findings"></div>
+<h2>Compare the nine</h2>
+<div class="tblwrap"><table><thead><tr><th>#</th><th>Restaurant</th><th>Cuisine</th><th>Where</th><th>Opened</th><th>Format</th><th>Walk-in fit</th><th>Source</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<p class="method">Data: ranked editorial shortlist of 9 restaurants compiled as of 2026-08-31 from San Francisco Chronicle, Eater SF, The Oaklandside, and Palo Alto Online coverage. Coordinates are approximate neighborhood or venue points, not survey-grade geocodes. Walk-in suitability is explicit where a source states counter, takeout, food-hall, food-court, café, or fast-casual service; for Nem Nuong Nha Trang it is a format-based assessment of its small dining room and patio, not a quoted no-reservations policy. The opening threshold applies to each listed location; InNenasKitchen began as a home restaurant in 2024 and opened its counter residency in March 2026. Prices and hours were not collected.</p>
+</div>
+<script>
+(function(){
+var picks = [{"pick_order": 1, "restaurant": "InNenasKitchen", "cuisine": "Cambodian", "area": "Aloha Club, Oakland", "latitude_approx": 37.779, "longitude_approx": -122.225, "opened": "March 2026 at Aloha Club (the project began as a home restaurant in 2024)", "casual_format": "Counter service inside a neighborhood bar", "walkin_fit": "Yes — counter service", "why_it_made_the_list": "The Chronicle called it one of Oakland’s most exciting new restaurants; go for Cambodian kathiew.", "what_to_order": "Kathiew (Cambodian beef noodle soup)", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://www.sfchronicle.com/food/restaurants/article/innenaskitchen-cambodian-oakland-22197685.php"}, {"pick_order": 2, "restaurant": "Nem Nuong Nha Trang", "cuisine": "Vietnamese", "area": "Little Saigon, San Jose", "latitude_approx": 37.331, "longitude_approx": -121.857, "opened": "April 2025", "casual_format": "Tiny 16-seat specialist with patio; focused menu", "walkin_fit": "Yes — small dining room/patio; expect a wait at peaks", "why_it_made_the_list": "The Chronicle reported thousands of charcoal-grilled pork spring rolls sold each weekend and called it the Bay Area’s only specialist.", "what_to_order": "Nem nướng cuốn (charcoal-grilled pork spring rolls)", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://www.sfchronicle.com/food/restaurants/article/nem-nuong-nha-trang-san-jose-21112213.php"}, {"pick_order": 3, "restaurant": "FOB West", "cuisine": "Filipino", "area": "Prescott Market, West Oakland", "latitude_approx": 37.812, "longitude_approx": -122.292, "opened": "March 2026", "casual_format": "Food-hall stall", "walkin_fit": "Yes — food-hall seating", "why_it_made_the_list": "An accessible offshoot of chef Janice Dulce’s FOB Kitchen, a Chronicle Top 100 restaurant.", "what_to_order": "Filipino food-hall menu from the FOB Kitchen team", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://www.sfchronicle.com/food/restaurants/article/fob-west-prescott-market-oakland-22071463.php"}, {"pick_order": 4, "restaurant": "Le Soleil", "cuisine": "Contemporary Vietnamese", "area": "Stonestown Galleria, San Francisco", "latitude_approx": 37.728, "longitude_approx": -122.476, "opened": "mid-June 2025", "casual_format": "Mall food-court location", "walkin_fit": "Yes — food-court service", "why_it_made_the_list": "A contemporary offshoot of a treasured Vietnamese restaurant family with more than 30 years in San Francisco.", "what_to_order": "Contemporary Vietnamese dishes", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://www.sfchronicle.com/food/restaurants/article/le-soleil-restaurant-stonestown-sf-20416010.php"}, {"pick_order": 5, "restaurant": "Izzy and Wooks", "cuisine": "Filipino-American", "area": "Saluhall, downtown San Francisco", "latitude_approx": 37.783, "longitude_approx": -122.408, "opened": "January 14, 2026", "casual_format": "Food-hall fried-chicken and sandwich counter", "walkin_fit": "Yes — food-hall counter", "why_it_made_the_list": "Eater’s Filipino-American “burger heroes,” now emphasizing fried chicken at Saluhall.", "what_to_order": "Filipino-American fried chicken and sandwiches", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://sf.eater.com/restaurant-news/210554/izzy-and-wooks-opening-saluhall-downtown-san-francisco"}, {"pick_order": 6, "restaurant": "Señor Sisig", "cuisine": "Filipino-Mexican", "area": "Thrive City, Mission Bay, San Francisco", "latitude_approx": 37.768, "longitude_approx": -122.387, "opened": "January 21, 2025", "casual_format": "Filipino-Mexican street-food restaurant", "walkin_fit": "Yes — casual street-food format", "why_it_made_the_list": "A major new home for a pioneering Bay Area Filipino-Mexican food-truck brand.", "what_to_order": "Sisig in Filipino-Mexican street-food formats", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://sf.eater.com/2025/1/14/24343678/senor-sisigs-filipino-american-new-thrive-city-restaurant-warriors-chase-center-opening"}, {"pick_order": 7, "restaurant": "Kien Svay Cafe", "cuisine": "Cambodian", "area": "Clinton Park, Oakland", "latitude_approx": 37.78, "longitude_approx": -122.235, "opened": "July 2025 (reported July 24)", "casual_format": "Casual takeout outpost", "walkin_fit": "Yes — takeout-focused", "why_it_made_the_list": "One of the few new casual Cambodian takeout specialists in the East Bay.", "what_to_order": "Cambodian takeout specialties", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://oaklandside.org/2025/08/11/east-bay-new-restaurants-july-cambodian-greek/"}, {"pick_order": 8, "restaurant": "Cà Phê Việt", "cuisine": "Vietnamese café", "area": "New Montgomery & Minna, San Francisco", "latitude_approx": 37.786, "longitude_approx": -122.4, "opened": "April 2026", "casual_format": "Vietnamese coffee and bánh mì café", "walkin_fit": "Yes — café/counter format", "why_it_made_the_list": "A downtown specialist for Vietnamese egg coffee plus bánh mì.", "what_to_order": "Vietnamese egg coffee and bánh mì", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://sf.eater.com/restaurant-news/212134/ca-phe-viet-vietnamese-coffee-cafe-opening-san-francisco"}, {"pick_order": 9, "restaurant": "HolyShred", "cuisine": "Thai", "area": "El Camino Real, Palo Alto", "latitude_approx": 37.426, "longitude_approx": -122.145, "opened": "August 2026", "casual_format": "Fast-casual, protein-forward Thai", "walkin_fit": "Yes — fast-casual format", "why_it_made_the_list": "One of the Peninsula’s newest fast-casual Thai openings, with a protein-forward angle.", "what_to_order": "Protein-forward Thai dishes", "methodology_note": "Walk-in suitability is explicit where the source states counter, takeout, food-hall, food-court, café, or fast-casual service; otherwise it is a format-based assessment, not a quoted reservation policy. Check same-day hours before traveling.", "source_url": "https://paloaltoonline.com/palo-alto/2026/08/26/holy-shred-thai-restaurant-opens-in-palo-alto"}];
+function host(u){return u.replace(/^https?:\/\//,'').split('/')[0].replace(/^www\./,'');}
+var map = L.map('map',{scrollWheelZoom:false});
+map.attributionControl.setPrefix(false);
+L.tileLayer('https://select.keenable.ai/maptiler-tiles/{z}/{x}/{y}.png',{attribution:'© MapTiler © OpenStreetMap contributors'}).addTo(map);
+var b = L.latLngBounds(picks.map(function(p){return [p.latitude_approx,p.longitude_approx];}));
+map.fitBounds(b.pad(0.18));
+picks.forEach(function(p){
+  var dest = p.pick_order<=3;
+  var icon = L.divIcon({className:'',html:'<div class="pin'+(dest?'':' easy')+'">'+p.pick_order+'</div>',iconSize:[26,26],iconAnchor:[13,13]});
+  L.marker([p.latitude_approx,p.longitude_approx],{icon:icon}).addTo(map)
+   .bindPopup('<b>'+p.pick_order+'. '+p.restaurant+'</b><br>'+p.cuisine+' · '+p.area+'<br>Order: '+p.what_to_order+'<br><a href="'+p.source_url+'" target="_blank" rel="noopener noreferrer">'+host(p.source_url)+'</a>');
+});
+var cards='';
+picks.forEach(function(p){
+  var dest=p.pick_order<=3;
+  cards+='<div class="card"><div class="rank'+(dest?'':' easy')+'">'+p.pick_order+' · '+(dest?'Destination pick':'Easy casual option')+'</div>'
+  +'<h3>'+p.restaurant+'</h3><div class="meta">'+p.cuisine+' · '+p.area+' · opened '+p.opened+'</div>'
+  +'<p>'+p.why_it_made_the_list+'</p><p class="order"><b>Order:</b> '+p.what_to_order+'</p>'
+  +'<p>'+p.casual_format+' — '+p.walkin_fit+'</p>'
+  +'<a href="'+p.source_url+'" target="_blank" rel="noopener noreferrer">'+host(p.source_url)+'</a></div>';
+});
+document.getElementById('cards').innerHTML=cards;
+function link(i){var p=picks[i];return '<a href="'+p.source_url+'" target="_blank" rel="noopener noreferrer">'+host(p.source_url)+'</a>';}
+var finds=[
+ 'The nine picks span four cuisines — Cambodian, Vietnamese, Filipino, and Thai — across five cities from West Oakland to San Jose. '+link(0),
+ 'Nem Nuong Nha Trang reportedly sells thousands of charcoal-grilled pork spring rolls each weekend from just 16 seats — the Bay Area’s only specialist. '+link(1),
+ 'FOB West is the easiest acclaimed option: a food-hall offshoot of FOB Kitchen, a Chronicle Top 100 restaurant. '+link(2),
+ 'Six of the nine sit inside food halls, cafés, or counters, so walk-ins are the default format rather than an exception. '+link(4)
+];
+document.getElementById('findings').innerHTML=finds.map(function(f){return '<div>'+f+'</div>';}).join('');
+var tb='';
+picks.forEach(function(p,i){
+ tb+='<tr><td>'+p.pick_order+'</td><td><b>'+p.restaurant+'</b></td><td>'+p.cuisine+'</td><td>'+p.area+'</td><td>'+p.opened+'</td><td>'+p.casual_format+'</td><td>'+p.walkin_fit+'</td><td>'+link(i)+'</td></tr>';
+});
+document.getElementById('tbody').innerHTML=tb;
+})();
+</script></body></html>
