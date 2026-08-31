@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><link rel="stylesheet" href="https://select.keenable.ai/fonts/brand.css"><style>body{font-family:'Stack Sans Headline',system-ui;color:#2A2A2A;background:#FFFFFF}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Major Open & Open-Weight LLM Releases — 2026 Timeline</title>
+<style>
+:root{--ink:#111;--grey:#8D8D8D;--hair:#DDDDDD;--perm:#0B7A3B;--cust:#C2620A;--verify:#6B6B6B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--ink);font-family:'Stack Sans Headline',system-ui,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 24px 40px}
+h1{font-size:44px;line-height:1.08;letter-spacing:-0.01em;max-width:980px}
+.asked{margin:36px 0 0;border-left:3px solid var(--ink);padding:10px 18px;background:#F7F7F7}
+.asked .lbl{font-family:'TASA Orbiter',system-ui;font-size:12px;color:var(--grey);display:block;margin-bottom:4px}
+.asked q{font-size:18px}
+.lede{margin-top:28px;font-size:19px;line-height:1.5;max-width:900px;color:#333}
+.legend{margin:56px 0 8px;display:flex;gap:26px;flex-wrap:wrap;font-family:'TASA Orbiter',system-ui;font-size:13px;color:#333}
+.legend span i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px}
+#tl{width:100%}
+.tip{position:fixed;pointer-events:none;background:#111;color:#fff;padding:10px 12px;font-family:'TASA Orbiter',system-ui;font-size:12px;line-height:1.45;max-width:300px;z-index:9;display:none}
+.finds{margin-top:64px}
+.finds div{padding:14px 0;border-top:1px solid var(--hair);font-size:16px;line-height:1.5}
+.finds div:last-child{border-bottom:1px solid var(--hair)}
+a{color:#0B4FA0;text-decoration:none}
+a:hover{text-decoration:underline}
+h2{font-size:26px;margin:64px 0 18px}
+table{width:100%;border-collapse:collapse;font-family:'TASA Orbiter',system-ui;font-size:13px}
+th{text-align:left;font-weight:600;padding:8px 10px 8px 0;border-bottom:2px solid var(--ink)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+.dotc{display:inline-block;width:9px;height:9px;margin-right:5px}
+.method{margin-top:56px;font-family:'TASA Orbiter',system-ui;font-size:12px;color:var(--grey);line-height:1.6}
+@media (max-width:640px){
+h1{font-size:29px}.lede{font-size:16px}.asked q{font-size:15px}
+.legend{gap:14px;font-size:12px}
+.tblwrap{overflow-x:auto}
+table{min-width:820px}
+#tl{overflow-x:auto}
+}
+</style></head><body><div class="wrap">
+<h1>Twenty consequential open-weight launches by late August — April was the densest month, and million-token context went mainstream</h1>
+<div class="asked"><span class="lbl">Asked:</span><q>assemble a release time line of major open source LLMs being released in 2026</q></div>
+<p class="lede">A curated set of 20 major open-source and open-weight LLM releases from 2 February to 26 August 2026 — one event per model-family launch, with parameters, context window and license. 12 of the 20 ship under permissive open-source licenses (MIT or Apache&nbsp;2.0); the other 8 are downloadable-weight models under custom or restricted terms, which does not satisfy the OSI open-source definition. 9 of the 20 advertise context windows of a million tokens or more.</p>
+<div class="legend">
+<span><i style="background:var(--perm)"></i>permissive open source (MIT / Apache 2.0)</span>
+<span><i style="background:var(--cust)"></i>open weights, custom or restricted terms</span>
+<span><i style="background:var(--verify)"></i>open model, terms unverified</span>
+<span>◇ month-level or inferred date &nbsp;·&nbsp; ● exact date</span>
+</div>
+<div id="tl" data-og-hero></div>
+<div class="tip" id="tip"></div>
+<div class="finds">
+<div>April is the densest month, with 5 flagship launches in 22 days (GLM-5.1, MiniMax M2.7, Qwen 3.6, Kimi K2.6, Mistral Medium 3.5) after the February ramp of Kimi K2.5, GLM-5 and Qwen 3.5 — <a href="https://z.ai/blog/glm-5.1" target="_blank" rel="noopener noreferrer">z.ai</a></div>
+<div>Million-token context became a frontier norm: 9 of the 20 launches claim ≥1M tokens, including MiniMax M3, the first open-weight model pairing frontier coding, 1M context and native multimodality — <a href="https://fazm.ai/t/latest-open-source-llm-releases-2026" target="_blank" rel="noopener noreferrer">fazm.ai</a></div>
+<div>Kimi K3 (2.8T parameters, 28 corroborating sources) is reported to match or surpass Anthropic's Fable 5 on key benchmarks at roughly half the cost — a vendor-favourable claim from press synthesis, not an independent audit — <a href="https://edgen.tech/tr/news/post/kimi-k3-open-weight-release-draws-100k-downloads-erases-us-ai-lead" target="_blank" rel="noopener noreferrer">edgen.tech</a></div>
+<div>DeepSeek V4 carries only a year-level date in the shaped record; the April 24 position is inferred from the publication date of its first-party Hugging Face model card — <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro?show_file_info=model.safetensors.index.json" target="_blank" rel="noopener noreferrer">huggingface.co</a></div>
+<div>Mixture-of-experts dominates: nearly every flagship here activates a small fraction of total parameters (e.g. GLM-5 at 744B total / 44B active; Inkling at 975B / 41B active) — <a href="https://best-ai.news/ai-model-releases-2026" target="_blank" rel="noopener noreferrer">best-ai.news</a></div>
+</div>
+<h2>The 20 releases, in order</h2>
+<div class="tblwrap"><table><thead><tr><th>Date</th><th>Developer</th><th>Model</th><th>Parameters</th><th>Context</th><th>License</th><th>Evidence</th><th>Source</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="method">Curated timeline of major open-source and open-weight LLM releases, 20 rows, current through 2026-08-31. “Major” means a new flagship or model-family generation, or a consequential broadly released open-weight model — not every checkpoint, quantization, fine-tune or patch; the set is selective, not exhaustive. Built from broad 2026 web coverage plus first-party developer and model-card searches; rows marked multi-source synthesis carry their source count, and vendor benchmark figures are vendor-reported, not independently verified. DeepSeek V4's date is inferred from its first-party model-card publication (2026-04-24). Significance text is abridged in the table for space.</p>
+</div>
+<script>
+(function(){
+var D=[{"release_date": "2026-02-02", "release_month": "2026-02", "organization": "Moonshot AI", "model": "Kimi K2.5", "parameters": "Total Parameters: 1T, Activated Parameters: 32B", "context_window": "256K", "license": "Modified MIT", "openness_class": "open weights / custom terms", "significance": "Native multimodal agentic model built through continual pretraining on mixed visual and text tokens", "source_count": 1, "source_basis": "first-party model card or announcement", "source_url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/refs%2Fpr%2F66/README.md", "date": "2026-02-02", "inferred": false, "host": "huggingface.co"}, {"release_date": "2026-02-13", "release_month": "2026-02", "organization": "Zhipu AI", "model": "GLM-5", "parameters": "744B (44B active)", "context_window": "1 million-token", "license": "MIT", "openness_class": "permissive open-source license", "significance": "rank #1 among open-source models on Vending Bench 2; achieves best-in-class performance among all open-source models in the world on reasoning, coding, and agentic tasks", "source_count": 10, "source_basis": "multi-source synthesis", "source_url": "https://z.ai/blog/glm-5", "date": "2026-02-13", "inferred": false, "host": "z.ai"}, {"release_date": "2026-02-16", "release_month": "2026-02", "organization": "Alibaba", "model": "Qwen 3.5", "parameters": "17B active / 397B total", "context_window": "256K", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "Qwen3.5 (397B total / 17B active MoE); 256K native context; 256 experts", "source_count": 4, "source_basis": "multi-source synthesis", "source_url": "https://jaredwatkins.com/research/local-llm-finetuning/fundamentals/base-models", "date": "2026-02-16", "inferred": false, "host": "jaredwatkins.com"}, {"release_date": "2026-03-11", "release_month": "2026-03", "organization": "NVIDIA", "model": "Nemotron 3 Super", "parameters": "120.6B", "context_window": "Up to 1M", "license": "Open weights", "openness_class": "open model; verify terms", "significance": "36.0 on the Artificial Analysis Intelligence Index", "source_count": 4, "source_basis": "multi-source synthesis", "source_url": "https://tech-insider.org/ca/nvidia-nemotron-3-ultra-2026", "date": "2026-03-11", "inferred": false, "host": "tech-insider.org"}, {"release_date": "2026-03-16", "release_month": "2026-03", "organization": "Mistral AI", "model": "Mistral Small 4", "parameters": "119B / 6B", "context_window": "256,000", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "unifies reasoning, multimodal understanding, and agentic coding in one model", "source_count": 11, "source_basis": "multi-source synthesis", "source_url": "https://hidekazu-konishi.com/entry/open_weights_llm_release_history_and_timeline.html", "date": "2026-03-16", "inferred": false, "host": "hidekazu-konishi.com"}, {"release_date": "2026-04-07", "release_month": "2026-04", "organization": "Z.ai", "model": "GLM-5.1", "parameters": "\u2014", "context_window": "\u2014", "license": "MIT License", "openness_class": "permissive open-source license", "significance": "next-generation flagship model for agentic engineering, with significantly stronger coding capabilities than its predecessor", "source_count": 1, "source_basis": "first-party model card or announcement", "source_url": "https://z.ai/blog/glm-5.1", "date": "2026-04-07", "inferred": false, "host": "z.ai"}, {"release_date": "2026-04-12", "release_month": "2026-04", "organization": "MiniMax", "model": "MiniMax M2.7", "parameters": "229B total parameters, 10B active per token", "context_window": "200K tokens", "license": "Modified MIT", "openness_class": "open weights / custom terms", "significance": "Hits 56.22% on SWE-Bench Pro and 57.0% on Terminal Bench 2, with downloads already in the tens of thousands.", "source_count": 6, "source_basis": "multi-source synthesis", "source_url": "https://ai-tldr.dev/releases/minimax-m2-7-open-weights", "date": "2026-04-12", "inferred": false, "host": "ai-tldr.dev"}, {"release_date": "2026-04-16", "release_month": "2026-04", "organization": "Alibaba", "model": "Qwen 3.6", "parameters": "35B-A3B and 27B", "context_window": "1M", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "building on Qwen3.5 while prioritizing stability, real-world coding utility, and direct community feedback", "source_count": 5, "source_basis": "multi-source synthesis", "source_url": "https://hidekazu-konishi.com/entry/open_weights_llm_release_history_and_timeline.html", "date": "2026-04-16", "inferred": false, "host": "hidekazu-konishi.com"}, {"release_date": "2026-04-20", "release_month": "2026-04", "organization": "Moonshot AI", "model": "Kimi K2.6", "parameters": "1T total / 32B active (MoE)", "context_window": "256K", "license": "Modified MIT", "openness_class": "open weights / custom terms", "significance": "Native multimodal agentic model. MIT-equivalent below 100M MAU / $20M monthly revenue, attribution clause above.", "source_count": 7, "source_basis": "multi-source synthesis", "source_url": "https://fazm.ai/t/latest-open-source-llm-releases-2026", "date": "2026-04-20", "inferred": false, "host": "fazm.ai"}, {"release_date": "2026", "release_month": "2026", "organization": "DeepSeek-AI", "model": "DeepSeek-V4", "parameters": "1.6T total (49B activated) for DeepSeek-V4-Pro, 284B total (13B activated) for DeepSeek-V4-Flash", "context_window": "1,000,000 tokens", "license": "MIT", "openness_class": "permissive open-source license", "significance": " Mixture-of-Experts language models designed for efficient million-token context intelligence, coding, reasoning, and agentic tasks.", "source_count": 1, "source_basis": "first-party model card or announcement", "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro?show_file_info=model.safetensors.index.json", "date": "2026-04-24", "inferred": true, "host": "huggingface.co"}, {"release_date": "2026-04-29", "release_month": "2026-04", "organization": "Mistral", "model": "Mistral Medium 3.5", "parameters": "128B", "context_window": "256K", "license": "modified MIT license", "openness_class": "open weights / custom terms", "significance": "merges instruction-following, reasoning, and coding in a single set of weights", "source_count": 10, "source_basis": "multi-source synthesis", "source_url": "https://hidekazu-konishi.com/entry/open_weights_llm_release_history_and_timeline.html", "date": "2026-04-29", "inferred": false, "host": "hidekazu-konishi.com"}, {"release_date": "2026-06-01", "release_month": "2026-06", "organization": "MiniMax", "model": "MiniMax M3", "parameters": "Undisclosed (MoE)", "context_window": "1M", "license": "MiniMax Community License", "openness_class": "open weights / custom terms", "significance": "First open-weight model pairing frontier coding, 1M context, and native multimodality. Vendor-reported 59.0% SWE-Bench Pro. Weights staged to Hugging Face after launch.", "source_count": 16, "source_basis": "multi-source synthesis", "source_url": "https://fazm.ai/t/latest-open-source-llm-releases-2026", "date": "2026-06-01", "inferred": false, "host": "fazm.ai"}, {"release_date": "2026-06-04", "release_month": "2026-06", "organization": "NVIDIA", "model": "Nemotron 3 Ultra", "parameters": "550B (55B active)", "context_window": "1M tokens", "license": "OpenMDW-1.1", "openness_class": "open weights / custom terms", "significance": "Frontier-scale general purpose reasoning and chat model optimized for complex agentic workflows, long-context reasoning, and high-stakes analytical workloads.", "source_count": 1, "source_basis": "first-party model card or announcement", "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16", "date": "2026-06-04", "inferred": false, "host": "huggingface.co"}, {"release_date": "2026-06-13", "release_month": "2026-06", "organization": "Zhipu AI", "model": "GLM 5.2", "parameters": "744B (40B active)", "context_window": "1 million tokens", "license": "MIT", "openness_class": "permissive open-source license", "significance": "Successor to GLM-5.1 (vendor-reported 58.4% SWE-Bench Pro). Positioned for long-horizon agentic engineering.", "source_count": 20, "source_basis": "multi-source synthesis", "source_url": "https://fazm.ai/t/latest-open-source-llm-releases-2026", "date": "2026-06-13", "inferred": false, "host": "fazm.ai"}, {"release_date": "2026-07-02", "release_month": "2026-07", "organization": "Google DeepMind", "model": "Gemma 4", "parameters": "\u2014", "context_window": "256K tokens", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "multimodal, handling text and image input (with audio supported on E2B, E4B, and 12B) and generating text output", "source_count": 1, "source_basis": "first-party model card or announcement", "source_url": "https://huggingface.co/google/gemma-4-31B-it-qat-q4_0-unquantized", "date": "2026-07-02", "inferred": false, "host": "huggingface.co"}, {"release_date": "2026-07-15", "release_month": "2026-07", "organization": "Thinking Machines Lab", "model": "Inkling", "parameters": "975B-parameter", "context_window": "\u2014", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "Thinking Machines Lab's first model trained from scratch: a 975B-parameter open-weights multimodal Mixture-of-Experts with 41B active parameters and controllable thinking effort", "source_count": 3, "source_basis": "multi-source synthesis", "source_url": "https://best-ai.news/ai-model-releases-2026", "date": "2026-07-15", "inferred": false, "host": "best-ai.news"}, {"release_date": "2026-07-27", "release_month": "2026-07", "organization": "Moonshot AI", "model": "Kimi K3", "parameters": "2.8-trillion-parameter", "context_window": "1-million-token", "license": "Kimi K3 License", "openness_class": "open weights / custom terms", "significance": "matched or surpassed Anthropic's Fable 5 on key benchmarks at roughly half the cost, erasing the closed-source lead", "source_count": 28, "source_basis": "multi-source synthesis", "source_url": "https://edgen.tech/tr/news/post/kimi-k3-open-weight-release-draws-100k-downloads-erases-us-ai-lead", "date": "2026-07-27", "inferred": false, "host": "edgen.tech"}, {"release_date": "2026-08-10", "release_month": "2026-08", "organization": "Meta", "model": "Muse Glimmer", "parameters": "30-billion-parameter", "context_window": "128K", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "a 30-billion-parameter model distilled from Muse Spark", "source_count": 4, "source_basis": "multi-source synthesis", "source_url": "https://absolutedigitalpublishers.com/articles/llama-mistral-deepseek-qwen-gemma-and-olmo-what-open-actually-means", "date": "2026-08-10", "inferred": false, "host": "absolutedigitalpublishers.com"}, {"release_date": "2026-08-14", "release_month": "2026-08", "organization": "Alibaba", "model": "Qwen3.8-27B", "parameters": "27B", "context_window": "262K", "license": "Apache 2.0", "openness_class": "permissive open-source license", "significance": "Artificial Analysis independently scores it 52 on its Intelligence Index \u2014 up from 38 for the architecturally identical Qwen3.6-27B, level with GLM-5.2 and DeepSeek V4 Flash, and ahead of every open model in the 40B\u2013150B range.", "source_count": 2, "source_basis": "multi-source synthesis", "source_url": "https://codersera.com/blog/open-source-llms-landscape-2026", "date": "2026-08-14", "inferred": false, "host": "codersera.com"}, {"release_date": "2026-08-26", "release_month": "2026-08", "organization": "Z.ai", "model": "GLM-5.3-Flash", "parameters": "320-billion-parameter", "context_window": "above one million tokens", "license": "MIT license", "openness_class": "permissive open-source license", "significance": "the first natively multimodal model in the GLM-5 series: image and video input, a context window above one million tokens, a 63.4 result on the DeepSWE evaluation shown on the model page", "source_count": 2, "source_basis": "multi-source synthesis", "source_url": "https://startupfortune.com/zhipus-glm-53-flash-undercuts-claude-and-gpt-on-price-not-on-hardware", "date": "2026-08-26", "inferred": false, "host": "startupfortune.com"}];
+var C={"permissive open-source license":"#0B7A3B","open weights / custom terms":"#C2620A","open model; verify terms":"#6B6B6B"};
+D.forEach(function(d){d.t=new Date(d.date+"T12:00:00").getTime();});
+var tip=document.getElementById('tip');
+var months=["Feb","Mar","Apr","May","Jun","Jul","Aug"];
+function draw(){
+ var el=document.getElementById('tl');el.innerHTML='';
+ var cw=el.clientWidth||1100,narrow=cw<640;var W=narrow?900:cw;
+ var H=narrow?560:520,axisY=H/2,pad=narrow?14:40;
+ var t0=new Date('2026-02-01T00:00:00').getTime(),t1=new Date('2026-09-01T00:00:00').getTime();
+ function X(t){return pad+(t-t0)/(t1-t0)*(W-2*pad);}
+ var ns='http://www.w3.org/2000/svg';
+ var svg=document.createElementNS(ns,'svg');
+ svg.setAttribute('width',W);svg.setAttribute('height',H);
+ function mk(tag,at){var e=document.createElementNS(ns,tag);for(var k in at)e.setAttribute(k,at[k]);svg.appendChild(e);return e;}
+ // month bands + labels
+ for(var m=0;m<7;m++){
+  var a=new Date(2026,m+1,1).getTime(),b=new Date(2026,m+2,1).getTime();
+  if(m%2==1)mk('rect',{x:X(a),y:0,width:X(b)-X(a),height:H,fill:'#F6F6F6'});
+  var lab=mk('text',{x:(X(a)+X(b))/2,y:axisY+5,'text-anchor':'middle','font-family':"'TASA Orbiter',system-ui",'font-size':narrow?11:13,fill:'#8D8D8D'});
+  lab.textContent=months[m];
+ }
+ mk('line',{x1:pad,y1:axisY,x2:W-pad,y2:axisY,stroke:'#111','stroke-width':2});
+ // stagger: alternate above/below, lanes to avoid collision
+ var above=0,below=0;
+ D.forEach(function(d,i){
+  var up=i%2===0;
+  var lane=up?(above++%3):(below++%3);
+  var x=X(d.t);
+  var ly=up?axisY-46-lane*(narrow?58:56):axisY+46+lane*(narrow?58:56);
+  var col=C[d.openness_class]||'#6B6B6B';
+  var g=document.createElementNS(ns,'g');svg.appendChild(g);
+  function gm(tag,at){var e=document.createElementNS(ns,tag);for(var k in at)e.setAttribute(k,at[k]);g.appendChild(e);return e;}
+  gm('line',{x1:x,y1:axisY,x2:x,y2:ly,stroke:col,'stroke-width':1,'stroke-opacity':0.55});
+  if(d.inferred){gm('rect',{x:x-5.5,y:axisY-5.5,width:11,height:11,fill:col,transform:'rotate(45 '+x+' '+axisY+')'});}
+  else{gm('circle',{cx:x,cy:axisY,r:6,fill:col});}
+  var anch=x>W-140?'end':(x<140?'start':'middle');
+  var t1e=gm('text',{x:x,y:up?ly-16:ly+10,'text-anchor':anch,'font-family':"'Stack Sans Headline',system-ui",'font-size':narrow?11:14,'font-weight':600,fill:'#111'});
+  t1e.textContent=d.model;
+  var t2=gm('text',{x:x,y:up?ly-2:ly+24,'text-anchor':anch,'font-family':"'TASA Orbiter',system-ui",'font-size':narrow?10:12,fill:'#555'});
+  var dd=new Date(d.t);
+  t2.textContent=d.organization+' · '+months[dd.getMonth()-1]+' '+dd.getDate()+(d.inferred?'*':'');
+  g.style.cursor='pointer';
+  g.addEventListener('mousemove',function(ev){
+   tip.style.display='block';
+   tip.innerHTML='<b>'+d.model+'</b> — '+d.organization+'<br>'+d.date+(d.inferred?' (inferred from first-party model card)':'')+'<br>Params: '+d.parameters+'<br>Context: '+d.context_window+'<br>License: '+d.license+' · '+d.openness_class+'<br>'+d.significance+'<br><i>'+d.source_basis+' · '+d.source_count+' source'+(d.source_count>1?'s':'')+'</i>';
+   tip.style.left=Math.min(ev.clientX+14,window.innerWidth-310)+'px';
+   tip.style.top=(ev.clientY+14)+'px';
+   svg.querySelectorAll('g').forEach(function(o){o.style.opacity=o===g?1:0.15;});
+  });
+  g.addEventListener('mouseleave',function(){tip.style.display='none';svg.querySelectorAll('g').forEach(function(o){o.style.opacity=1;});});
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+   g.style.opacity=0;g.style.transition='opacity .5s '+ (i*60) +'ms';
+   requestAnimationFrame(function(){requestAnimationFrame(function(){g.style.opacity=1;});});
+  }
+ });
+ var note=mk('text',{x:W-pad,y:H-8,'text-anchor':'end','font-family':"'TASA Orbiter',system-ui",'font-size':11,fill:'#8D8D8D'});
+ note.textContent='* DeepSeek-V4 date inferred from first-party model-card publication';
+ el.appendChild(svg);
+}
+draw();
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(draw,150);});
+// table
+var tb=document.getElementById('tb');
+D.forEach(function(d){
+ var tr=document.createElement('tr');
+ var dd=new Date(d.t);
+ var dateTxt=d.inferred?'Apr 24*':['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'][dd.getMonth()+1]+' '+dd.getDate();
+ var col=C[d.openness_class]||'#6B6B6B';
+ tr.innerHTML='<td>'+dateTxt+'</td><td>'+d.organization+'</td><td><span class="dotc" style="background:'+col+'"></span>'+d.model+'</td><td>'+d.parameters+'</td><td>'+d.context_window+'</td><td>'+d.license+'</td><td>'+d.source_basis.replace('first-party model card or announcement','first-party').replace('multi-source synthesis','synthesis')+' ('+d.source_count+')</td><td><a href="'+d.source_url+'" target="_blank" rel="noopener noreferrer">'+d.host+'</a></td>';
+ tb.appendChild(tr);
+});
+})();
+</script></body></html>
