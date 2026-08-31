@@ -12,6 +12,7 @@ Usage: uv run python scripts/build_site.py
 
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -340,9 +341,11 @@ def build_report(slug: str) -> dict:
     thumb_src = next(
         (src / name for name in ("hero.png", "preview.png") if (src / name).exists()), None
     )
-    thumb_size = (
-        write_thumb(thumb_src, out / "thumb.webp") if thumb_src is not None else None
-    )
+    thumb_size = None
+    thumb_version = ""
+    if thumb_src is not None:
+        thumb_size = write_thumb(thumb_src, out / "thumb.webp")
+        thumb_version = hashlib.sha256((out / "thumb.webp").read_bytes()).hexdigest()[:8]
     result_sets = load_result_sets(src, out)
 
     title = meta["artifact"]["title"]
@@ -376,6 +379,7 @@ def build_report(slug: str) -> dict:
         "n_queries": n_queries,
         "has_trajectory": bool(transcript),
         "thumb_size": thumb_size,
+        "thumb_version": thumb_version,
     }
 
 
@@ -386,7 +390,7 @@ def build_index(entries: list[dict]) -> None:
             width, height = e["thumb_size"]
             shot = (
                 f'<a href="{e["report_url"]}">'
-                f'<img class="shot" src="{e["slug"]}/thumb.webp" alt=""'
+                f'<img class="shot" src="{e["slug"]}/thumb.webp?v={e["thumb_version"]}" alt=""'
                 f' loading="lazy" width="{width}" height="{height}"></a>'
             )
         else:
