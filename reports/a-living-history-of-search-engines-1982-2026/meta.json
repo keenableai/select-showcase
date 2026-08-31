@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/a-living-history-of-search-engines-1982-2026/9dCg-O8uOkQFTPzfun5YKw",
+ "artifact": {
+  "token": "9dCg-O8uOkQFTPzfun5YKw",
+  "title": "A Living History of Search Engines (1982\u20132026)",
+  "visibility": "public",
+  "bytes_size": "288469",
+  "created_at": "2026-08-31 20:41:35.169406+00:00",
+  "expires_at": "2026-11-29 20:41:35.169406+00:00"
+ },
+ "conversation": {
+  "title": "List all search engines existed in history. Make sure not to miss any modern ones.",
+  "created_at": "2026-08-31 20:29:53.407918+00:00",
+  "updated_at": "2026-08-31 20:41:48.033813+00:00"
+ }
+}
