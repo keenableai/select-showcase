@@ -6,6 +6,8 @@ A collection of selected WebQL reports with their full agent trajectories.
 
 - `reports/<slug>/` — raw data for one example:
   - `report.html` — the published report, verbatim from the DB.
+  - `report_page.html` — the public report page: the same report wrapped
+    in the server's header and footer. The site serves this one.
   - `trajectory.json` — the full agent transcript: user and assistant
     messages, every tool call with its SQL, and tool results.
   - `meta.json` — artifact, conversation, and turn metadata.

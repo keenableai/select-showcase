@@ -267,7 +267,10 @@ def build_report(slug: str) -> dict:
 
     out = DOCS / slug
     out.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(src / "report.html", out / "report.html")
+    page_src = src / "report_page.html"
+    if not page_src.exists():
+        page_src = src / "report.html"
+    shutil.copyfile(page_src, out / "report.html")
     has_preview = (src / "preview.png").exists()
     if has_preview:
         shutil.copyfile(src / "preview.png", out / "preview.png")
