@@ -30,11 +30,11 @@ DOCS = ROOT / "_site"
 GITHUB_URL = "https://github.com/keenableai/select-showcase"
 SITE_URL = "https://keenableai.github.io/select-showcase/"
 SELECT_URL = "https://app.keenable.ai/select/"
-INDEX_TITLE = "Keenable SELECT showcase — research reports with full agent trajectories"
+INDEX_TITLE = "Keenable SELECT showcase: research reports with full agent trajectories"
 INDEX_DESCRIPTION = (
-    "Research reports built by Keenable SELECT, an agent that searches the web in SQL —"
-    " each published with the full run behind it: every query, every tool"
-    " result, every result set."
+    "Research reports built by Keenable SELECT, an agent that searches the web in"
+    " SQL. Each report is published with the full run behind it: every query,"
+    " every tool result, every result set."
 )
 THUMB_WIDTH = 720
 THUMB_HEIGHT = 480
@@ -152,7 +152,7 @@ def render_assistant(message: dict) -> str:
     for call in message.get("tool_calls") or []:
         fn = call.get("function", {})
         parts.append(
-            f'<p class="tool-name label">tool call — {esc(fn.get("name", "?"))}</p>'
+            f'<p class="tool-name label">tool call &middot; {esc(fn.get("name", "?"))}</p>'
         )
         try:
             args = json.loads(fn.get("arguments", "{}"))
@@ -192,7 +192,7 @@ def render_result_set(result_set: dict, size_bytes: int) -> str:
     )
     return (
         f'<div class="rs"><p class="label">result set {esc(result_set["id"])}'
-        f" — {len(rows)} rows</p>"
+        f" &middot; {len(rows)} rows</p>"
         f'<div class="rs-scroll"><table><thead><tr>{head}</tr></thead>'
         f"<tbody>{body}</tbody></table></div>"
         f'<a class="btn" href="result_sets/{esc(result_set["id"])}.json" download>'
@@ -376,7 +376,7 @@ def build_report(slug: str) -> dict:
     n_queries = sum(len(m.get("tool_calls") or []) for m in transcript)
     body = (
         f'<h1 class="small">{esc(title)}</h1>'
-        f'<p class="sub label">Trajectory — {len(transcript)} messages, {n_queries} tool calls'
+        f'<p class="sub label">Trajectory &middot; {len(transcript)} messages, {n_queries} tool calls'
         f' &middot; <a href="{report_url}">report</a>'
         f' &middot; <a href="../index.html">all reports</a></p>'
         + "".join(render_message(m, result_sets) for m in transcript)
@@ -385,7 +385,7 @@ def build_report(slug: str) -> dict:
     if transcript:
         (out / "trajectory.html").write_text(
             page(
-                f"{title} — trajectory",
+                f"{title} &middot; trajectory",
                 body,
                 root="../",
                 scripts=scripts,
@@ -481,7 +481,7 @@ def build_index(entries: list[dict]) -> None:
         )
     body = (
         '<p class="intro">Research reports built by'
-        f' <a href="{SELECT_URL}">Keenable SELECT</a> — an agent that searches the web'
+        f' <a href="{SELECT_URL}">Keenable SELECT</a>, an agent that searches the web'
         " in SQL. Every card links the finished report and the full trajectory behind"
         " it: each query, tool result, and result set.</p>"
         f"{explainer(entries)}"

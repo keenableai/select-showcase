@@ -12,13 +12,13 @@ uv run python scripts/build_site.py   # build the site into _site/
 
 ## Layout
 
-- `reports/<slug>/` — source data, one directory per report: `report.html`,
+- `reports/<slug>/`: source data, one directory per report: `report.html`,
   `trajectory.json`, `meta.json`, `result_sets/*.json` (Git LFS),
   `preview.png`.
-- `site_assets/` — brand fonts and logos the site pages use.
-- `scripts/build_site.py` — the site generator. Fire CLI.
-- `_site/` — build output. Never commit it.
-- `.github/workflows/deploy-pages.yaml` — builds and deploys the site to
+- `site_assets/`: brand fonts and logos the site pages use.
+- `scripts/build_site.py`: the site generator. Fire CLI.
+- `_site/`: build output. Never commit it.
+- `.github/workflows/deploy-pages.yaml`: builds and deploys the site to
   GitHub Pages on every push to main.
 
 ## Adding a report

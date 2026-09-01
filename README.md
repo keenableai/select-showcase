@@ -8,16 +8,16 @@ the run produced.
 
 ## Layout
 
-- `reports/<slug>/` — one example:
-  - `report.html` — the published report.
-  - `trajectory.json` — the full agent transcript: user and assistant
+- `reports/<slug>/`: one example:
+  - `report.html`: the published report.
+  - `trajectory.json`: the full agent transcript: user and assistant
     messages, every tool call with its SQL, and tool results.
-  - `meta.json` — report title, question, and timestamps.
-  - `result_sets/<id>.json` — the result sets of the run, with full rows
+  - `meta.json`: report title, question, and timestamps.
+  - `result_sets/<id>.json`: the result sets of the run, with full rows
     and notes. Stored in Git LFS.
-  - `preview.png` — a full-page screenshot of the report.
-- `site_assets/` — brand fonts (SIL OFL) and logos for the site pages.
-- `scripts/build_site.py` — generates the site into `_site/`.
+  - `preview.png`: a full-page screenshot of the report.
+- `site_assets/`: brand fonts (SIL OFL) and logos for the site pages.
+- `scripts/build_site.py`: generates the site into `_site/`.
 
 ## Build
 
