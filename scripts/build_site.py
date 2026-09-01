@@ -565,7 +565,7 @@ def build_index(entries: list[dict]) -> None:
     body = (
         '<p class="intro">Research reports built by'
         f' <a href="{SELECT_URL}">Keenable SELECT</a>, an agent that searches the web'
-        " in SQL. Every card links the finished report and the full trajectory behind"
+        " in SQL.<br>Every card links the finished report and the full trajectory behind"
         " it: each query, tool result, and result set.</p>"
         f"{explainer(entries)}"
         '<h2 class="section">Gallery</h2>'
