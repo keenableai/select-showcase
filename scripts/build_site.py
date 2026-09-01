@@ -68,7 +68,7 @@ h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
   letter-spacing:-.004em;color:#2A2A2A;margin:0}
 .how-prompt{font-size:17px;line-height:1.55;font-style:italic;color:#2A2A2A}
 .how-step pre{margin:0;background:none;border:0;padding:0;font-size:12.5px;line-height:1.6;
-  overflow-x:auto}
+  white-space:pre-wrap;overflow-wrap:break-word}
 .how-step pre .kw{color:#005CFF;font-weight:600}
 .how-arrow{align-self:center;color:#8D8D8D;font-size:24px;padding:0 4px}
 .how-shot{flex:1;display:flex;align-items:center}
