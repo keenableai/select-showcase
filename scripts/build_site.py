@@ -479,10 +479,9 @@ DOC_HTML = """
 <div class="doc">
 <h2 class="section">The system behind the reports</h2>
 <p>Keenable SELECT is an MCP server with one main tool: <code>select</code>. The tool runs
-read-only DuckDB <code>SELECT</code> queries on live web data. The SQL can hold web
-operators and semantic operators. The server runs these operators outside
-DuckDB, puts their output back into the row set, and then runs the final SQL
-in DuckDB.</p>
+one read-only DuckDB <code>SELECT</code> statement on live web data. The server runs the
+web and semantic operators outside DuckDB, puts their output back into the
+row set, and then runs the final SQL in DuckDB.</p>
 <p>A traditional web search gives an agent ten links. The agent must then read each
 page and build the answer from expensive tokens. SELECT moves this work into
 the query. One call can search more than 1,000 pages, filter them with an
