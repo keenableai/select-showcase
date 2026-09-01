@@ -61,6 +61,20 @@ header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
 header.site a.ask{color:#0A57E8}
 .intro{max-width:760px;margin-bottom:36px;font-size:17px;color:#333}
 h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
+.cards + h2.section, .cards ~ h2.section{margin-top:56px}
+.doc{max-width:820px}
+.doc p{margin:0 0 14px;color:#333}
+.doc h3{font-weight:400;font-size:22px;margin:28px 0 12px}
+.doc ul{margin:0 0 14px 22px}
+.doc li{margin-bottom:8px;color:#333}
+.doc code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;
+  background:#F9F9F9;border:1px solid #DDDDDD;padding:1px 4px}
+.doc-scroll{overflow-x:auto;border:1px solid #DDDDDD;margin:0 0 14px}
+.doc table{border-collapse:collapse;width:100%;font-size:14px}
+.doc th{font-family:'TASA Orbiter',system-ui;font-weight:500;letter-spacing:-.004em;
+  color:#8D8D8D;text-align:left;background:#F9F9F9}
+.doc th,.doc td{padding:8px 12px;border-bottom:1px solid #DDDDDD;vertical-align:top}
+.doc tbody tr:last-child td{border-bottom:0}
 .how{display:flex;align-items:stretch;gap:0;border:1px solid #DDDDDD;
   margin-bottom:52px;background:#F9F9F9}
 .how-step{flex:1;min-width:0;padding:24px;display:flex;flex-direction:column;gap:14px}
@@ -453,6 +467,65 @@ def explainer(entries: list[dict]) -> str:
     )
 
 
+# Copied from https://paste.keenable.ai/how-select-works.
+DOC_HTML = """
+<h2 class="section">Keenable SELECT</h2>
+<div class="doc">
+<p>Keenable SELECT is an MCP server with one main tool: <code>select</code>. The tool runs
+one read-only DuckDB <code>SELECT</code> statement on live web data. The SQL can hold web
+operators and semantic operators. The server runs these operators outside
+DuckDB, puts their output back into the row set, and then runs the final SQL
+in DuckDB.</p>
+<p>A normal web search gives an agent ten links. The agent must then read each
+page and build the answer from expensive tokens. SELECT moves this work into
+the query. One call can search more than 1,000 pages, filter them with an
+exact <code>WHERE</code> clause at no LLM cost, extract fields with one small LLM call
+per row, and group the rows.</p>
+<h3>MCP tools</h3>
+<ul>
+<li><code>select</code> takes one DuckDB <code>SELECT</code> statement and returns the rows. The
+server saves every query result as a result set with an id, and a later
+query can read from that id.</li>
+<li><code>generate_html_report</code> takes a brief and result set ids. A report model on
+the server writes an HTML report from the rows and returns a shareable
+link.</li>
+</ul>
+<h3>Semantic operators</h3>
+<p>The operators live inside normal SQL. The server finds them in the parsed
+statement, runs them, and replaces them with plain columns. Exact SQL filters
+run first, so only the surviving rows go to the LLM operators.</p>
+<div class="doc-scroll"><table>
+<thead><tr><th>Operator</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>WEB_SEARCH('q1', 'q2', ...)</code></td><td>Searches all queries at the same time, merges ranked results, and removes repeated URLs.</td></tr>
+<tr><td><code>WEB_FETCH('https://a.com', ...)</code></td><td>Gets the given URLs as Markdown, one row per page.</td></tr>
+<tr><td><code>SEM_EXTRACT(column, 'field description')</code></td><td>One LLM call per row. It returns one field, or null when the text does not give the value.</td></tr>
+<tr><td><code>SEM_EXTRACT_ALL(column, 'what one value is')</code></td><td>Like <code>SEM_EXTRACT</code>, but returns all matching values in a list.</td></tr>
+<tr><td><code>SEM_MATCH(column, 'predicate')</code></td><td>An LLM test per row. Use it as a meaning-based <code>WHERE</code> filter.</td></tr>
+<tr><td><code>SEM_SCORE(column, 'query')</code></td><td>A low-cost embedding score per row. Use <code>ORDER BY ... DESC LIMIT k</code>.</td></tr>
+<tr><td><code>SEM_NORM(column)</code></td><td>Gives the same key to values with the same meaning. Use it in <code>GROUP BY</code>.</td></tr>
+</tbody>
+</table></div>
+<p><code>WEB_SEARCH</code> and <code>WEB_FETCH</code> can also run per row. Their arguments can use
+row columns, for example <code>WEB_SEARCH(name || ' founding year')</code>.</p>
+<h3>Main agent</h3>
+<p>The research agent is a plain tool loop: an LLM with the <code>select</code> tool. It
+writes and runs its own queries until it can answer, and streams its tool
+calls, results, and answer as events. A follow-up question continues the
+conversation on top of the stored transcript. Every run in this showcase asks
+for an HTML report, so the agent ends each answer with the report link.</p>
+<h3>Report agent</h3>
+<p>A second agent writes each report on the server. It gets the brief, the rows
+of the result sets, and an authoring guide. It builds the page in a sandboxed
+Python session that holds the result sets as dataframes, so the data reaches
+the page without the model retyping it. After each publish, the server
+renders the draft and returns screenshots and the page's JavaScript error
+count; the agent fixes the document and publishes again, under a fixed
+budget. Only the final draft stays live, published as a link.</p>
+</div>
+"""
+
+
 def build_index(entries: list[dict]) -> None:
     cards = []
     for e in sorted(entries, key=lambda e: e["created_at"], reverse=True):
@@ -487,6 +560,7 @@ def build_index(entries: list[dict]) -> None:
         f"{explainer(entries)}"
         '<h2 class="section">Gallery</h2>'
         f'<div class="cards">{"".join(cards)}</div>'
+        f"{DOC_HTML}"
     )
     (DOCS / "index.html").write_text(
         page(INDEX_TITLE, body, description=INDEX_DESCRIPTION, og=True)
