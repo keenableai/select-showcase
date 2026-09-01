@@ -67,7 +67,7 @@ header.site .spacer{flex:1}
 header.site a.gh{font-family:var(--font-utility);font-size:12px;
   letter-spacing:-.004em;color:#646464;margin-left:20px}
 header.site a.ask{color:#0A57E8}
-.intro{max-width:700px;margin:0 0 36px;font-size:17px;color:#333}
+.intro{margin:0 0 36px;font-size:17px;color:#333}
 h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
 .doc{margin:64px 0 0}
 .doc p{max-width:700px;margin:0 0 14px;color:#333}
