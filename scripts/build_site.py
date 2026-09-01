@@ -41,11 +41,19 @@ THUMB_HEIGHT = 480
 
 HLJS_JS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
 
-# Palette and type roles from keenable-webql/docs/report-style.md.
+# Palette and type from keenable-webql/docs/report-style.md and needle/dashboard.
 PAGE_CSS = """
+:root{
+  --font-display:"Stack Sans","Stack Sans Headline",-apple-system,BlinkMacSystemFont,
+    "Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Stack Sans","Stack Sans Headline",-apple-system,BlinkMacSystemFont,
+    "Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --font-utility:"TASA Orbiter",-apple-system,BlinkMacSystemFont,
+    "Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#fff;color:#2A2A2A;font-family:'Stack Sans Headline',system-ui,sans-serif;
-  font-weight:300;font-size:16px;line-height:1.5;letter-spacing:.010em}
+body{background:#fff;color:#2A2A2A;font:400 15px/1.5 var(--font-body);
+  letter-spacing:.010em}
 .wrap{max-width:1100px;margin:0 auto;padding:0 24px 64px}
 a{color:#0A57E8;text-decoration:none}
 a:hover{text-decoration:underline}
@@ -56,12 +64,12 @@ header.site a.brand{display:flex;align-items:center;gap:14px}
 header.site a.brand:hover{text-decoration:none}
 header.site .name{font-weight:400;font-size:18px;color:#2A2A2A}
 header.site .spacer{flex:1}
-header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
+header.site a.gh{font-family:var(--font-utility);font-size:12px;
   letter-spacing:-.004em;color:#646464;margin-left:20px}
 header.site a.ask{color:#0A57E8}
-.intro{max-width:820px;margin:0 auto 36px;font-size:17px;color:#333}
+.intro{margin:0 0 36px;font-size:17px;color:#333}
 h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
-.doc{max-width:820px;margin:64px auto 0}
+.doc{margin:64px 0 0}
 .doc p{margin:0 0 14px;color:#333}
 .doc h3{font-weight:400;font-size:22px;margin:28px 0 12px}
 .doc ul{margin:0 0 14px 22px}
@@ -70,14 +78,14 @@ h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
   background:#F9F9F9;border:1px solid #DDDDDD;padding:1px 4px}
 .doc-scroll{overflow-x:auto;border:1px solid #DDDDDD;margin:0 0 14px}
 .doc table{border-collapse:collapse;width:100%;font-size:14px}
-.doc th{font-family:'TASA Orbiter',system-ui;font-weight:500;letter-spacing:-.004em;
+.doc th{font-family:var(--font-utility);font-weight:500;letter-spacing:-.004em;
   color:#8D8D8D;text-align:left;background:#F9F9F9}
 .doc th,.doc td{padding:8px 12px;border-bottom:1px solid #DDDDDD;vertical-align:top}
 .doc tbody tr:last-child td{border-bottom:0}
 .how{display:flex;align-items:stretch;gap:0;border:1px solid #DDDDDD;
   margin-bottom:52px;background:#F9F9F9}
 .how-step{flex:1;min-width:0;padding:24px;display:flex;flex-direction:column;gap:14px}
-.how-label{font-family:'TASA Orbiter',system-ui;font-size:13px;font-weight:500;
+.how-label{font-family:var(--font-utility);font-size:13px;font-weight:500;
   letter-spacing:-.004em;color:#2A2A2A;margin:0}
 .how-prompt{font-size:17px;line-height:1.55;font-style:italic;color:#2A2A2A}
 .how-step pre{margin:0;background:none;border:0;padding:0;font-size:11px;line-height:1.6;
@@ -97,7 +105,7 @@ h1.small{font-size:28px;line-height:1.05}
 h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
   margin-bottom:20px;max-width:900px}
 .sub{color:#646464;margin-bottom:44px;max-width:700px}
-.label{font-family:'TASA Orbiter',system-ui;font-size:12px;letter-spacing:-.004em;
+.label{font-family:var(--font-utility);font-size:12px;letter-spacing:-.004em;
   color:#8D8D8D;text-transform:none}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
 .card{background:#fff;border:1px solid #DDDDDD;padding:0 0 20px;
@@ -127,18 +135,18 @@ details pre{margin:0;border:0;border-top:1px solid #DDDDDD;max-height:420px;over
 .rs>.label{margin:0 0 10px}
 .rs-scroll{overflow-x:auto;border:1px solid #DDDDDD;margin-bottom:12px}
 .rs table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.4}
-.rs th{font-family:'TASA Orbiter',system-ui;font-weight:500;letter-spacing:-.004em;
+.rs th{font-family:var(--font-utility);font-weight:500;letter-spacing:-.004em;
   color:#8D8D8D;text-align:left;background:#F9F9F9}
 .rs th,.rs td{padding:5px 10px;border-bottom:1px solid #DDDDDD;text-align:left;
   max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rs tbody tr:last-child td{border-bottom:0}
 .btn{display:inline-block;background:#005CFF;color:#fff;padding:9px 16px;
-  font-family:'TASA Orbiter',system-ui;font-size:12px;letter-spacing:-.004em}
+  font-family:var(--font-utility);font-size:12px;letter-spacing:-.004em}
 .btn:hover{background:#0151E2;text-decoration:none}
 footer.site{margin-top:64px;padding-top:20px;border-top:1px solid #DDDDDD;
   display:flex;align-items:center;gap:20px}
 footer.site img{height:16px;display:block}
-footer.site a{font-family:'TASA Orbiter',system-ui;font-size:12px;
+footer.site a{font-family:var(--font-utility);font-size:12px;
   letter-spacing:-.004em;color:#646464}
 @media (max-width:640px){
   .wrap{padding:0 16px 48px}
