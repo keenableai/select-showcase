@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/mechanical-keyboard-releases-10-year-timeline/RA_Q9vGEMLBkbsWDHqEwMQ",
+ "artifact": {
+  "token": "RA_Q9vGEMLBkbsWDHqEwMQ",
+  "title": "Mechanical Keyboard Releases \u2014 10-Year Timeline",
+  "visibility": "public",
+  "bytes_size": "270961",
+  "created_at": "2026-08-31 23:31:58.903175+00:00",
+  "expires_at": "2026-11-29 23:31:58.903175+00:00"
+ },
+ "conversation": {
+  "title": "show me a comprehensive timeline of release dates of mechanical keyboards over the last 10 years. go month by month with date filters etc",
+  "created_at": "2026-08-31 23:22:52.095196+00:00",
+  "updated_at": "2026-08-31 23:32:13.605931+00:00"
+ }
+}
