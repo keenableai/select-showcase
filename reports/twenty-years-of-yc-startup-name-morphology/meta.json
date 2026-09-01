@@ -1,0 +1,16 @@
+{
+ "report_url": "https://select.keenable.ai/r/twenty-years-of-yc-startup-name-morphology/P2j0rMjSeSAd5n60cHR7Qg",
+ "artifact": {
+  "token": "P2j0rMjSeSAd5n60cHR7Qg",
+  "title": "Twenty Years of YC Startup-Name Morphology",
+  "visibility": "public",
+  "bytes_size": "318931",
+  "created_at": "2026-09-01 15:32:12.515537+00:00",
+  "expires_at": "2026-11-30 15:32:12.515537+00:00"
+ },
+ "conversation": {
+  "title": "How has the shape of startup names changed in 20 years? Classify all Y Combinator companies by name morphology \u2014 real word, compound, portmanteau, dropped vowel, -ly, -ify, Latin coinage, invented \u2014 a",
+  "created_at": "2026-09-01 15:23:39.979654+00:00",
+  "updated_at": "2026-09-01 15:32:27.188774+00:00"
+ }
+}
