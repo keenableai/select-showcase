@@ -30,9 +30,9 @@ DOCS = ROOT / "_site"
 GITHUB_URL = "https://github.com/keenableai/select-showcase"
 SITE_URL = "https://keenableai.github.io/select-showcase/"
 SELECT_URL = "https://app.keenable.ai/select/"
-INDEX_TITLE = "SELECT showcase — research reports with full agent trajectories"
+INDEX_TITLE = "Keenable SELECT showcase — research reports with full agent trajectories"
 INDEX_DESCRIPTION = (
-    "Research reports built by SELECT, an agent that searches the web in SQL —"
+    "Research reports built by Keenable SELECT, an agent that searches the web in SQL —"
     " each published with the full run behind it: every query, every tool"
     " result, every result set."
 )
@@ -52,25 +52,30 @@ a:hover{text-decoration:underline}
 header.site{display:flex;align-items:center;gap:14px;padding:22px 0;
   border-bottom:1px solid #DDDDDD;margin-bottom:44px}
 header.site img{height:28px;display:block}
+header.site a.brand{display:flex;align-items:center;gap:14px}
+header.site a.brand:hover{text-decoration:none}
 header.site .name{font-weight:400;font-size:18px;color:#2A2A2A}
 header.site .spacer{flex:1}
 header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
   letter-spacing:-.004em;color:#646464;margin-left:20px}
 header.site a.ask{color:#0A57E8}
 .intro{max-width:760px;margin-bottom:36px;font-size:17px;color:#333}
+h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
 .how{display:flex;align-items:stretch;gap:0;border:1px solid #DDDDDD;
-  margin-bottom:44px;background:#fff}
-.how-step{flex:1;min-width:0;padding:20px;display:flex;flex-direction:column;gap:12px}
-.how-step .label{margin:0}
-.how-prompt{font-size:16px;line-height:1.5;font-style:italic;color:#2A2A2A}
-.how-step pre{margin:0;background:none;border:0;padding:0;font-size:12px;line-height:1.55;
+  margin-bottom:52px;background:#F9F9F9}
+.how-step{flex:1;min-width:0;padding:24px;display:flex;flex-direction:column;gap:14px}
+.how-label{font-family:'TASA Orbiter',system-ui;font-size:13px;font-weight:500;
+  letter-spacing:-.004em;color:#2A2A2A;margin:0}
+.how-prompt{font-size:17px;line-height:1.55;font-style:italic;color:#2A2A2A}
+.how-step pre{margin:0;background:none;border:0;padding:0;font-size:12.5px;line-height:1.6;
   overflow-x:auto}
-.how-step pre .kw{color:#005CFF}
-.how-arrow{align-self:center;color:#8D8D8D;font-size:22px;padding:0 4px}
+.how-step pre .kw{color:#005CFF;font-weight:600}
+.how-arrow{align-self:center;color:#8D8D8D;font-size:24px;padding:0 4px}
 .how-shot{flex:1;display:flex;align-items:center}
 .how-shot img{max-width:100%;max-height:220px;display:block}
-mark.hl-a{background:#FFE1D6;color:#2A2A2A;padding:1px 2px}
-mark.hl-b{background:#DAEBFF;color:#2A2A2A;padding:1px 2px}
+mark.hl-a{background:#FFE1D6;color:#2A2A2A;padding:1px 3px}
+mark.hl-b{background:#DAEBFF;color:#2A2A2A;padding:1px 3px}
+mark.hl-c{background:#E1E1E1;color:#2A2A2A;padding:1px 3px}
 @media (max-width:900px){
   .how{flex-direction:column}
   .how-arrow{transform:rotate(90deg);padding:2px 0}
@@ -260,8 +265,9 @@ def page_head(title: str, root: str, description: str = "", og: bool = False) ->
 def site_header(root: str) -> str:
     return (
         '<header class="site">'
-        f'<a href="{root}index.html"><img src="{root}keenable-mark.svg" alt="Keenable"></a>'
-        f'<span class="name">SELECT showcase</span><span class="spacer"></span>'
+        f'<a class="brand" href="{root}index.html">'
+        f'<img src="{root}keenable-mark.svg" alt="Keenable">'
+        f'<span class="name">Keenable SELECT showcase</span></a><span class="spacer"></span>'
         f'<a class="gh ask" href="{SELECT_URL}">Ask your own question &rarr;</a>'
         f'<a class="gh" href="{GITHUB_URL}">GitHub</a></header>'
     )
@@ -404,7 +410,8 @@ EXPLAINER_SLUG = "frontier-ai-researcher-moves-since-2025"
 
 EXPLAINER_PROMPT = (
     "“Which <mark class='hl-a'>AI researchers moved between frontier labs</mark>"
-    " since 2025? For each move list <mark class='hl-b'>the researcher</mark>,"
+    " since <mark class='hl-c'>2025</mark>?"
+    " For each move list <mark class='hl-b'>the researcher</mark>,"
     " <mark class='hl-b'>the lab they left</mark>,"
     " <mark class='hl-b'>where they went</mark> and"
     " <mark class='hl-b'>the month</mark>.”"
@@ -419,7 +426,7 @@ EXPLAINER_SQL = (
     "<span class='kw'>FROM</span> WEB_SEARCH(8 diverse queries)\n"
     "<span class='kw'>WHERE</span> SEM_MATCH(content,\n"
     "  <mark class='hl-a'>'named researcher moving\n"
-    "   between frontier labs, 2025+'</mark>)"
+    "   between frontier labs</mark>, <mark class='hl-c'>2025+</mark>')"
 )
 
 
@@ -432,14 +439,15 @@ def explainer(entries: list[dict]) -> str:
         f'<img src="{example["slug"]}/thumb.webp?v={example["thumb_version"]}" alt=""></a>'
     )
     return (
+        '<h2 class="section">How it works</h2>'
         '<div class="how">'
-        f'<div class="how-step"><p class="label">You ask</p>'
+        f'<div class="how-step"><p class="how-label">You ask</p>'
         f'<p class="how-prompt">{EXPLAINER_PROMPT}</p></div>'
         '<div class="how-arrow">&rarr;</div>'
-        f'<div class="how-step"><p class="label">SELECT runs SQL on the web</p>'
+        f'<div class="how-step"><p class="how-label">Keenable SELECT runs SQL on the web</p>'
         f"<pre>{EXPLAINER_SQL}</pre></div>"
         '<div class="how-arrow">&rarr;</div>'
-        f'<div class="how-step"><p class="label">You get a report</p>'
+        f'<div class="how-step"><p class="how-label">You get a report</p>'
         f'<div class="how-shot">{shot}</div></div>'
         "</div>"
     )
@@ -473,10 +481,11 @@ def build_index(entries: list[dict]) -> None:
         )
     body = (
         '<p class="intro">Research reports built by'
-        f' <a href="{SELECT_URL}">SELECT</a> — an agent that searches the web in SQL.'
-        " Every card links the finished report and the full trajectory behind it:"
-        " each query, tool result, and result set.</p>"
+        f' <a href="{SELECT_URL}">Keenable SELECT</a> — an agent that searches the web'
+        " in SQL. Every card links the finished report and the full trajectory behind"
+        " it: each query, tool result, and result set.</p>"
         f"{explainer(entries)}"
+        '<h2 class="section">Gallery</h2>'
         f'<div class="cards">{"".join(cards)}</div>'
     )
     (DOCS / "index.html").write_text(

@@ -1,6 +1,6 @@
-# SELECT showcase
+# Keenable SELECT showcase
 
-Selected reports made with [SELECT](https://app.keenable.ai/select/), each with the
+Selected reports made with [Keenable SELECT](https://app.keenable.ai/select/), each with the
 full agent run behind it: every query, every tool result, and the result sets
 the run produced.
 
