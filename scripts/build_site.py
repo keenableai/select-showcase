@@ -61,8 +61,7 @@ header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
 header.site a.ask{color:#0A57E8}
 .intro{max-width:760px;margin-bottom:36px;font-size:17px;color:#333}
 h2.section{font-weight:400;font-size:34px;line-height:.95;margin:0 0 22px}
-.cards + h2.section, .cards ~ h2.section{margin-top:56px}
-.doc{max-width:820px}
+.doc{max-width:820px;margin:64px auto 0}
 .doc p{margin:0 0 14px;color:#333}
 .doc h3{font-weight:400;font-size:22px;margin:28px 0 12px}
 .doc ul{margin:0 0 14px 22px}
@@ -469,8 +468,8 @@ def explainer(entries: list[dict]) -> str:
 
 # Copied from https://paste.keenable.ai/how-select-works.
 DOC_HTML = """
-<h2 class="section">Keenable SELECT</h2>
 <div class="doc">
+<h2 class="section">The system behind the reports</h2>
 <p>Keenable SELECT is an MCP server with one main tool: <code>select</code>. The tool runs
 one read-only DuckDB <code>SELECT</code> statement on live web data. The SQL can hold web
 operators and semantic operators. The server runs these operators outside
