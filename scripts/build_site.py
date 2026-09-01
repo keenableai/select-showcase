@@ -479,18 +479,18 @@ DOC_HTML = """
 <div class="doc">
 <h2 class="section">The system behind the reports</h2>
 <p>Keenable SELECT is an MCP server with one main tool: <code>select</code>. The tool runs
-one read-only DuckDB <code>SELECT</code> statement on live web data. The SQL can hold web
+read-only DuckDB <code>SELECT</code> queries on live web data. The SQL can hold web
 operators and semantic operators. The server runs these operators outside
 DuckDB, puts their output back into the row set, and then runs the final SQL
 in DuckDB.</p>
-<p>A normal web search gives an agent ten links. The agent must then read each
+<p>A traditional web search gives an agent ten links. The agent must then read each
 page and build the answer from expensive tokens. SELECT moves this work into
 the query. One call can search more than 1,000 pages, filter them with an
 exact <code>WHERE</code> clause at no LLM cost, extract fields with one small LLM call
 per row, and group the rows.</p>
 <h3>MCP tools</h3>
 <ul>
-<li><code>select</code> takes one DuckDB <code>SELECT</code> statement and returns the rows. The
+<li><code>select</code> takes DuckDB <code>SELECT</code> queries and returns the rows. The
 server saves every query result as a result set with an id, and a later
 query can read from that id.</li>
 <li><code>generate_html_report</code> takes a brief and result set ids. A report model on
@@ -516,6 +516,9 @@ run first, so only the surviving rows go to the LLM operators.</p>
 <p><code>WEB_SEARCH</code> and <code>WEB_FETCH</code> can also run per row. Their arguments can use
 row columns, for example <code>WEB_SEARCH(name || ' founding year')</code>.</p>
 <h3>Main agent</h3>
+<p>Every report in this gallery comes from two agents that work on top of this
+MCP server: a research agent that gathers the data and a report agent that
+writes the page.</p>
 <p>The research agent is a plain tool loop: an LLM with the <code>select</code> tool. It
 writes and runs its own queries until it can answer, and streams its tool
 calls, results, and answer as events. A follow-up question continues the
