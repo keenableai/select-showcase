@@ -58,6 +58,23 @@ header.site a.gh{font-family:'TASA Orbiter',system-ui;font-size:12px;
   letter-spacing:-.004em;color:#646464;margin-left:20px}
 header.site a.ask{color:#0A57E8}
 .intro{max-width:760px;margin-bottom:36px;font-size:17px;color:#333}
+.how{display:flex;align-items:stretch;gap:0;border:1px solid #DDDDDD;
+  margin-bottom:44px;background:#fff}
+.how-step{flex:1;min-width:0;padding:20px;display:flex;flex-direction:column;gap:12px}
+.how-step .label{margin:0}
+.how-prompt{font-size:16px;line-height:1.5;font-style:italic;color:#2A2A2A}
+.how-step pre{margin:0;background:none;border:0;padding:0;font-size:12px;line-height:1.55;
+  overflow-x:auto}
+.how-step pre .kw{color:#005CFF}
+.how-arrow{align-self:center;color:#8D8D8D;font-size:22px;padding:0 4px}
+.how-shot{flex:1;display:flex;align-items:center}
+.how-shot img{max-width:100%;max-height:220px;display:block}
+mark.hl-a{background:#FFE1D6;color:#2A2A2A;padding:1px 2px}
+mark.hl-b{background:#DAEBFF;color:#2A2A2A;padding:1px 2px}
+@media (max-width:900px){
+  .how{flex-direction:column}
+  .how-arrow{transform:rotate(90deg);padding:2px 0}
+}
 h1.small{font-size:28px;line-height:1.05}
 h1{font-weight:400;font-size:52px;line-height:.9;letter-spacing:0;
   margin-bottom:20px;max-width:900px}
@@ -383,6 +400,51 @@ def build_report(slug: str) -> dict:
     }
 
 
+EXPLAINER_SLUG = "frontier-ai-researcher-moves-since-2025"
+
+EXPLAINER_PROMPT = (
+    "“Which <mark class='hl-a'>AI researchers moved between frontier labs</mark>"
+    " since 2025? For each move list <mark class='hl-b'>the researcher</mark>,"
+    " <mark class='hl-b'>the lab they left</mark>,"
+    " <mark class='hl-b'>where they went</mark> and"
+    " <mark class='hl-b'>the month</mark>.”"
+)
+
+EXPLAINER_SQL = (
+    "<span class='kw'>SELECT</span>\n"
+    "  SEM_EXTRACT(content, <mark class='hl-b'>'researcher'</mark>),\n"
+    "  SEM_EXTRACT(content, <mark class='hl-b'>'left lab'</mark>),\n"
+    "  SEM_EXTRACT(content, <mark class='hl-b'>'joined lab'</mark>),\n"
+    "  SEM_EXTRACT(content, <mark class='hl-b'>'move month'</mark>)\n"
+    "<span class='kw'>FROM</span> WEB_SEARCH(8 diverse queries)\n"
+    "<span class='kw'>WHERE</span> SEM_MATCH(content,\n"
+    "  <mark class='hl-a'>'named researcher moving\n"
+    "   between frontier labs, 2025+'</mark>)"
+)
+
+
+def explainer(entries: list[dict]) -> str:
+    example = next((e for e in entries if e["slug"] == EXPLAINER_SLUG), None)
+    if example is None or example["thumb_size"] is None:
+        return ""
+    shot = (
+        f'<a href="{example["report_url"]}">'
+        f'<img src="{example["slug"]}/thumb.webp?v={example["thumb_version"]}" alt=""></a>'
+    )
+    return (
+        '<div class="how">'
+        f'<div class="how-step"><p class="label">You ask</p>'
+        f'<p class="how-prompt">{EXPLAINER_PROMPT}</p></div>'
+        '<div class="how-arrow">&rarr;</div>'
+        f'<div class="how-step"><p class="label">SELECT runs SQL on the web</p>'
+        f"<pre>{EXPLAINER_SQL}</pre></div>"
+        '<div class="how-arrow">&rarr;</div>'
+        f'<div class="how-step"><p class="label">You get a report</p>'
+        f'<div class="how-shot">{shot}</div></div>'
+        "</div>"
+    )
+
+
 def build_index(entries: list[dict]) -> None:
     cards = []
     for e in sorted(entries, key=lambda e: e["created_at"], reverse=True):
@@ -414,6 +476,7 @@ def build_index(entries: list[dict]) -> None:
         f' <a href="{SELECT_URL}">SELECT</a> — an agent that searches the web in SQL.'
         " Every card links the finished report and the full trajectory behind it:"
         " each query, tool result, and result set.</p>"
+        f"{explainer(entries)}"
         f'<div class="cards">{"".join(cards)}</div>'
     )
     (DOCS / "index.html").write_text(
