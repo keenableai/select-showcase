@@ -30,7 +30,7 @@ DOCS = ROOT / "_site"
 GITHUB_URL = "https://github.com/keenableai/select-showcase"
 SITE_URL = "https://keenableai.github.io/select-showcase/"
 SELECT_URL = "https://app.keenable.ai/select/"
-INDEX_TITLE = "Keenable SELECT showcase: research reports with full agent trajectories"
+INDEX_TITLE = "Keenable SELECT: an agent that searches the web in SQL"
 INDEX_DESCRIPTION = (
     "Research reports built by Keenable SELECT, an agent that searches the web in"
     " SQL. Each report is published with the full run behind it: every query,"
